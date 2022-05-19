@@ -3,7 +3,7 @@ package set´ÜÀ§class;
 import java.time.LocalTime;
 
 // set´Â baseclass
-public class set {
+public class Set {
 	
 	private LocalTime rest_time;
 
@@ -14,6 +14,4 @@ public class set {
 	public void setRest_time(LocalTime rest_time) {
 		this.rest_time = rest_time;
 	}
-	
-	
 }
