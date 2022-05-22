@@ -1,19 +1,16 @@
 package Main;
 
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 
 public class addexRecordpage extends JDialog {
 	private JPanel contentPane;
@@ -44,14 +41,23 @@ public class addexRecordpage extends JDialog {
 		setgoal_field.setBounds(193, 138, 106, 21);
 		contentPane.add(setgoal_field);
 		
-		JButton addBtn = new JButton("운동 추가");
+		JButton addBtn = new JButton("추가");
 		addBtn.setBounds(162, 188, 95, 23);
-		contentPane.add(addBtn);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addexRecordpage.this.dispose();
+				
+				if(!exname_field.getText().equals("") && !setgoal_field.getText().equals("")) {											// 일단 정수 입력하지 않았을 때의 예외처리는 하지 않음
+					addexRecordpage.this.dispose();
+				}else {
+					input_check_dialog icd = new input_check_dialog();
+					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					icd.setModal(true);
+					icd.setVisible(true);
+				}
+				
 			}
 		});
+		contentPane.add(addBtn);
 	}
 
 	public String get_exname() {
@@ -62,4 +68,22 @@ public class addexRecordpage extends JDialog {
 		return Integer.valueOf(setgoal_field.getText());
 	}
 	
+	class input_check_dialog extends JDialog{
+		public input_check_dialog(){
+			setSize(200,100);
+			JLabel label = new JLabel("입력을 확인하세요");
+			label.setHorizontalAlignment(JLabel.CENTER);
+			add(label,BorderLayout.CENTER);
+			JButton bt = new JButton("확인");
+			bt.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					input_check_dialog.this.dispose();
+				}
+			});
+			add(bt,BorderLayout.SOUTH);
+			setLocation(200, 200);
+		}
+		
+	}
 }
