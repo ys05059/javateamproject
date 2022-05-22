@@ -3,6 +3,7 @@ package Login;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 
+import Main.dayRecordpage;
 import Main.dayRecordpage1;
 import Main.exRecordpage;
 import set¥‹¿ßclass.dayRecord;
@@ -19,7 +20,7 @@ public class home {
 		loginpage frame = new loginpage(user_ary);
 		frame.setVisible(true);
 		*/
-		dayRecordpage1 frame = new dayRecordpage1();
+		dayRecordpage frame = new dayRecordpage();
 		frame.setVisible(true);
 		
 		/*

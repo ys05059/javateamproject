@@ -10,8 +10,15 @@ public class exRecord {
 	public exRecord() {
 		ex = new exercise();
 		set_ary = new ArrayList<>();
+		set_goal =0;
 	}
-
+	
+	public exRecord(String ex_name, int setgoal) {
+		ex = new exercise(ex_name);
+		set_ary = new ArrayList<>();
+		set_goal =setgoal;
+	}
+	
 	public exercise getEx() {
 		return new exercise(ex);
 	}

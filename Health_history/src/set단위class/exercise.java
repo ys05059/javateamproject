@@ -13,6 +13,12 @@ public class exercise {
 		cal_type = "";
 	}
 	
+	public exercise (String other_name) {
+		name = other_name;
+		type = "";
+		cal_type = "";
+	}
+	
 	public exercise(exercise other_ex) {
 		name = other_ex.name;
 		type = other_ex.type;
