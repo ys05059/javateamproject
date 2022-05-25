@@ -8,6 +8,7 @@ import Main.dayRecordpage1;
 import Main.exRecordpage;
 import set단위class.dayRecord;
 import set단위class.exRecord;
+import 희석.CalendarDemo;
 
 public class home {
 	
@@ -20,9 +21,13 @@ public class home {
 		loginpage frame = new loginpage(user_ary);
 		frame.setVisible(true);
 		*/
-		dayRecordpage frame = new dayRecordpage();
+		ArrayList<dayRecord> dR_ary = new ArrayList<>();
+		dayRecordpage frame = new dayRecordpage(dR_ary);
 		frame.setVisible(true);
 		
+		
+		CalendarDemo cd= new CalendarDemo();
+		cd.setVisible(true);
 		/*
 		 * 운동정보 파일에서 받아와서 exercise_ary에 저장
 		 */

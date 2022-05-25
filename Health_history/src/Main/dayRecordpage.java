@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -32,8 +33,9 @@ public class dayRecordpage extends JFrame {
 	private JPanel ex_list_panel; 
 	private dayRecord dayrecord;
 	private ActionListener addex_listener;
+	private ActionListener savedR_listener;
 	
-	public dayRecordpage() {
+	public dayRecordpage(ArrayList<dayRecord> dR_ary) {
 		setTitle("exRecordpage	");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500,400);
@@ -93,7 +95,7 @@ public class dayRecordpage extends JFrame {
 		JScrollPane sp = new JScrollPane(ex_list_panel);
 		add(sp, gbc_default);
 		
-		// 운동추가 버튼
+		// 운동추가 버튼 클릭
 		JButton addexr_button = new JButton("운동 추가");
 		addex_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,9 +125,36 @@ public class dayRecordpage extends JFrame {
 		addexr_button.addActionListener(addex_listener);
 		gbc_default =new GridBagConstraints();		
 		gbc_default.anchor = GridBagConstraints.EAST;
-		gbc_default.gridx = 3;
+		gbc_default.gridx = 2;
 		gbc_default.gridwidth = 2;
 		add(addexr_button, gbc_default);
+		
+		//저장 버튼
+		JButton savedR_button = new JButton("저장");
+		savedR_listener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// 적어도 date와 몸무게는 있어야함 없으면 에러창
+				if(today_textField.getText().equals("") || weight_textField.getText().equals("")) {
+					savedR_check_dialog icd = new savedR_check_dialog();
+					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					icd.setModal(true);
+					icd.setVisible(true);
+				}
+				// dayRecord를 dR_ary에 추가
+				dR_ary.add(dayrecord);
+				
+				// 달력 페이지로 돌아감
+				
+			}
+		};
+		savedR_button.addActionListener(savedR_listener);
+		gbc_default.anchor = GridBagConstraints.CENTER;
+		gbc_default.ipadx = 20;
+		gbc_default.gridx = 4;
+		gbc_default.gridwidth = 2;
+		add(savedR_button, gbc_default);
+
+		
 		
 	}
 	
@@ -175,5 +204,22 @@ public class dayRecordpage extends JFrame {
 		}
 		
 	}
-
+	class savedR_check_dialog extends JDialog{
+		public savedR_check_dialog(){
+			setSize(200,100);
+			JLabel label = new JLabel("입력을 확인하세요");
+			label.setHorizontalAlignment(JLabel.CENTER);
+			add(label,BorderLayout.CENTER);
+			JButton bt = new JButton("확인");
+			bt.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					savedR_check_dialog.this.dispose();
+				}
+			});
+			add(bt,BorderLayout.SOUTH);
+			setLocation(200, 200);
+		}
+		
+	}
 }

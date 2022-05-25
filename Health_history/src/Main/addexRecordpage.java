@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+// dayRecordpage와 연결되어 있는 운동추가 페이지
 
 public class addexRecordpage extends JDialog {
 	private JPanel contentPane;
@@ -54,7 +55,6 @@ public class addexRecordpage extends JDialog {
 					icd.setModal(true);
 					icd.setVisible(true);
 				}
-				
 			}
 		});
 		contentPane.add(addBtn);
