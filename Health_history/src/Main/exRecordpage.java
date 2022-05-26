@@ -9,10 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import set¥‹¿ßclass.exRecord;
+
 public class exRecordpage extends JFrame{
 	private JPanel defaultpanel;
 	
-	public exRecordpage() {
+	public exRecordpage(exRecord exr) {
 		setTitle("exRecordpage	");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -25,7 +27,7 @@ public class exRecordpage extends JFrame{
 		defaultpanel.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("\uBC1B\uC544\uC628 \uC6B4\uB3D9\uBA85 ");
+		JLabel lblNewLabel = new JLabel(exr.getEx().getName());
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblNewLabel, BorderLayout.WEST);
 		

@@ -32,8 +32,7 @@ public class dayRecordpage extends JFrame {
 	private JTextField today_textField;
 	private JPanel ex_list_panel; 
 	private dayRecord dayrecord;
-	private ActionListener addex_listener;
-	private ActionListener savedR_listener;
+	private ArrayList<expanel> expanel_list; 
 	
 	public dayRecordpage(ArrayList<dayRecord> dR_ary) {
 		setTitle("exRecordpage	");
@@ -97,29 +96,24 @@ public class dayRecordpage extends JFrame {
 		
 		// 운동추가 버튼 클릭
 		JButton addexr_button = new JButton("운동 추가");
-		addex_listener = new ActionListener() {
+		ActionListener addex_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addexRecordpage exr = new addexRecordpage();
-				exr.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				exr.setModal(true);
-				exr.setVisible(true);
-				dayrecord.add_exr(new exRecord(exr.get_exname(),exr.get_setgoal()));
+				// 추가할 운동 정보 받아오기
+				addexRecordpage exrp = new addexRecordpage();
+				exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				exrp.setModal(true);
+				exrp.setVisible(true);
+				exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
 				
-				if(!dayrecord.getExr_ary().isEmpty()) {  												// 운동 1개라도 있을 경우
-					GridBagConstraints gbc = new GridBagConstraints();									// exRecord 한 개에 대한 gbc
-					gbc.fill = GridBagConstraints.BOTH;
-					gbc.gridx = 0;
-					gbc.gridy = 0;
-					gbc.gridwidth = 5;
-					int count = 0;
-					for(exRecord tmp_exr : dayrecord.getExr_ary()) {
-						expanel ex= new expanel(tmp_exr);
-						gbc.gridy = count++;
-						ex_list_panel.add(ex,gbc);
-					}
-				}
-				ex_list_panel.revalidate();															// 운동 선택 패널 초기화
-				ex_list_panel.repaint();
+				// 받아온 운동 정보 저장
+				dayrecord.add_exr(tmp_ex);
+				expanel tmp_exp = new expanel(tmp_ex);
+				if (expanel_list == null)
+					expanel_list = new ArrayList<>();
+				expanel_list.add(tmp_exp);
+				
+				//받아온 운동 정보에 대한 ex_list_panel 업데이트
+				repaint_exlist_panel();
 			}
 		};
 		addexr_button.addActionListener(addex_listener);
@@ -131,7 +125,7 @@ public class dayRecordpage extends JFrame {
 		
 		//저장 버튼
 		JButton savedR_button = new JButton("저장");
-		savedR_listener = new ActionListener() {
+		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 적어도 date와 몸무게는 있어야함 없으면 에러창
 				if(today_textField.getText().equals("") || weight_textField.getText().equals("")) {
@@ -158,8 +152,28 @@ public class dayRecordpage extends JFrame {
 		
 	}
 	
-	class expanel extends JPanel{
+	private void repaint_exlist_panel(){
+		if(!expanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord 한 개에 대한 gbc
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.gridwidth = 5;
+			int count = 0;
+			
+			ex_list_panel.removeAll();
+			for(expanel exp : expanel_list) {
+				gbc.gridy = count++;
+				ex_list_panel.add(exp,gbc);
+			}
+		}else
+			ex_list_panel.removeAll();
 		
+		ex_list_panel.revalidate();															// 운동 선택 패널 초기화
+		ex_list_panel.repaint();
+	}
+	
+	class expanel extends JPanel{
 		public expanel(exRecord other_exr) {
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {100,100,50,50,50};
@@ -189,21 +203,48 @@ public class dayRecordpage extends JFrame {
 			gbc.gridy = 0;
 			this.add(setnum_label,gbc);
 			
-			JButton btn1 = new JButton("수정");
+			JButton update_btn = new JButton("수정");
+			ActionListener updateBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					exRecordpage exrp = new exRecordpage(other_exr);
+					exrp.setVisible(true);
+				}
+			};
+			update_btn.addActionListener(updateBtn_listener);
 			gbc.fill = GridBagConstraints.HORIZONTAL;
 			gbc.gridx= 3;
 			gbc.gridy= 0;
 			gbc.insets = new Insets(0, 0, 0, 5);
-			this.add(btn1,gbc);
 			
-			JButton btn2 = new JButton("삭제");
+			
+			this.add(update_btn,gbc);
+			
+			// 삭제 버튼
+			JButton delete_btn = new JButton("삭제");
+			ActionListener delBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (getindex() >=0) {
+						System.out.println(getindex());
+						expanel_list.remove(getindex());
+					}else {
+						System.out.println("잘못됨");
+					}
+					//받아온 운동 정보에 대한 ex_list_panel 업데이트
+					
+					repaint_exlist_panel();
+				}
+			};
+			delete_btn.addActionListener(delBtn_listener);
 			gbc.gridx= 4;
 			gbc.gridy= 0;
 			gbc.insets= new Insets(0, 0, 0, 0);
-			this.add(btn2,gbc);
+			this.add(delete_btn,gbc);
 		}
-		
+		private int getindex() {
+			return expanel_list.indexOf(this);
+		}
 	}
+	
 	class savedR_check_dialog extends JDialog{
 		public savedR_check_dialog(){
 			setSize(200,100);

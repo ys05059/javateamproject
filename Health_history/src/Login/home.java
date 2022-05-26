@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import Main.dayRecordpage;
-import Main.dayRecordpage1;
 import Main.exRecordpage;
 import set단위class.dayRecord;
 import set단위class.exRecord;
@@ -26,8 +25,8 @@ public class home {
 		frame.setVisible(true);
 		
 		
-		CalendarDemo cd= new CalendarDemo();
-		cd.setVisible(true);
+		//CalendarDemo cd= new CalendarDemo();
+		//cd.setVisible(true);
 		/*
 		 * 운동정보 파일에서 받아와서 exercise_ary에 저장
 		 */
