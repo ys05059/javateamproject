@@ -24,6 +24,8 @@ public class home {
 		dayRecordpage frame = new dayRecordpage(dR_ary);
 		frame.setVisible(true);
 		
+		//WORK_swing ws = new WORK_swing();
+	
 		
 		//CalendarDemo cd= new CalendarDemo();
 		//cd.setVisible(true);
