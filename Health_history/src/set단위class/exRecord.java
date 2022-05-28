@@ -27,6 +27,11 @@ public class exRecord {
 		this.ex = new exercise(ex);
 	}
 	
+	public static void setEx_byname(String ex_name) {
+		int hello =0;
+		//수정했음
+
+	}
 	public ArrayList<Set> getSet_ary() {
 		return new ArrayList<Set>(set_ary);
 	}

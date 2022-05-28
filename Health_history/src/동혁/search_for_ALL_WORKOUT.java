@@ -1,4 +1,5 @@
-package health;
+
+package 동혁;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,49 +7,91 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class search_for_ALL_WORKOUT {
+public class search_for_ALL_WORKOUT extends worklist{
 
-	public static void main(String[] args) throws IOException{
+	
+	search_for_ALL_WORKOUT(){
+		super();
+		
+	}
+	
+//	File file = new File("ALL_WORKOUT");
+	
+	public String search(String name){
+//		ArrayList<work> worklist2 = new ArrayList<work>();
+		String res = "";
+		search_for_ALL_WORKOUT A = new search_for_ALL_WORKOUT();
 		try {
-			String name = "";
-			boolean ishere = false;
-			ArrayList<work> worklist2 = new ArrayList<work>();
-			inputarea A = new inputarea();
-			name = A.inputwork();
-			Arraylist_For_ALL_WORKOUT B = new Arraylist_For_ALL_WORKOUT();
 			File file = new File("ALL_WORKOUT");
+//			Arraylist_For_ALL_WORKOUT B = new Arraylist_For_ALL_WORKOUT(); // Arraylist_For_ALL_WORKOUT
 			if (file.exists() && file.isFile()) {
-				B.txttoArraylist(file.getAbsolutePath());
-				for ( work w : B.getArrlist()) {
-					worklist2.add(w.clone());
-				}
-				for(int i = 0; i < worklist2.size(); i++) {
-					if (name.equals(worklist2.get(i).getworkout())) {
-						ishere = true;
-						System.out.println("검색한 운동 : " + worklist2.get(i).getworkout());
-						System.out.println("카테고리 : " + worklist2.get(i).getcategory());
-						System.out.println("계산 방법 : " + worklist2.get(i).getcalmethod());
+				A.set_worklist(file.getAbsolutePath());
+//				for ( work w : A.getArrlist()) {
+//					worklist2.add(w.clone());
+//				}
+//				for(int i = 0; i < worklist2.size(); i++) {
+//					if (name.equals(worklist2.get(i).getworkout())) {
+//						res =  worklist2.get(i).getworkout() + "/" + worklist2.get(i).getcategory() + "/"
+//								+ worklist2.get(i).getcalmethod();
+//						break;
+//					}
+//					else {
+//					}
+//				}
+				
+				for(int i = 0; i < A.get_worklist().size(); i++) {
+					if (name.equals(A.get_worklist().get(i).getworkout())) {
+						res = A.get_worklist().get(i).getworkout() + "/" + A.get_worklist().get(i).getcategory() + "/"
+								+ A.get_worklist().get(i).getcalmethod();
 						break;
 					}
 					else {
-						ishere = false;
+						continue;
 					}
-				}
-				if (ishere == false) {
-					System.out.println("그런 운동이 존재하지 않습니다.");
-				}
-				else {
-					System.out.println();
 				}
 				
 				
 			}
 			else {
-				System.out.println("error. 운동 파일이 존재하지 않습니다.");
+				res = "filenotfound";
 			}
 
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		A.clear_worklist();
+		return res;
+	}
+	
+	
+	public String searchcate(String name){
+		String res = "";
+		search_for_ALL_WORKOUT B = new search_for_ALL_WORKOUT();
+		try {
+//			Arraylist_For_ALL_WORKOUT B = new Arraylist_For_ALL_WORKOUT(); // Arraylist_For_ALL_WORKOUT
+			ArrayList<work> worklist2 = new ArrayList<work>();
+			File file = new File("ALL_WORKOUT");
+			if (file.exists() && file.isFile()) {
+				B.set_worklist(file.getAbsolutePath());
+//				for ( work w : B.getArrlist()) {
+//					worklist2.add(w.clone());
+//				}
+				for(int i = 0; i < B.get_worklist().size(); i++) {
+					if (name.equals(B.get_worklist().get(i).getcategory())) {
+						res =  res + B.get_worklist().get(i).getworkout() + "$";
+					}
+					else {
+					}
+				}
+			}
+			else {
+				res = "filenotfound";
+			}
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		B.clear_worklist();
+		return res;
 	}
 }
