@@ -25,7 +25,7 @@ public class loginpage extends JFrame {
 	private JTextField textField;
 	private JPasswordField passwordField;
 
-	private ActionListener signup;
+	private ActionListener signup_listener;
 	
 	public loginpage(ArrayList<User> user_ary) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,8 +71,8 @@ public class loginpage extends JFrame {
 		
 		
 		// 로그인 버튼
-		JButton btnNewButton = new JButton("로그인");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton login_Button = new JButton("로그인");
+		login_Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 등록된 회원인지 체크
 				for(User u : user_ary) {
@@ -86,12 +86,12 @@ public class loginpage extends JFrame {
 				
 			}
 		});	
-		btnNewButton.setBounds(120, 172, 95, 23);
-		panel.add(btnNewButton);
+		login_Button.setBounds(120, 172, 95, 23);
+		panel.add(login_Button);
 		
 		// 회원가입 버튼
-		JButton btnNewButton_1 = new JButton("회원가입");
-		signup = new ActionListener(){
+		JButton signup_Button = new JButton("회원가입");
+		signup_listener = new ActionListener(){
 			// 회원 가입 창 띄우기
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -99,10 +99,10 @@ public class loginpage extends JFrame {
 				sh.setVisible(true);
 			}
 		};
-		btnNewButton_1.addActionListener(signup);
+		signup_Button.addActionListener(signup_listener);
 		
-		btnNewButton_1.setBounds(227, 172, 95, 23);
-		panel.add(btnNewButton_1);
+		signup_Button.setBounds(227, 172, 95, 23);
+		panel.add(signup_Button);
 	}
 }
 class SubFrame1 extends JFrame implements ActionListener{

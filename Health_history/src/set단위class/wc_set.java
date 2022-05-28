@@ -1,7 +1,7 @@
 package set단위class;
 
 // 목표 무게x횟수 set
-public class wc_set extends set{
+public class wc_set extends Set{
 	private int weight;
 	private int count;
 	
