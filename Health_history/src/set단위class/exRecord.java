@@ -28,6 +28,7 @@ public class exRecord {
 	}
 	
 	public static void setEx_byname(int ex_name) {
+		//hello
 	}
 	public ArrayList<Set> getSet_ary() {
 		return new ArrayList<Set>(set_ary);
