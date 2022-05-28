@@ -1,7 +1,7 @@
 package set단위class;
 
 // 목표 횟수 set
-public class c_set {
+public class c_set extends Set{
 	private int count;
 	
 	public c_set() {

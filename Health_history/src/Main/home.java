@@ -1,12 +1,11 @@
-package Login;
+package Main;
 
 import java.awt.EventQueue;
 import java.util.ArrayList;
 
-import Main.dayRecordpage;
-import Main.exRecordpage;
 import set단위class.dayRecord;
 import set단위class.exRecord;
+import set단위class.exlistClass;
 import 희석.CalendarDemo;
 
 public class home {
@@ -24,8 +23,8 @@ public class home {
 		dayRecordpage frame = new dayRecordpage(dR_ary);
 		frame.setVisible(true);
 		
-		int hello2 =0;	
-	
+		
+		
 		
 		//CalendarDemo cd= new CalendarDemo();
 		//cd.setVisible(true);

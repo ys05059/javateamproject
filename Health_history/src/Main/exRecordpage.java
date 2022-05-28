@@ -23,18 +23,21 @@ import Main.dayRecordpage.expanel;
 import Main.dayRecordpage.savedR_check_dialog;
 import set단위class.dayRecord;
 import set단위class.exRecord;
+import set단위class.exercise;
+import set단위class.exlistClass;
 
-public class exRecordpage extends JFrame{
+public class exRecordpage extends JDialog{
 	private JPanel defaultpanel;
 	private JTextField weight_textField;
 	private JTextField today_textField;
 	private JPanel set_list_panel; 
 	private dayRecord dayrecord;
+	private exRecord exrecord;
 	private ArrayList<expanel> expanel_list; 
+	private ArrayList<exercise> exlist;
 	
-	public exRecordpage(exRecord exr) {
+	public exRecordpage(exRecord other_exr, dayRecord pre_dayRecord) {
 		setTitle("exRecordpage	");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500,400);
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
@@ -44,11 +47,16 @@ public class exRecordpage extends JFrame{
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
 		/* 받아온 운동명으로 exRecord 정보 채우기 */
-		
+		// other_exr는 name 과 setgoal 정보만 있음
+		exlistClass elc = new exlistClass("ALL_WORKOUT");
+		exlist = elc.get_exlist();
+		exrecord = new exRecord(other_exr.getEx().getname(),other_exr.getSet_goal());
+		setEx_byname();
+		exrecord.setSet_goal(5);
 		
 		
 		/* 받아온 운동명 출력 패널 */
-		JLabel today_Label = new JLabel(exr.getEx().getName());
+		JLabel today_Label = new JLabel(exrecord.getEx().getname());
 		today_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		gbc_default.anchor = GridBagConstraints.WEST;
 		gbc_default.gridx = 0;
@@ -73,29 +81,30 @@ public class exRecordpage extends JFrame{
 		JScrollPane sp = new JScrollPane(set_list_panel);
 		add(sp, gbc_default);
 		
-		// 운동추가 버튼 클릭
+		// 세트추가 버튼 클릭
 		JButton addset_button = new JButton("세트 추가");
-		ActionListener addex_listener= new ActionListener() {
+		ActionListener addset_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 추가할 운동 정보 받아오기
-				addexRecordpage exrp = new addexRecordpage();
-				exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				exrp.setModal(true);
-				exrp.setVisible(true);
-				exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
+				// 추가할 세트 정보 받아오기
+				addsetpage asp = new addsetpage(new exRecord(exrecord));
+				asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				asp.setModal(true);
+				asp.setVisible(true);
+				
+				/*exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
 				
 				// 받아온 운동 정보 저장
 				dayrecord.add_exr(tmp_ex);
 				expanel tmp_exp = new expanel(tmp_ex);
 				if (expanel_list == null)
 					expanel_list = new ArrayList<>();
-				expanel_list.add(tmp_exp);
+				expanel_list.add(tmp_exp);*/
 				
 				//받아온 운동 정보에 대한 ex_list_panel 업데이트
 				repaint_exlist_panel();
 			}
 		};
-		addset_button.addActionListener(addex_listener);
+		addset_button.addActionListener(addset_listener);
 		gbc_default =new GridBagConstraints();		
 		gbc_default.anchor = GridBagConstraints.EAST;
 		gbc_default.gridx = 2;
@@ -106,17 +115,8 @@ public class exRecordpage extends JFrame{
 		JButton savedR_button = new JButton("저장");
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 적어도 date와 몸무게는 있어야함 없으면 에러창
-				if(today_textField.getText().equals("") || weight_textField.getText().equals("")) {
-					savedR_check_dialog icd = new savedR_check_dialog();
-					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					icd.setModal(true);
-					icd.setVisible(true);
-				}
-				// dayRecord를 dR_ary에 추가
-				//dR_ary.add(dayrecord);
-				
-				// 달력 페이지로 돌아감
+				other_exr.shallow_copy(exrecord);
+				dispose();
 				
 			}
 		};
@@ -126,9 +126,6 @@ public class exRecordpage extends JFrame{
 		gbc_default.gridx = 4;
 		gbc_default.gridwidth = 2;
 		add(savedR_button, gbc_default);
-
-		
-		
 	}
 	
 	private void repaint_exlist_panel(){
@@ -152,6 +149,7 @@ public class exRecordpage extends JFrame{
 		set_list_panel.repaint();
 	}
 	
+	
 	class expanel extends JPanel{
 		public expanel(exRecord other_exr) {
 			GridBagLayout gbl = new GridBagLayout();
@@ -161,7 +159,7 @@ public class exRecordpage extends JFrame{
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
 			
-			JLabel ex_name = new JLabel(other_exr.getEx().getName());
+			JLabel ex_name = new JLabel(other_exr.getEx().getname());
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
@@ -185,8 +183,8 @@ public class exRecordpage extends JFrame{
 			JButton update_btn = new JButton("수정");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					exRecordpage exrp = new exRecordpage(other_exr);
-					exrp.setVisible(true);
+					//exRecordpage exrp = new exRecordpage(other_exr);
+					//exrp.setVisible(true);
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);
@@ -221,6 +219,19 @@ public class exRecordpage extends JFrame{
 		}
 		private int getindex() {
 			return expanel_list.indexOf(this);
+		}
+	}
+	
+	// 운동 이름으로 운동정보 set하기
+	private void setEx_byname() {
+		for(int i = 0; i < exlist.size(); i++) {
+			if (exrecord.getEx().getname().equals(exlist.get(i).getname())) { // 이름으로 검색하기 -> 찾았을 때  
+				exrecord.setEx(exlist.get(i));
+				break;
+			}
+			else {
+				continue;
+			}
 		}
 	}
 	

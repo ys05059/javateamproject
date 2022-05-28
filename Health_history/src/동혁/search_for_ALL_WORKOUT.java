@@ -7,7 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class search_for_ALL_WORKOUT extends worklist{
+import set단위class.exlistClass;
+import set단위class.exercise;
+
+public class search_for_ALL_WORKOUT extends exlistClass{
 
 	
 	search_for_ALL_WORKOUT(){
@@ -39,10 +42,10 @@ public class search_for_ALL_WORKOUT extends worklist{
 //					}
 //				}
 				
-				for(int i = 0; i < A.get_worklist().size(); i++) {
-					if (name.equals(A.get_worklist().get(i).getworkout())) {
-						res = A.get_worklist().get(i).getworkout() + "/" + A.get_worklist().get(i).getcategory() + "/"
-								+ A.get_worklist().get(i).getcalmethod();
+				for(int i = 0; i < A.get_exlist().size(); i++) {
+					if (name.equals(A.get_exlist().get(i).getname())) {
+						res = A.get_exlist().get(i).getname() + "/" + A.get_exlist().get(i).getcategory() + "/"
+								+ A.get_exlist().get(i).getcalmethod();
 						break;
 					}
 					else {
@@ -59,26 +62,25 @@ public class search_for_ALL_WORKOUT extends worklist{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		A.clear_worklist();
+		A.clear_exlist();
 		return res;
 	}
-	
 	
 	public String searchcate(String name){
 		String res = "";
 		search_for_ALL_WORKOUT B = new search_for_ALL_WORKOUT();
 		try {
 //			Arraylist_For_ALL_WORKOUT B = new Arraylist_For_ALL_WORKOUT(); // Arraylist_For_ALL_WORKOUT
-			ArrayList<work> worklist2 = new ArrayList<work>();
+			ArrayList<exercise> worklist2 = new ArrayList<exercise>();
 			File file = new File("ALL_WORKOUT");
 			if (file.exists() && file.isFile()) {
 				B.set_worklist(file.getAbsolutePath());
 //				for ( work w : B.getArrlist()) {
 //					worklist2.add(w.clone());
 //				}
-				for(int i = 0; i < B.get_worklist().size(); i++) {
-					if (name.equals(B.get_worklist().get(i).getcategory())) {
-						res =  res + B.get_worklist().get(i).getworkout() + "$";
+				for(int i = 0; i < B.get_exlist().size(); i++) {
+					if (name.equals(B.get_exlist().get(i).getcategory())) {
+						res =  res + B.get_exlist().get(i).getname() + "$";
 					}
 					else {
 					}
@@ -91,7 +93,7 @@ public class search_for_ALL_WORKOUT extends worklist{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		B.clear_worklist();
+		B.clear_exlist();
 		return res;
 	}
 }

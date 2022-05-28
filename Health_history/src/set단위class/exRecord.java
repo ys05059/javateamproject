@@ -19,6 +19,12 @@ public class exRecord {
 		set_goal =setgoal;
 	}
 	
+	public exRecord(exRecord other_exr) {
+		ex = other_exr.getEx();
+		set_ary = other_exr.getSet_ary();
+		set_goal = other_exr.set_goal;
+	}
+	
 	public exercise getEx() {
 		return new exercise(ex);
 	}
@@ -27,11 +33,6 @@ public class exRecord {
 		this.ex = new exercise(ex);
 	}
 	
-	public static void setEx_byname(String ex_name) {
-		int hello =0;
-		//수정했음
-
-	}
 	public ArrayList<Set> getSet_ary() {
 		return new ArrayList<Set>(set_ary);
 	}
@@ -46,5 +47,11 @@ public class exRecord {
 
 	public void setSet_goal(int set_goal) {
 		this.set_goal = set_goal;
+	}
+	
+	public void shallow_copy(exRecord other_exr) {
+		ex = other_exr.ex;
+		set_ary = other_exr.set_ary;
+		set_goal = other_exr.set_goal;
 	}
 }
