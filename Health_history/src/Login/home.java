@@ -25,6 +25,7 @@ public class home {
 		frame.setVisible(true);
 		
 		int hello =0;
+		int hello2 =0;
 	
 		
 		//CalendarDemo cd= new CalendarDemo();
