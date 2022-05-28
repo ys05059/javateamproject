@@ -9,7 +9,11 @@ public class wc_set extends Set{
 		weight = 0;
 		count = 0;
 	}
-
+	
+	public wc_set(int other_weight, int other_count) {
+		weight = other_weight;
+		count = other_count;
+	}
 	public int getWeight() {
 		return weight;
 	}

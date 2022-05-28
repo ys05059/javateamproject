@@ -200,14 +200,14 @@ public class dayRecordpage extends JFrame {
 			this.add(ex_name,gbc);
 			
 		
-			JLabel set_label = new JLabel("세트 수");
+			JLabel set_label = new JLabel("현재/목표");
 			gbc = new GridBagConstraints();
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 1;
 			gbc.gridy = 0;
 			this.add(set_label,gbc);
 			
-			setnum_label = new JLabel(Integer.toString(other_exr.getSet_goal()));
+			setnum_label = new JLabel("("+Integer.toString(other_exr.getCount_set())+"/"+Integer.toString(other_exr.getSet_goal())+")");
 			gbc = new GridBagConstraints();
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 2;
@@ -226,7 +226,7 @@ public class dayRecordpage extends JFrame {
 					// 운동 패널 리스트 수정
 					exRecord exr = dayrecord.getExr_ary().get(getindex());									// 수정된 exRecord 받아오기
 					ex_name.setText(exr.getEx().getname());
-					setnum_label.setText(Integer.toString(exr.getSet_goal()));
+					setnum_label.setText("("+Integer.toString(other_exr.getCount_set())+"/"+Integer.toString(other_exr.getSet_goal())+")");
 					repaint_exlist_panel();
 				}
 			};
