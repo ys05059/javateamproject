@@ -1,13 +1,12 @@
-package µ¿Çõ;
-
+package health;
 import java.io.File;
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.BufferedReader;
-public class worklist {
+public class Arraylist_For_ALL_WORKOUT {
 	static ArrayList<work> worklist = new ArrayList<work>();
 	
-		public static void set_worklist(String filePath) {
+		public static void txttoArraylist(String filePath) {
 			try {
 				File file = new File(filePath);
 				FileReader fr = new FileReader(file.getAbsolutePath());
@@ -27,13 +26,11 @@ public class worklist {
 			}
 		}
 		
-		
-		
-		public ArrayList<work> get_worklist() {
+		public ArrayList<work> getArrlist() {
 			return worklist;
 		}
 		
-		public void clear_worklist() {
+		public void clearArrlist() {
 			worklist.clear();
 		}
 		

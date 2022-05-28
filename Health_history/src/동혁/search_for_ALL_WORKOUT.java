@@ -1,4 +1,5 @@
-package µ¿Çõ;
+
+package health;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class search_for_ALL_WORKOUT extends worklist{
+public class search_for_ALL_WORKOUT extends Arraylist_For_ALL_WORKOUT{
 
 	
 	search_for_ALL_WORKOUT(){
@@ -24,7 +25,7 @@ public class search_for_ALL_WORKOUT extends worklist{
 			File file = new File("ALL_WORKOUT");
 //			Arraylist_For_ALL_WORKOUT B = new Arraylist_For_ALL_WORKOUT(); // Arraylist_For_ALL_WORKOUT
 			if (file.exists() && file.isFile()) {
-				A.set_worklist(file.getAbsolutePath());;
+				A.txttoArraylist(file.getAbsolutePath());
 //				for ( work w : A.getArrlist()) {
 //					worklist2.add(w.clone());
 //				}
@@ -38,10 +39,10 @@ public class search_for_ALL_WORKOUT extends worklist{
 //					}
 //				}
 				
-				for(int i = 0; i < A.get_worklist().size(); i++) {
-					if (name.equals(A.get_worklist().get(i).getworkout())) {
-						res = A.get_worklist().get(i).getworkout() + "/" + A.get_worklist().get(i).getcategory() + "/"
-								+ A.get_worklist().get(i).getcalmethod();
+				for(int i = 0; i < A.getArrlist().size(); i++) {
+					if (name.equals(A.getArrlist().get(i).getworkout())) {
+						res = A.getArrlist().get(i).getworkout() + "/" + A.getArrlist().get(i).getcategory() + "/"
+								+ A.getArrlist().get(i).getcalmethod();
 						break;
 					}
 					else {
@@ -58,7 +59,7 @@ public class search_for_ALL_WORKOUT extends worklist{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		A.clear_worklist();
+		A.clearArrlist();
 		return res;
 	}
 	
@@ -71,13 +72,13 @@ public class search_for_ALL_WORKOUT extends worklist{
 			ArrayList<work> worklist2 = new ArrayList<work>();
 			File file = new File("ALL_WORKOUT");
 			if (file.exists() && file.isFile()) {
-				B.set_worklist(file.getAbsolutePath());
+				B.txttoArraylist(file.getAbsolutePath());
 //				for ( work w : B.getArrlist()) {
 //					worklist2.add(w.clone());
 //				}
-				for(int i = 0; i < B.get_worklist().size(); i++) {
-					if (name.equals(B.get_worklist().get(i).getcategory())) {
-						res =  res + B.get_worklist().get(i).getworkout() + "$";
+				for(int i = 0; i < B.getArrlist().size(); i++) {
+					if (name.equals(B.getArrlist().get(i).getcategory())) {
+						res =  res + B.getArrlist().get(i).getworkout() + "$";
 					}
 					else {
 					}
@@ -90,7 +91,7 @@ public class search_for_ALL_WORKOUT extends worklist{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		B.clear_worklist();
+		B.clearArrlist();
 		return res;
 	}
 }
