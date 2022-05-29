@@ -105,7 +105,7 @@ public class addexRecordpage extends JDialog {
 	}
 
 	public String get_exname() {
-		return exname_field.getText();
+		return excombo.getSelectedItem().toString();
 	}
 
 	public int get_setgoal() {
