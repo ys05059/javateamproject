@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 
 import set단위class.dayRecord;
 import set단위class.exRecord;
+import set단위class.wc_exRecord;
 
 public class dayRecordpage extends JFrame {
 
@@ -31,7 +32,7 @@ public class dayRecordpage extends JFrame {
 	private JTextField weight_textField;
 	private JTextField today_textField;
 	private JPanel ex_list_panel; 
-	public dayRecord dayrecord;
+	static dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
 	
 	public dayRecordpage(ArrayList<dayRecord> dR_ary) {
@@ -217,16 +218,22 @@ public class dayRecordpage extends JFrame {
 			JButton update_btn = new JButton("수정");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					exRecordpage exrp = new exRecordpage(other_exr,dayrecord);
+					exRecordpage exrp;
+					exRecord exr = dayrecord.getExr_ary().get(getindex());	
+					if(exr instanceof wc_exRecord) {
+						exrp = new exRecordpage((wc_exRecord)exr,dayrecord);
+					}else {
+						exrp = new exRecordpage(exr,dayrecord);
+					}
 					exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					exrp.setModal(true);
 					exrp.setVisible(true);
 					
 					// 창 닫혔을 때
 					// 운동 패널 리스트 수정
-					exRecord exr = dayrecord.getExr_ary().get(getindex());									// 수정된 exRecord 받아오기
+					exr = dayrecord.getExr_ary().get(getindex());									// 수정된 exRecord 받아오기
 					ex_name.setText(exr.getEx().getname());
-					setnum_label.setText("("+Integer.toString(other_exr.getCount_set())+"/"+Integer.toString(other_exr.getSet_goal())+")");
+					setnum_label.setText("("+Integer.toString(exr.getCount_set())+"/"+Integer.toString(exr.getSet_goal())+")");
 					repaint_exlist_panel();
 				}
 			};

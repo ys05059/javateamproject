@@ -26,6 +26,20 @@ public class dayRecord {
 	public void add_exr(exRecord other_exr) {
 		exr_ary.add(other_exr);
 	}
+	
+	public void set_exr(exRecord other_exr) {
+		int index =0;
+		for(exRecord exr : exr_ary) {
+			if(exr.getEx().getname().equals(other_exr.getEx().getname())) {
+				if(other_exr instanceof wc_exRecord)
+					exr_ary.set(index, (wc_exRecord)other_exr);
+				else
+					exr_ary.set(index,other_exr);
+					
+			}
+			index++;
+		}
+	}
 
 	public ArrayList<exRecord> getExr_ary() {
 		return new ArrayList<exRecord>(exr_ary);

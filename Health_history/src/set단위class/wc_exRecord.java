@@ -16,6 +16,11 @@ public class wc_exRecord extends exRecord{
 		wc_set_ary = new ArrayList<>();
 	}
 	
+	public wc_exRecord (wc_exRecord other_wce) {
+		super(other_wce);
+		wc_set_ary = other_wce.wc_set_ary;
+	}
+	
 	public void add_wcset(wc_set wcs) {
 		wc_set_ary.add(wcs);
 		super.setCount_set(wc_set_ary.size());

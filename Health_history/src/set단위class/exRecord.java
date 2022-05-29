@@ -54,5 +54,4 @@ public class exRecord {
 	public void setSet_goal(int set_goal) {
 		this.set_goal = set_goal;
 	}
-	
 }

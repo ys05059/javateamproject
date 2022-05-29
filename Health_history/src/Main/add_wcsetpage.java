@@ -67,7 +67,9 @@ public class add_wcsetpage extends JDialog {
 				
 				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {											// 일단 정수 입력하지 않았을 때의 예외처리는 하지 않음
 					add_wcsetpage.this.dispose();
-				}/*else {
+				}
+				// 예외처리 해야함
+				/*else {
 					input_check_dialog icd = new input_check_dialog();
 					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					icd.setModal(true);
