@@ -53,10 +53,8 @@ public class addexRecordpage extends JDialog {
 		JComboHandler combohd = new JComboHandler();
 		catecombo.addActionListener(combohd);
 		contentPane.add(catecombo);
-		
-//		work = allwork.getworktoStringlist(nowcate);
-		
-		
+
+	
 		JLabel exname_Label = new JLabel("\uC6B4\uB3D9\uBA85");
 		exname_Label.setBounds(110, 90, 52, 15);
 		contentPane.add(exname_Label);
@@ -83,7 +81,6 @@ public class addexRecordpage extends JDialog {
 				boolean isnum = true;			
 				
 				if( !setgoal_field.getText().equals("")) {
-					// 일단 정수 입력하지 않았을 때의 예외처리는 하지 않음
 					for(int i = 0; i < setgoal_field.getText().length(); i++) {
 						if(!Character.isDigit(setgoal_field.getText().charAt(i))){
 							isnum = false;
@@ -143,13 +140,9 @@ public class addexRecordpage extends JDialog {
 			nowcate = "";
 			nowcate = catecombo.getSelectedItem().toString();
 			work = allwork.getworktoStringlist(nowcate);
-			System.out.println(work);
-//			excombo2 = new JComboBox<String>(work.toArray(new String[work.size()]));
 			excombo.setModel(new DefaultComboBoxModel(work.toArray(new String[work.size()])));
 			//카테고리 입력에 따라 exercise combobox의 인덱스 달라지게 하기
-//			excombo2.setBounds(193, 87, 106, 21);
-//			contentPane.add(excombo2);
-//			excombo.setVisible(false);
+
 		}
 		
 	}

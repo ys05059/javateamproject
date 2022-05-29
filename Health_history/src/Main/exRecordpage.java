@@ -153,7 +153,7 @@ public class exRecordpage extends JFrame{
 	}
 	
 	class expanel extends JPanel{
-		public expanel(exRecord other_exr) {
+		public expanel(final exRecord other_exr) {
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {100,100,50,50,50};
 			gbl.rowHeights = new int[] {50};

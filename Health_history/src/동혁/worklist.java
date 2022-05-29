@@ -38,10 +38,6 @@ public class worklist {
 		public ArrayList<String> getworktoStringlist(String cate) {
 			
 			ArrayList<String> A = new ArrayList<>();
-			if(A.size() > 0) {
-				System.out.println(A);
-			}
-			System.out.println(worklist.size());
 			for(int i = 0; i < worklist.size(); i++) {
 				if(worklist.get(i).getcategory().equals(cate)) {
 					A.add(worklist.get(i).getworkout());
