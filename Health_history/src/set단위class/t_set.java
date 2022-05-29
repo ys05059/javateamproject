@@ -3,7 +3,7 @@ package set단위class;
 import java.time.LocalTime;
 
 // 목표 시간 set
-public class t_set {
+public class t_set extends Set {
 	private LocalTime goal_time;
 	
 	public t_set() {

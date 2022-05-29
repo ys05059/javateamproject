@@ -1,7 +1,7 @@
 package set단위class;
 
 // 목표 무게x횟수 set
-public class wc_set extends Set{
+public class wc_set extends Set implements Cloneable{
 	private int weight;
 	private int count;
 	
@@ -9,7 +9,11 @@ public class wc_set extends Set{
 		weight = 0;
 		count = 0;
 	}
-
+	
+	public wc_set(int other_weight, int other_count) {
+		weight = other_weight;
+		count = other_count;
+	}
 	public int getWeight() {
 		return weight;
 	}
@@ -24,6 +28,11 @@ public class wc_set extends Set{
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+	
+	@Override
+	public wc_set clone() throws CloneNotSupportedException{
+		return (wc_set) super.clone();
 	}
 	
 	

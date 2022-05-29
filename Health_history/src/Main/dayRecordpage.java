@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 
 import set단위class.dayRecord;
 import set단위class.exRecord;
+import set단위class.wc_exRecord;
 
 public class dayRecordpage extends JFrame {
 
@@ -31,7 +32,7 @@ public class dayRecordpage extends JFrame {
 	private JTextField weight_textField;
 	private JTextField today_textField;
 	private JPanel ex_list_panel; 
-	private dayRecord dayrecord;
+	static dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
 	
 	public dayRecordpage(ArrayList<dayRecord> dR_ary) {
@@ -109,7 +110,7 @@ public class dayRecordpage extends JFrame {
 				dayrecord.add_exr(tmp_ex);
 				expanel tmp_exp = new expanel(tmp_ex);
 				if (expanel_list == null)
-					expanel_list = new ArrayList<>();
+					expanel_list = new ArrayList<>();	
 				expanel_list.add(tmp_exp);
 				
 				//받아온 운동 정보에 대한 ex_list_panel 업데이트
@@ -172,9 +173,19 @@ public class dayRecordpage extends JFrame {
 		ex_list_panel.revalidate();															// 운동 선택 패널 초기화
 		ex_list_panel.repaint();
 	}
+	/*
+	private void update_exlist() {
+		for(expanel ep : expanel_list) {
+			ep.update_expanel(null););
+		}
+	}*/
 	
 	class expanel extends JPanel{
+		private JLabel ex_name;
+		private JLabel setnum_label;
+		
 		public expanel(exRecord other_exr) {
+			
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {100,100,50,50,50};
 			gbl.rowHeights = new int[] {50};
@@ -182,21 +193,22 @@ public class dayRecordpage extends JFrame {
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
 			
-			JLabel ex_name = new JLabel(other_exr.getEx().getName());
+			ex_name = new JLabel(other_exr.getEx().getname());
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			this.add(ex_name,gbc);
 			
-			JLabel set_label = new JLabel("세트 수");
+		
+			JLabel set_label = new JLabel("현재/목표");
 			gbc = new GridBagConstraints();
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 1;
 			gbc.gridy = 0;
 			this.add(set_label,gbc);
 			
-			JLabel setnum_label = new JLabel(Integer.toString(other_exr.getSet_goal()));
+			setnum_label = new JLabel("("+Integer.toString(other_exr.getCount_set())+"/"+Integer.toString(other_exr.getSet_goal())+")");
 			gbc = new GridBagConstraints();
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 2;
@@ -206,8 +218,23 @@ public class dayRecordpage extends JFrame {
 			JButton update_btn = new JButton("수정");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					exRecordpage exrp = new exRecordpage(other_exr);
+					exRecordpage exrp;
+					exRecord exr = dayrecord.getExr_ary().get(getindex());	
+					if(exr instanceof wc_exRecord) {
+						exrp = new exRecordpage((wc_exRecord)exr,dayrecord);
+					}else {
+						exrp = new exRecordpage(exr,dayrecord);
+					}
+					exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					exrp.setModal(true);
 					exrp.setVisible(true);
+					
+					// 창 닫혔을 때
+					// 운동 패널 리스트 수정
+					exr = dayrecord.getExr_ary().get(getindex());									// 수정된 exRecord 받아오기
+					ex_name.setText(exr.getEx().getname());
+					setnum_label.setText("("+Integer.toString(exr.getCount_set())+"/"+Integer.toString(exr.getSet_goal())+")");
+					repaint_exlist_panel();
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);

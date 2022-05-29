@@ -4,21 +4,40 @@ import java.util.ArrayList;
 
 public class exRecord {
 	private exercise ex;
-	private ArrayList<Set> set_ary;
 	private int set_goal;								// 목표 세트 수
-
+	private int count_set;								// 들어있는 세트 수
+		
 	public exRecord() {
 		ex = new exercise();
-		set_ary = new ArrayList<>();
 		set_goal =0;
+		count_set =0;
 	}
 	
 	public exRecord(String ex_name, int setgoal) {
 		ex = new exercise(ex_name);
-		set_ary = new ArrayList<>();
 		set_goal =setgoal;
+		count_set =0;
 	}
 	
+	public exRecord(exRecord other_exr) {
+		ex = other_exr.getEx();
+		set_goal = other_exr.set_goal;
+		count_set = other_exr.count_set;
+	}
+	
+	public void shallow_copy(exRecord other_exr) {
+		ex = other_exr.ex;
+		set_goal = other_exr.set_goal;
+		count_set = other_exr.count_set;
+	}
+	public int getCount_set() {
+		return count_set;
+	}
+
+	public void setCount_set(int count_set) {
+		this.count_set = count_set;
+	}
+
 	public exercise getEx() {
 		return new exercise(ex);
 	}
@@ -27,18 +46,6 @@ public class exRecord {
 		this.ex = new exercise(ex);
 	}
 	
-	public static void setEx_byname(String ex_name) {
-		int hello =0;
-		//수정했음
-
-	}
-	public ArrayList<Set> getSet_ary() {
-		return new ArrayList<Set>(set_ary);
-	}
-	
-	public void addset(Set s) {
-		set_ary.add(s);
-	}
 
 	public int getSet_goal() {
 		return set_goal;
