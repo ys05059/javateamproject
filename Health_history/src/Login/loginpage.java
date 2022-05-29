@@ -27,7 +27,7 @@ public class loginpage extends JFrame {
 
 	private ActionListener signup_listener;
 	
-	public loginpage(ArrayList<User> user_ary) {
+	public loginpage(final ArrayList<User> user_ary) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

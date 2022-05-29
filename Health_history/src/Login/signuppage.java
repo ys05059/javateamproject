@@ -23,8 +23,8 @@ public class signuppage extends JFrame {
 	
 	private ActionListener signup;
 	
-	public signuppage(ArrayList<User> user_ary) {
-		User new_user = new User();
+	public signuppage(final ArrayList<User> user_ary) {
+		final User new_user = new User();
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
