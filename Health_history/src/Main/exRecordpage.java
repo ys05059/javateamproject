@@ -58,7 +58,7 @@ public class exRecordpage extends JDialog{
 				if(exrecord.getEx().getcalmethod().equals("무게 * 횟수")) {
 					exrecord = new wc_exRecord(exrecord);
 				}
-		}else if(other_exr instanceof wc_exRecord) {
+		}else if(other_exr instanceof wc_exRecord) {					// 두번째 이후 중 무게 * 횟수인 운동
 			exrecord = (wc_exRecord)other_exr;
 			wc_exRecord tmp_wce = (wc_exRecord)other_exr;
 			// wcpanel_list 만들어주기
@@ -120,6 +120,7 @@ public class exRecordpage extends JDialog{
 					wc_exRecord tmp_wce = (wc_exRecord)exrecord;								// 기존 정보(이름,setgoal) 넣어주기
 					wc_set wcs = new wc_set(Integer.valueOf(asp.get_weight()),Integer.valueOf(asp.get_count()));
 					tmp_wce.add_wcset(wcs);
+					wc_set pwcs = new wc_set();
 					exrecord = tmp_wce;
 					dayRecordpage.dayrecord.set_exr(exrecord);
 					// wc_set 패널 추가
@@ -130,20 +131,6 @@ public class exRecordpage extends JDialog{
 					repaint_wclist_panel();
 				}
 				
-				//wc_exRecord tmp2_wce = (wc_exRecord) exrecord;
-				//System.out.println(tmp2_wce.getWc_set_ary().get(0).getWeight());
-				
-				/*exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
-				
-				// 받아온 운동 정보 저장
-				dayrecord.add_exr(tmp_ex);
-				expanel tmp_exp = new expanel(tmp_ex);
-				if (expanel_list == null)
-					expanel_list = new ArrayList<>();
-				expanel_list.add(tmp_exp);*/
-				
-				//받아온 운동 정보에 대한 ex_list_panel 업데이트
-				//repaint_exlist_panel();
 			}
 		};
 		addset_button.addActionListener(addset_listener);
@@ -193,12 +180,12 @@ public class exRecordpage extends JDialog{
 		set_list_panel.repaint();
 	}
 	
-	
+	// 무게 * 횟수 세트 패널
 	class wcset_panel extends JPanel{
 		public wcset_panel(wc_set wcs) {
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {100,100,50,50,50};
-			gbl.rowHeights = new int[] {50};
+			gbl.rowHeights = new int[] {50,50};
 			
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
@@ -210,28 +197,35 @@ public class exRecordpage extends JDialog{
 			else {
 				count = wcpanel_list.size()+1;
 			}
-			JLabel ex_name = new JLabel(Integer.toString(count)+"세트");
+			
+			// 몇 번째 세트인지 나타내는 라벨 
+			JLabel set_lable = new JLabel(Integer.toString(count)+"세트");
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
-			this.add(ex_name,gbc);
+			this.add(set_lable,gbc);
 			
-			JLabel set_label = new JLabel("무게");
+			// 목표 무게 필드
+			JTextField gweight_textfield = new JTextField();
+			gweight_textfield.setText("목표무게"+Integer.toString(wcs.getWeight()));
 			gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
+			gbc.fill=GridBagConstraints.HORIZONTAL;
 			gbc.gridx = 1;
 			gbc.gridy = 0;
-			this.add(set_label,gbc);
+			this.add(gweight_textfield,gbc);
 			
-			JLabel setnum_label = new JLabel(Integer.toString(wcs.getWeight()));
+			// 수행 무게 필드
+			JTextField pweigth_textfield = new JTextField();
+			pweigth_textfield.setText("수행한 무게");
 			gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.gridx = 2;
-			gbc.gridy = 0;
-			this.add(setnum_label,gbc);
+			gbc.fill=GridBagConstraints.HORIZONTAL;
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			this.add(pweigth_textfield,gbc);
 			
-			JButton update_btn = new JButton("수정");
+			// 목표 및 수행 저장
+			JButton update_btn = new JButton("저장");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//exRecordpage exrp = new exRecordpage(other_exr);
@@ -240,11 +234,9 @@ public class exRecordpage extends JDialog{
 			};
 			update_btn.addActionListener(updateBtn_listener);
 			gbc.fill = GridBagConstraints.HORIZONTAL;
-			gbc.gridx= 3;
-			gbc.gridy= 0;
+			gbc.gridx= 4;
+			gbc.gridy= 1;
 			gbc.insets = new Insets(0, 0, 0, 5);
-			
-			
 			this.add(update_btn,gbc);
 			
 			// 삭제 버튼
@@ -267,6 +259,54 @@ public class exRecordpage extends JDialog{
 			gbc.gridy= 0;
 			gbc.insets= new Insets(0, 0, 0, 0);
 			this.add(delete_btn,gbc);
+			
+			
+			// 목표 횟수
+			JLabel gcount_label = new JLabel("목표횟수:"+wcs.getCount());
+			gbc = new GridBagConstraints();
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.gridx = 2;
+			gbc.gridy = 0;
+			this.add(gcount_label,gbc);
+			
+			// 수행 횟수
+			JLabel pcount_label = new JLabel("수행횟수:" + wcs.getCount());
+			gbc = new GridBagConstraints();
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.gridx = 2;
+			gbc.gridy = 1;
+			this.add(pcount_label,gbc);
+			
+			JLabel resttime_label = new JLabel("휴식시간");
+			gbc = new GridBagConstraints();
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.gridx = 3;
+			gbc.gridy = 0;
+			this.add(resttime_label,gbc);
+			
+			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
+			JButton load_btn = new JButton("Load");
+			ActionListener loadBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//wcs로 wc_record 찾아서 method 수행
+					
+					if(exrecord instanceof wc_exRecord) {
+						try {
+							((wc_exRecord) exrecord).set_pwc();
+						} catch (CloneNotSupportedException e2) {
+							System.out.println("clone error");
+						}
+					}
+					
+					
+				}
+			};
+			load_btn.addActionListener(loadBtn_listener);
+			gbc.fill = GridBagConstraints.HORIZONTAL;
+			gbc.gridx= 3;
+			gbc.gridy= 1;
+			gbc.insets = new Insets(0, 0, 0, 5);
+			this.add(load_btn,gbc);
 		}
 		private int getindex() {
 			return wcpanel_list.indexOf(this);

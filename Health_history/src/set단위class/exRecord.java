@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class exRecord {
 	private exercise ex;
 	private int set_goal;								// 목표 세트 수
-	private int count_set;
+	private int count_set;								// 들어있는 세트 수
 		
 	public exRecord() {
 		ex = new exercise();
