@@ -31,8 +31,6 @@ public class addexRecordpage extends JDialog {
 	ArrayList<String> work = new ArrayList<>();
 	
 	
-	
-	
 	public addexRecordpage() {
 		
 		allwork = new worklist();
@@ -142,6 +140,7 @@ public class addexRecordpage extends JDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			nowcate = "";
 			nowcate = catecombo.getSelectedItem().toString();
 			work = allwork.getworktoStringlist(nowcate);
 			System.out.println(work);
@@ -160,7 +159,6 @@ public class addexRecordpage extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			nowwork = excombo.getSelectedItem().toString();
-			System.out.println(nowwork);
 		}
 		
 	}
