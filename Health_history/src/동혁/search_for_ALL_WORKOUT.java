@@ -13,8 +13,8 @@ import set단위class.exercise;
 public class search_for_ALL_WORKOUT extends exlistClass{
 
 	
-	search_for_ALL_WORKOUT(){
-		super();
+search_for_ALL_WORKOUT(){
+		super("ALL_WORKOUT");
 		
 	}
 	
@@ -24,24 +24,8 @@ public class search_for_ALL_WORKOUT extends exlistClass{
 //		ArrayList<work> worklist2 = new ArrayList<work>();
 		String res = "";
 		search_for_ALL_WORKOUT A = new search_for_ALL_WORKOUT();
-		try {
-			File file = new File("ALL_WORKOUT");
-//			Arraylist_For_ALL_WORKOUT B = new Arraylist_For_ALL_WORKOUT(); // Arraylist_For_ALL_WORKOUT
-			if (file.exists() && file.isFile()) {
-				A.set_worklist(file.getAbsolutePath());
-//				for ( work w : A.getArrlist()) {
-//					worklist2.add(w.clone());
-//				}
-//				for(int i = 0; i < worklist2.size(); i++) {
-//					if (name.equals(worklist2.get(i).getworkout())) {
-//						res =  worklist2.get(i).getworkout() + "/" + worklist2.get(i).getcategory() + "/"
-//								+ worklist2.get(i).getcalmethod();
-//						break;
-//					}
-//					else {
-//					}
-//				}
-				
+		try {	
+			if(A.get_exlist().size()>0) {
 				for(int i = 0; i < A.get_exlist().size(); i++) {
 					if (name.equals(A.get_exlist().get(i).getname())) {
 						res = A.get_exlist().get(i).getname() + "/" + A.get_exlist().get(i).getcategory() + "/"
@@ -52,12 +36,11 @@ public class search_for_ALL_WORKOUT extends exlistClass{
 						continue;
 					}
 				}
-				
-				
 			}
-			else {
-				res = "filenotfound";
-			}
+
+		else {
+			res = "filenotfound";
+		}
 
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -70,24 +53,19 @@ public class search_for_ALL_WORKOUT extends exlistClass{
 		String res = "";
 		search_for_ALL_WORKOUT B = new search_for_ALL_WORKOUT();
 		try {
-//			Arraylist_For_ALL_WORKOUT B = new Arraylist_For_ALL_WORKOUT(); // Arraylist_For_ALL_WORKOUT
-			ArrayList<exercise> worklist2 = new ArrayList<exercise>();
-			File file = new File("ALL_WORKOUT");
-			if (file.exists() && file.isFile()) {
-				B.set_worklist(file.getAbsolutePath());
-//				for ( work w : B.getArrlist()) {
-//					worklist2.add(w.clone());
-//				}
+			if(B.get_exlist().size() > 0) {
 				for(int i = 0; i < B.get_exlist().size(); i++) {
 					if (name.equals(B.get_exlist().get(i).getcategory())) {
 						res =  res + B.get_exlist().get(i).getname() + "$";
 					}
 					else {
+						continue;
 					}
 				}
 			}
+				
 			else {
-				res = "filenotfound";
+				res = "filenotfound"; //배열리스트에 하나도 저장 안되어 있단 것은 .. 파일을 못 찾은 것(예외)
 			}
 
 		}catch (Exception e) {

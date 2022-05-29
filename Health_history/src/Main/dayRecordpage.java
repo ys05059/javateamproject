@@ -35,7 +35,8 @@ public class dayRecordpage extends JFrame {
 	static dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
 	
-	public dayRecordpage(ArrayList<dayRecord> dR_ary) {
+	public dayRecordpage(final ArrayList<dayRecord> dR_ary) {//이부분 final로 안하니 오류 떠서 final 추가했습니다(동혁)
+		
 		setTitle("exRecordpage	");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500,400);
