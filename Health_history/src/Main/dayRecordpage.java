@@ -34,7 +34,7 @@ public class dayRecordpage extends JFrame {
 	private dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
 	
-	public dayRecordpage(ArrayList<dayRecord> dR_ary) {
+	public dayRecordpage(final ArrayList<dayRecord> dR_ary) {
 		setTitle("exRecordpage	");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500,400);
@@ -103,6 +103,9 @@ public class dayRecordpage extends JFrame {
 				exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				exrp.setModal(true);
 				exrp.setVisible(true);
+				
+				
+				
 				exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
 				
 				// 받아온 운동 정보 저장
@@ -174,7 +177,7 @@ public class dayRecordpage extends JFrame {
 	}
 	
 	class expanel extends JPanel{
-		public expanel(exRecord other_exr) {
+		public expanel(final exRecord other_exr) {
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {100,100,50,50,50};
 			gbl.rowHeights = new int[] {50};

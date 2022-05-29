@@ -24,7 +24,6 @@ public class home {
 		dayRecordpage frame = new dayRecordpage(dR_ary);
 		frame.setVisible(true);
 		
-		int hello2 =0;	
 	
 		
 		//CalendarDemo cd= new CalendarDemo();

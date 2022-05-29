@@ -33,6 +33,36 @@ public class worklist {
 			return worklist;
 		}
 		
+		public ArrayList<String> getworktoStringlist(String cate) {
+			ArrayList<String> A = new ArrayList<>();
+			for(int i = 0; i < worklist.size(); i++) {
+				if(worklist.get(i).getcategory().equals(cate)) {
+					A.add(worklist.get(i).getworkout());
+				}
+				else {
+					continue;
+				}
+			}
+			return A;
+		}
+		
+		public ArrayList<String> getcatetoStringlist() {
+			ArrayList<String> A = new ArrayList<>();
+			ArrayList<String> Ares = new ArrayList<>();
+			for(int i = 0; i < worklist.size(); i++) {
+				A.add(worklist.get(i).getcategory());
+			}
+			String[] Arr = A.toArray(new String[A.size()]);
+			
+			for(String item : Arr) {
+				if(Ares.contains(item) == false) {
+					Ares.add(item);
+				}
+			}
+			return Ares;
+		}
+		
+		
 		public void clear_worklist() {
 			worklist.clear();
 		}
