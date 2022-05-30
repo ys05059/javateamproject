@@ -101,10 +101,12 @@ public class dayRecordpage extends JFrame {
 		ActionListener addex_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 추가할 운동 정보 받아오기
+				// 
 				addexRecordpage exrp = new addexRecordpage();
 				exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				exrp.setModal(true);
-				exrp.setVisible(true);
+				exrp.setVisible(true); // 운동 추가 창이 열린다.
+				// 추가 안하고 창을 닫을 시 null error 가 뜨는데 추후에 해결하면 좋을듯합니다(동혁)
 				exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
 				
 				// 받아온 운동 정보 저장
@@ -156,7 +158,7 @@ public class dayRecordpage extends JFrame {
 	
 	private void repaint_exlist_panel(){
 		if(!expanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord 한 개에 대한 gbc
+			GridBagConstraints gbc = new GridBagConstraints();				// exRecord 한 개에 대한 gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -181,7 +183,7 @@ public class dayRecordpage extends JFrame {
 		}
 	}*/
 	
-	class expanel extends JPanel{
+	class expanel extends JPanel{ // 동적으로 추가되는 panel
 		private JLabel ex_name;
 		private JLabel setnum_label;
 		
