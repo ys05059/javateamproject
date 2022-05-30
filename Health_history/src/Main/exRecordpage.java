@@ -49,18 +49,18 @@ public class exRecordpage extends JDialog{
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
 		/* 받아온 운동명으로 exRecord 정보 채우기 */
-		// other_exr는 name 과 setgoal 정보만 있음
+		// other_exr는 name 과 setgoal 정보만 있음 //category 정보가 있어야 후에 통계 처리 할 때 편할 것 같아 추가했습니다(동혁)
 		exlistClass elc = new exlistClass("ALL_WORKOUT");
 		exlist = elc.get_exlist();
 		if (other_exr.getEx().getcalmethod().equals("")) {				//첫번째 입력
 				exrecord = new exRecord(other_exr.getEx().getname(),other_exr.getSet_goal());
-				setEx_byname();
+				setEx_byname();  //운동 이름으로 운동 정보 setting
 				if(exrecord.getEx().getcalmethod().equals("무게 * 횟수")) {
 					exrecord = new wc_exRecord(exrecord);
 				}
 		}else if(other_exr instanceof wc_exRecord) {					// 두번째 이후 중 무게 * 횟수인 운동
 			exrecord = (wc_exRecord)other_exr;
-			wc_exRecord tmp_wce = (wc_exRecord)other_exr;
+			wc_exRecord tmp_wce = (wc_exRecord)other_exr; //exRecode 클래스로 형변환(wc_exRecord 가 exRecord의 자식 클래스이기 때문)
 			// wcpanel_list 만들어주기
 			if(tmp_wce.getCount_set()==0) {
 				wcpanel_list = new ArrayList<>();
@@ -70,11 +70,12 @@ public class exRecordpage extends JDialog{
 					wcset_panel wcp = new wcset_panel(wcs);
 					wcpanel_list.add(wcp);
 				}
+				System.out.println(wcpanel_list.size());
 			}
 		}else {
 			System.err.println("exrecord 새로 받아오기 실패");
 		}
-		
+
 		/* 받아온 운동명 출력 패널 */
 		JLabel today_Label = new JLabel(exrecord.getEx().getname());
 		today_Label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -189,6 +190,7 @@ public class exRecordpage extends JDialog{
 			
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
+
 			
 			
 			int count;

@@ -13,7 +13,7 @@ public class exRecord {
 		count_set =0;
 	}
 	
-	public exRecord(String ex_name, int setgoal) {
+	public exRecord(String ex_name , int setgoal) {
 		ex = new exercise(ex_name);
 		set_goal =setgoal;
 		count_set =0;

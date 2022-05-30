@@ -15,6 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -111,6 +112,7 @@ public class dayRecordpage extends JFrame {
 				
 				// 받아온 운동 정보 저장
 				dayrecord.add_exr(tmp_ex);
+				//dayrecord에 저장한 이후 panel에 표현할 정보들도 저장한다. 이 작업은 dayrecord와 별개인 듯(동혁)
 				expanel tmp_exp = new expanel(tmp_ex);
 				if (expanel_list == null)
 					expanel_list = new ArrayList<>();	
@@ -251,13 +253,18 @@ public class dayRecordpage extends JFrame {
 			
 			// 삭제 버튼
 			JButton delete_btn = new JButton("삭제");
+			// 패널에서의 삭제와 더불어 dayrecord에서도 삭제하기를  구현해야한다.
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
+						dayrecord.remove_exr_ary(getindex());  //dayrecord의 해당 index 삭제
+						//복사 문제가 생길수도 있을듯(동혁)
 						expanel_list.remove(getindex());
+						dayrecord.printallexr_ary();
+
 					}else {
-						System.out.println("잘못됨");
+						JOptionPane.showMessageDialog(null, "삭제할 목록이 존재하지 않습니다");
 					}
 					//받아온 운동 정보에 대한 ex_list_panel 업데이트
 					
@@ -271,8 +278,9 @@ public class dayRecordpage extends JFrame {
 			this.add(delete_btn,gbc);
 		}
 		private int getindex() {
-			return expanel_list.indexOf(this);
+			return expanel_list.indexOf(this); //panel의 index위치를 리턴해준다
 		}
+		
 	}
 	
 	class savedR_check_dialog extends JDialog{
