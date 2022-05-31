@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -35,15 +36,15 @@ public class exRecordpage extends JDialog{
 	private JPanel set_list_panel; 
 	private dayRecord dayrecord;
 	private exRecord exrecord;
-	private ArrayList<wcset_panel> wcpanel_list; 
+	static ArrayList<wcset_panel> wcpanel_list; 
 	private ArrayList<exercise> exlist;
 	
 	public exRecordpage(exRecord other_exr, dayRecord pre_dayRecord) {
 		setTitle("exRecordpage	");
-		setSize(500,400);
+		setSize(600,500);
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
-		gb.columnWidths = new int[] {100,100,50,50,50};
+		gb.columnWidths = new int[]  {100,50,50,50,75,75};
 		setLayout(gb);
 		dayrecord = new dayRecord();
 		GridBagConstraints gbc_default = new GridBagConstraints();
@@ -83,13 +84,33 @@ public class exRecordpage extends JDialog{
 		gbc_default.gridy = 0;
 		add(today_Label,gbc_default);
 		
-				
+		JLabel weight_label = new JLabel("무게");
+		weight_label.setHorizontalAlignment(SwingConstants.CENTER);
+		gbc_default.anchor = GridBagConstraints.WEST;
+		gbc_default.gridx = 2;
+		gbc_default.gridy = 0;
+		add(weight_label,gbc_default);
+		
+		JLabel count_label = new JLabel("횟수");
+		count_label.setHorizontalAlignment(SwingConstants.CENTER);
+		gbc_default.anchor = GridBagConstraints.WEST;
+		gbc_default.gridx = 3;
+		gbc_default.gridy = 0;
+		add(count_label,gbc_default);
+		
+		JLabel resttime_label = new JLabel("휴식시간");
+		resttime_label.setHorizontalAlignment(SwingConstants.CENTER);
+		gbc_default.anchor = GridBagConstraints.WEST;
+		gbc_default.gridx = 4;
+		gbc_default.gridy = 0;
+		add(resttime_label,gbc_default);
+		
 		/* 세트 리스트 패널 */
 		set_list_panel = new JPanel();
 		set_list_panel.setBackground(Color.WHITE);
 		gb = new GridBagLayout();
 		gb.rowHeights = new int[]{50, 50, 50, 50, 50};
-		gb.columnWidths = new int[] {100,100,50,75,75};
+		gb.columnWidths = new int[]  {100,50,50,50,50,50};
 		set_list_panel.setLayout(gb);
 		
 		gbc_default = new GridBagConstraints();
@@ -119,8 +140,8 @@ public class exRecordpage extends JDialog{
 					// exrecord에 wc_exRecord 저장하기
 					wc_exRecord tmp_wce = (wc_exRecord)exrecord;								// 기존 정보(이름,setgoal) 넣어주기
 					wc_set wcs = new wc_set(Integer.valueOf(asp.get_weight()),Integer.valueOf(asp.get_count()));
+					wcs.setRest_time(asp.get_resttime());
 					tmp_wce.add_wcset(wcs);
-					wc_set pwcs = new wc_set();
 					exrecord = tmp_wce;
 					dayRecordpage.dayrecord.set_exr(exrecord);
 					// wc_set 패널 추가
@@ -136,7 +157,7 @@ public class exRecordpage extends JDialog{
 		addset_button.addActionListener(addset_listener);
 		gbc_default =new GridBagConstraints();		
 		gbc_default.anchor = GridBagConstraints.EAST;
-		gbc_default.gridx = 2;
+		gbc_default.gridx = 1;
 		gbc_default.gridwidth = 2;
 		add(addset_button, gbc_default);
 		
@@ -145,7 +166,6 @@ public class exRecordpage extends JDialog{
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dayRecordpage.dayrecord.set_exr(exrecord);
-				//other_exr.shallow_copy(exrecord);
 				dispose();
 				
 			}
@@ -153,7 +173,7 @@ public class exRecordpage extends JDialog{
 		savedR_button.addActionListener(savedR_listener);
 		gbc_default.anchor = GridBagConstraints.CENTER;
 		gbc_default.ipadx = 20;
-		gbc_default.gridx = 4;
+		gbc_default.gridx = 3;
 		gbc_default.gridwidth = 2;
 		add(savedR_button, gbc_default);
 	}
@@ -170,6 +190,7 @@ public class exRecordpage extends JDialog{
 			
 			set_list_panel.removeAll();
 			for(wcset_panel exp : wcpanel_list) {
+				exp.set_setlabel(count+1);
 				gbc.gridy = count++;
 				set_list_panel.add(exp,gbc);
 			}
@@ -182,60 +203,82 @@ public class exRecordpage extends JDialog{
 	
 	// 무게 * 횟수 세트 패널
 	class wcset_panel extends JPanel{
+		JLabel set_lable;
+		GridBagConstraints gbc;
 		public wcset_panel(wc_set wcs) {
 			GridBagLayout gbl = new GridBagLayout();
-			gbl.columnWidths = new int[] {100,100,50,50,50};
+			gbl.columnWidths = new int[] {100,50,50,50,50,50};
 			gbl.rowHeights = new int[] {50,50};
 			
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
 			
-			
-			int count;
-			if(wcpanel_list == null || wcpanel_list.size()==0)
-				count =1;
-			else {
-				count = wcpanel_list.size()+1;
-			}
-			
 			// 몇 번째 세트인지 나타내는 라벨 
-			JLabel set_lable = new JLabel(Integer.toString(count)+"세트");
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.gridx = 0;
-			gbc.gridy = 0;
+			set_lable = new JLabel(get_setnum()+"세트");
+			gbc = new GridBagConstraints();
+			set_gbc(0, 0,GridBagConstraints.BOTH);
 			this.add(set_lable,gbc);
+			
+			JLabel goal_label = new JLabel("목표");
+			gbc = new GridBagConstraints();
+			set_gbc(1, 0,GridBagConstraints.BOTH);
+			this.add(goal_label,gbc);
+			
 			
 			// 목표 무게 필드
 			JTextField gweight_textfield = new JTextField();
-			gweight_textfield.setText("목표무게"+Integer.toString(wcs.getWeight()));
+			gweight_textfield.setText(Integer.toString(wcs.getWeight()));
 			gbc = new GridBagConstraints();
-			gbc.fill=GridBagConstraints.HORIZONTAL;
-			gbc.gridx = 1;
-			gbc.gridy = 0;
+			set_gbc(2, 0,GridBagConstraints.HORIZONTAL);
 			this.add(gweight_textfield,gbc);
 			
-			// 수행 무게 필드
-			JTextField pweigth_textfield = new JTextField();
-			pweigth_textfield.setText("수행한 무게");
+			// 목표 횟수
+			JTextField gcount_textfield = new JTextField();
+			gcount_textfield.setText(Integer.toString(wcs.getCount()));
 			gbc = new GridBagConstraints();
-			gbc.fill=GridBagConstraints.HORIZONTAL;
-			gbc.gridx = 1;
-			gbc.gridy = 1;
-			this.add(pweigth_textfield,gbc);
+			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
+			this.add(gcount_textfield,gbc);
+			
+			// 휴식시간
+			JTextField resttime_textfield = new JTextField();
+			resttime_textfield.setText(wcs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
+			gbc = new GridBagConstraints();
+			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
+			this.add(resttime_textfield,gbc);
+			
+			// 수행 라벨
+			JLabel performed_label = new JLabel("수행");
+			gbc = new GridBagConstraints();
+			set_gbc(1, 1,GridBagConstraints.BOTH);
+			this.add(performed_label,gbc);
+			
+			// 수행 무게 필드
+			JTextField pweight_textfield = new JTextField();
+			pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
+			gbc = new GridBagConstraints();
+			set_gbc(2, 1,GridBagConstraints.HORIZONTAL);
+			this.add(pweight_textfield,gbc);
+			
+			// 수행 횟수
+			JTextField pcount_textfield = new JTextField();
+			pcount_textfield.setText(Integer.toString(wcs.getP_count()));
+			gbc = new GridBagConstraints();
+			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
+			this.add(pcount_textfield,gbc);
 			
 			// 목표 및 수행 저장
 			JButton update_btn = new JButton("저장");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//exRecordpage exrp = new exRecordpage(other_exr);
-					//exrp.setVisible(true);
+					wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
+					wcs.setCount(Integer.valueOf(gcount_textfield.getText()));
+					wcs.setP_count(Integer.valueOf(pweight_textfield.getText()));
+					wcs.setP_weight(Integer.valueOf(pcount_textfield.getText()));
+					wcs.setRest_time(resttime_textfield.getText());
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);
-			gbc.fill = GridBagConstraints.HORIZONTAL;
-			gbc.gridx= 4;
-			gbc.gridy= 1;
+			set_gbc(5, 1,GridBagConstraints.HORIZONTAL);
 			gbc.insets = new Insets(0, 0, 0, 5);
 			this.add(update_btn,gbc);
 			
@@ -255,61 +298,42 @@ public class exRecordpage extends JDialog{
 				}
 			};
 			delete_btn.addActionListener(delBtn_listener);
-			gbc.gridx= 4;
-			gbc.gridy= 0;
-			gbc.insets= new Insets(0, 0, 0, 0);
+			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
+			gbc.insets= new Insets(0, 0, 0, 5);
 			this.add(delete_btn,gbc);
 			
-			
-			// 목표 횟수
-			JLabel gcount_label = new JLabel("목표횟수:"+wcs.getCount());
-			gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.gridx = 2;
-			gbc.gridy = 0;
-			this.add(gcount_label,gbc);
-			
-			// 수행 횟수
-			JLabel pcount_label = new JLabel("수행횟수:" + wcs.getCount());
-			gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.gridx = 2;
-			gbc.gridy = 1;
-			this.add(pcount_label,gbc);
-			
-			JLabel resttime_label = new JLabel("휴식시간");
-			gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.gridx = 3;
-			gbc.gridy = 0;
-			this.add(resttime_label,gbc);
 			
 			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//wcs로 wc_record 찾아서 method 수행
-					
-					if(exrecord instanceof wc_exRecord) {
-						try {
-							((wc_exRecord) exrecord).set_pwc();
-						} catch (CloneNotSupportedException e2) {
-							System.out.println("clone error");
-						}
-					}
-					
-					
+					wcs.performed_update();
+					pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
+					pcount_textfield.setText(Integer.toString(wcs.getP_count()));
 				}
 			};
 			load_btn.addActionListener(loadBtn_listener);
-			gbc.fill = GridBagConstraints.HORIZONTAL;
-			gbc.gridx= 3;
-			gbc.gridy= 1;
+			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
 			gbc.insets = new Insets(0, 0, 0, 5);
 			this.add(load_btn,gbc);
 		}
+		public void set_setlabel(int setnum) {
+			set_lable.setText(setnum + "세트");
+		}
 		private int getindex() {
 			return wcpanel_list.indexOf(this);
+		}
+		
+		private int get_setnum() {
+			if(wcpanel_list == null || wcpanel_list.size()==0)
+				return 1;
+			else 
+				return wcpanel_list.size()+1;
+		}
+		private void set_gbc(int x, int y, int fill) {
+			gbc.gridx = x;
+			gbc.gridy = y;
+			gbc.fill = fill;
 		}
 	}
 	

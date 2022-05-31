@@ -253,6 +253,7 @@ public class dayRecordpage extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
+						dayrecord.delete_exr(other_exr);
 						expanel_list.remove(getindex());
 					}else {
 						System.out.println("Àß¸øµÊ");

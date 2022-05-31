@@ -1,4 +1,6 @@
-package set단위class;
+package teamproject;
+
+import set단위class.Set;
 
 // 목표 횟수 set
 public class c_set extends Set{

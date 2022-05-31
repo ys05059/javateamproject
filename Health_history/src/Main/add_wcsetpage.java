@@ -67,10 +67,10 @@ public class add_wcsetpage extends JDialog {
 		addset_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {											// ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
 					add_wcsetpage.this.dispose();
 				}
-				// ¿¹¿ÜÃ³¸® ÇØ¾ßÇÔ
+				// ¿¹¿ÜÃ³¸® ÇØ¾ßÇÔ // ½Ã°£Àº mm:ss Çü½Ä Á¦ÇÑ ÇÊ¿ä
 				/*else {
 					input_check_dialog icd = new input_check_dialog();
 					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

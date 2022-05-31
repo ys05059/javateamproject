@@ -40,6 +40,17 @@ public class dayRecord {
 			index++;
 		}
 	}
+	
+	public void delete_exr (exRecord other_exr) {
+		int index =0;
+		for(exRecord exr : exr_ary) {
+			if(exr.getEx().getname().equals(other_exr.getEx().getname())) {
+				exr_ary.remove(index);
+				break;
+			}
+			index++;
+		}
+	}
 
 	public ArrayList<exRecord> getExr_ary() {
 		return new ArrayList<exRecord>(exr_ary);

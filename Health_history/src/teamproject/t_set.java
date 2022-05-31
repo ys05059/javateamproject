@@ -1,6 +1,8 @@
-package set단위class;
+package teamproject;
 
 import java.time.LocalTime;
+
+import set단위class.Set;
 
 // 목표 시간 set
 public class t_set extends Set {
