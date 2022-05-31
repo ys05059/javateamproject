@@ -12,7 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import set´ÜÀ§class.exRecord;
+
+import setë‹¨ìœ„class.exRecord;
 
 
 
@@ -31,11 +32,11 @@ public class add_wcsetpage extends JDialog {
 		
 		JLabel exname_Label = new JLabel(exr.getEx().getname());
 		exname_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		exname_Label.setFont(new Font("±¼¸²", Font.PLAIN, 20));
+		exname_Label.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 20));
 		exname_Label.setBounds(153, 32, 133, 21);
 		contentPane.add(exname_Label);
 		
-		JLabel weight_Label = new JLabel("¹«°Ô");
+		JLabel weight_Label = new JLabel("ë¬´ê²Œ");
 		weight_Label.setBounds(132, 79, 52, 15);
 		getContentPane().add(weight_Label);
 
@@ -44,7 +45,7 @@ public class add_wcsetpage extends JDialog {
 		contentPane.add(weight_textField);
 		weight_textField.setColumns(10);
 
-		JLabel count_label = new JLabel("È½¼ö");
+		JLabel count_label = new JLabel("íšŸìˆ˜");
 		count_label.setBounds(132, 120, 52, 15);
 		contentPane.add(count_label);
 		
@@ -53,8 +54,8 @@ public class add_wcsetpage extends JDialog {
 		contentPane.add(count_textField);
 		count_textField.setColumns(10);
 		
-		JLabel resttime_label = new JLabel("ÈŞ½Ä ½Ã°£");
-		resttime_label.setBounds(132, 160, 52, 15);
+		JLabel resttime_label = new JLabel("íœ´ì‹ ì‹œê°„");
+		resttime_label.setBounds(132, 160, 70, 15);
 		contentPane.add(resttime_label);
 		
 		resttime_textfield = new JTextField();
@@ -62,7 +63,7 @@ public class add_wcsetpage extends JDialog {
 		contentPane.add(resttime_textfield);
 		resttime_textfield.setColumns(10);
 		
-		JButton addset_Btn = new JButton("¼¼Æ® Ãß°¡");
+		JButton addset_Btn = new JButton("ì„¸íŠ¸ ì¶”ê°€");
 		addset_Btn.setBounds(171, 195, 95, 23);
 		addset_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,7 +71,7 @@ public class add_wcsetpage extends JDialog {
 				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {											// ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					add_wcsetpage.this.dispose();
 				}
-				// ¿¹¿ÜÃ³¸® ÇØ¾ßÇÔ
+				// ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½
 				/*else {
 					input_check_dialog icd = new input_check_dialog();
 					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

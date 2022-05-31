@@ -112,7 +112,9 @@ public class exRecordpage extends JDialog{
 		ActionListener addset_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 추가할 세트 정보 받아오기
-				if(exrecord instanceof wc_exRecord) {
+				if(exrecord instanceof wc_exRecord) { // 이렇게 하니 운동을 하나 추가하면 세트 추가 버튼 눌러도
+					//창이 안뜬다
+					dayrecord.printallexr_ary();
 					add_wcsetpage asp = new add_wcsetpage(new exRecord(exrecord));
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
