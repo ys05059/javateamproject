@@ -49,7 +49,7 @@ public class exRecordpage extends JDialog{
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
 		/* 받아온 운동명으로 exRecord 정보 채우기 */
-		// other_exr는 name 과 setgoal 정보만 있음 //category 정보가 있어야 후에 통계 처리 할 때 편할 것 같아 추가했습니다(동혁)
+		// other_exr는 name 과 setgoal 정보만 있음 
 		exlistClass elc = new exlistClass("ALL_WORKOUT");
 		exlist = elc.get_exlist();
 		if (other_exr.getEx().getcalmethod().equals("")) {				//첫번째 입력
