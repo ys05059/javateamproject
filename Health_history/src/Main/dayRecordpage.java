@@ -22,6 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import set단위class.dayRecord;
 import set단위class.exRecord;
@@ -40,7 +42,7 @@ public class dayRecordpage extends JFrame {
 		
 		setTitle("exRecordpage	");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500,400);
+		setSize(600,400);
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
 		gb.columnWidths = new int[] {100,100,50,50,50};
@@ -191,6 +193,8 @@ public class dayRecordpage extends JFrame {
 		
 		public expanel(exRecord other_exr) {
 			
+			TitledBorder oneTb = new TitledBorder(new LineBorder(Color.black));
+			setBorder(oneTb);
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {100,100,50,50,50};
 			gbl.rowHeights = new int[] {50};
