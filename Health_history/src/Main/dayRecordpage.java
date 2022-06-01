@@ -30,7 +30,7 @@ import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.wc_exRecord;
 
-public class dayRecordpage extends JDialog {
+public class dayRecordpage extends JFrame {
 
 	private JPanel defaultpanel;
 	private JTextField weight_textField;
@@ -43,7 +43,7 @@ public class dayRecordpage extends JDialog {
 	public dayRecordpage(final ArrayList<dayRecord> dR_ary,dayRecord dr) {//이부분 final로 안하니 오류 떠서 final 추가했습니다(동혁)
 		
 		setTitle("dayRecordpage	");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
@@ -165,7 +165,8 @@ public class dayRecordpage extends JDialog {
 					icd.setVisible(true);
 				}
 				//몸무게 저장
-				dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));				
+				if(!weight_textField.getText().equals(""))
+					dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));				
 				
 				// dayRecord를 dR_ary에 추가
 				// 없으면 추가 있으면 다시 세팅
