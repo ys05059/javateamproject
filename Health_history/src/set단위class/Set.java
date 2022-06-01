@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 // set´Â baseclass
-public class Set {
+public abstract class Set {
 	
 	private LocalTime rest_time;
 	
@@ -23,4 +23,6 @@ public class Set {
 		// format  -> 02:30
 		rest_time = LocalTime.parse("00:"+other_resttime,DateTimeFormatter.ofPattern("HH:mm:ss"));
 	}
+	
+	public abstract void performed_update();
 }

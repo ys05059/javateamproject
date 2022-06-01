@@ -22,6 +22,8 @@ import javax.swing.border.EmptyBorder;
 
 import Main.dayRecordpage.expanel;
 import Main.dayRecordpage.savedR_check_dialog;
+import set단위class.c_exRecord;
+import set단위class.c_set;
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.exercise;
@@ -150,6 +152,10 @@ public class exRecordpage extends JDialog{
 						wcpanel_list = new ArrayList<>();
 					wcpanel_list.add(wcp);
 					repaint_wclist_panel();
+				}
+				else if(exrecord instanceof c_exRecord) {
+					
+					
 				}
 				
 			}
@@ -337,6 +343,124 @@ public class exRecordpage extends JDialog{
 		}
 	}
 	
+	
+	class cset_panel extends JPanel{
+		JLabel set_lable;
+		GridBagConstraints gbc;
+		public cset_panel(c_set cs) {
+			GridBagLayout gbl = new GridBagLayout();
+			gbl.columnWidths = new int[] {100,50,50,50,50,50};
+			gbl.rowHeights = new int[] {50,50};
+			
+			this.setLayout(gbl);
+			this.setBackground(Color.YELLOW);
+			
+			// 몇 번째 세트인지 나타내는 라벨 
+			set_lable = new JLabel(get_setnum()+"세트");
+			gbc = new GridBagConstraints();
+			set_gbc(0, 0,GridBagConstraints.BOTH);
+			this.add(set_lable,gbc);
+			
+			JLabel goal_label = new JLabel("목표");
+			gbc = new GridBagConstraints();
+			set_gbc(1, 0,GridBagConstraints.BOTH);
+			this.add(goal_label,gbc);
+			
+			
+			// 목표 횟수
+			JTextField gcount_textfield = new JTextField();
+			gcount_textfield.setText(Integer.toString(cs.getCount()));
+			gbc = new GridBagConstraints();
+			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
+			this.add(gcount_textfield,gbc);
+			
+			// 휴식시간
+			JTextField resttime_textfield = new JTextField();
+			resttime_textfield.setText(cs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
+			gbc = new GridBagConstraints();
+			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
+			this.add(resttime_textfield,gbc);
+			
+			// 수행 라벨
+			JLabel performed_label = new JLabel("수행");
+			gbc = new GridBagConstraints();
+			set_gbc(1, 1,GridBagConstraints.BOTH);
+			this.add(performed_label,gbc);
+			
+			// 수행 횟수
+			JTextField pcount_textfield = new JTextField();
+			pcount_textfield.setText(Integer.toString(cs.getP_count()));
+			gbc = new GridBagConstraints();
+			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
+			this.add(pcount_textfield,gbc);
+			
+			// 목표 및 수행 저장
+			JButton update_btn = new JButton("저장");
+			ActionListener updateBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cs.setCount(Integer.valueOf(gcount_textfield.getText()));
+					cs.setP_count(Integer.valueOf(pcount_textfield.getText()));
+					cs.setRest_time(resttime_textfield.getText());
+				}
+			};
+			update_btn.addActionListener(updateBtn_listener);
+			set_gbc(5, 1,GridBagConstraints.HORIZONTAL);
+			gbc.insets = new Insets(0, 0, 0, 5);
+			this.add(update_btn,gbc);
+			
+			// 삭제 버튼
+			JButton delete_btn = new JButton("삭제");
+			ActionListener delBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (getindex() >=0) {
+						System.out.println(getindex());
+						wcpanel_list.remove(getindex());
+					}else {
+						System.out.println("잘못됨");
+					}
+					//받아온 운동 정보에 대한 ex_list_panel 업데이트
+					
+					repaint_wclist_panel();
+				}
+			};
+			delete_btn.addActionListener(delBtn_listener);
+			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
+			gbc.insets= new Insets(0, 0, 0, 5);
+			this.add(delete_btn,gbc);
+			
+			
+			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
+			JButton load_btn = new JButton("Load");
+			ActionListener loadBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cs.performed_update();
+					pcount_textfield.setText(Integer.toString(cs.getP_count()));
+				}
+			};
+			load_btn.addActionListener(loadBtn_listener);
+			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
+			gbc.insets = new Insets(0, 0, 0, 5);
+			this.add(load_btn,gbc);
+		}
+		public void set_setlabel(int setnum) {
+			set_lable.setText(setnum + "세트");
+		}
+		private int getindex() {
+			return wcpanel_list.indexOf(this);
+		}
+		
+		private int get_setnum() {
+			if(wcpanel_list == null || wcpanel_list.size()==0)
+				return 1;
+			else 
+				return wcpanel_list.size()+1;
+		}
+		private void set_gbc(int x, int y, int fill) {
+			gbc.gridx = x;
+			gbc.gridy = y;
+			gbc.fill = fill;
+		}
+	}
 	// 운동 이름으로 운동정보 set하기
 	private void setEx_byname() {
 		for(int i = 0; i < exlist.size(); i++) {

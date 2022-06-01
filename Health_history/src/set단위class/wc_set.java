@@ -1,6 +1,6 @@
 package set단위class;
 
-// 목표 무게x횟수 set
+// 무게x횟수 set
 public class wc_set extends Set implements Cloneable{
 	private int weight;
 	private int count;
