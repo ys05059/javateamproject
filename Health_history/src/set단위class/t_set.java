@@ -30,6 +30,17 @@ public class t_set extends Set implements Cloneable{
 	public void performed_update() {
 		p_time = g_time;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if(!(o instanceof t_set))
+			return false;
+		t_set ts = (t_set) o;
+		return super.equals(ts) && g_time.equals(ts.getG_time()) &&  p_time.equals(ts.getP_time());
+	}
+
 	public void setG_time(String other_gtime) {
 		g_time = LocalTime.parse("00:"+other_gtime,DateTimeFormatter.ofPattern("HH:mm:ss"));
 	}
@@ -41,6 +52,9 @@ public class t_set extends Set implements Cloneable{
 		this.g_time = g_time;
 	}
 
+	public void setP_time(String other_gtime) {
+		p_time = LocalTime.parse("00:"+other_gtime,DateTimeFormatter.ofPattern("HH:mm:ss"));
+	}
 	public LocalTime getP_time() {
 		return p_time;
 	}

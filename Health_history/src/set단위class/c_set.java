@@ -21,6 +21,17 @@ public class c_set extends Set implements Cloneable{
 		p_count = count;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if(!(o instanceof c_set))
+			return false;
+		c_set cs = (c_set) o;
+		return super.equals(cs) && count==cs.count &&  p_count == cs.p_count;
+	}
+
+	
 	public int getCount() {
 		return count;
 	}

@@ -26,11 +26,23 @@ public class wc_exRecord extends exRecord{
 		super.setCount_set(wc_set_ary.size());
 	}
 	
-	
+	/*
 	public void add_wcset(String weight, String count, String resttime) {
 		wc_set_ary.add(new wc_set(Integer.valueOf(weight),Integer.valueOf(count)));
 		super.setCount_set(wc_set_ary.size());
 		//resttime은 나중에
+	}*/
+	
+	public void del_wcset(wc_set tmp_wcs) {
+		int count =0;
+		for (wc_set wcs : wc_set_ary) {
+			if(wcs.equals(tmp_wcs)) {
+				wc_set_ary.remove(count);
+				break;
+			}
+			count++;
+		}
+		super.setCount_set(wc_set_ary.size());
 	}
 	
 	public ArrayList<wc_set> getWc_set_ary() {

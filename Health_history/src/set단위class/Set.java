@@ -11,6 +11,17 @@ public abstract class Set {
 	public Set() {
 		rest_time = LocalTime.of(0, 2,0);
 	}
+	
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if(!(o instanceof Set))
+			return false;
+		Set s = (Set) o;
+		return rest_time.equals(s.getRest_time());	
+	}
 
 	public LocalTime getRest_time() {
 		return rest_time;

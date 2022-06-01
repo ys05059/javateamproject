@@ -28,6 +28,23 @@ public class wc_set extends Set implements Cloneable{
 		p_count = count;
 	}
 	
+	
+	@Override
+	public wc_set clone() throws CloneNotSupportedException{
+		return (wc_set) super.clone();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if(!(o instanceof wc_set))
+			return false;
+		wc_set wcs = (wc_set) o;
+		return super.equals(wcs) && weight==wcs.weight && count==wcs.count && p_weight == wcs.p_weight &&  p_count == wcs.p_count;
+	}
+
+	
 	public int getWeight() {
 		return weight;
 	}
@@ -59,11 +76,5 @@ public class wc_set extends Set implements Cloneable{
 	public void setP_count(int p_count) {
 		this.p_count = p_count;
 	}
-
-	@Override
-	public wc_set clone() throws CloneNotSupportedException{
-		return (wc_set) super.clone();
-	}
-	
 	
 }
