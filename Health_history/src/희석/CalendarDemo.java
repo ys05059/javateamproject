@@ -209,8 +209,8 @@ public class CalendarDemo extends JFrame{
 			// 프로그램 처음 시작
 			if (curr_dR_ary.isEmpty()) {
 				drp = new dayRecordpage(curr_dR_ary,new dayRecord(select_date));
-				drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				drp.setModal(true);
+				//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				//drp.setModal(true);
 				drp.setVisible(true);
 			}
 			else {
@@ -227,15 +227,15 @@ public class CalendarDemo extends JFrame{
 				// 해당 날짜에 이미 기록된 내용이 있음
 				if(dr_exist == true) {
 					drp = new dayRecordpage(curr_dR_ary,curr_dR_ary.get(index));
-					drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					drp.setModal(true);
+					//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					//drp.setModal(true);
 					drp.setVisible(true);
 				}
 				// 해당 날짜에 처음 생성 
 				if(dr_exist == false) {
 					drp = new dayRecordpage(curr_dR_ary,new dayRecord(select_date));
-					drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					drp.setModal(true);
+					//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					//drp.setModal(true);
 					drp.setVisible(true);
 				}
 			}
