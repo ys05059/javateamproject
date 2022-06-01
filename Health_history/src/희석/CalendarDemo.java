@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -52,10 +53,10 @@ public class CalendarDemo extends JFrame{
 	
 	private SouthMenuPanel menu;
 	
-	public dayRecordpage frame;
+	public dayRecordpage drp;
 	public ArrayList<dayRecord> curr_dR_ary;
 	
-	private LocalDate d;
+	private LocalDate select_date;
 	
 	public CalendarDemo(ArrayList<dayRecord> dR_ary){
 		super("Calendar");
@@ -65,6 +66,8 @@ public class CalendarDemo extends JFrame{
 		moveHandler moveAct = new moveHandler();
 		beforeBtn.addActionListener(moveAct);
 		afterBtn.addActionListener(moveAct);
+		
+		curr_dR_ary = dR_ary;
 		
 		JPanel cal = new JPanel();
 		cal.setLayout(new BorderLayout(10, 20));
@@ -120,7 +123,6 @@ public class CalendarDemo extends JFrame{
 		
 		this.add(cal, BorderLayout.CENTER);
 		
-		curr_dR_ary = dR_ary;
 		
 		menu = new SouthMenuPanel(curr_dR_ary);
 		
@@ -193,18 +195,48 @@ public class CalendarDemo extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			String day = e.getActionCommand().toString();
 			
-			String YandM = cfunc.getYandM();
-			YandM += day +"일";
+			//String YandM = cfunc.getYandM();
+			//YandM += day +"일";
 			
-			d = LocalDate.of(Integer.parseInt(cfunc.getYear()),Integer.parseInt(cfunc.getMonth()), 
+			select_date = LocalDate.of(Integer.parseInt(cfunc.getYear()),Integer.parseInt(cfunc.getMonth()), 
 					Integer.parseInt(day));
-			
-			frame = new dayRecordpage(curr_dR_ary);
-			
-			frame.set_today_textField(YandM);
-			frame.set_dayOfToday(d);
-			frame.setVisible(true);
-			
+
+			// 운동기록이 있을 때 없을 때 구분
+			int index =0; 
+			boolean dr_exist= false;
+			// 프로그램 처음 시작
+			if (curr_dR_ary.isEmpty()) {
+				drp = new dayRecordpage(curr_dR_ary,new dayRecord(select_date));
+				//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				//drp.setModal(true);
+				drp.setVisible(true);
+			}
+			else {
+				for(dayRecord dr : curr_dR_ary) {
+					if(dr.getToday_date()!= null) {
+						if(dr.getToday_date().equals(select_date)) {
+							dr_exist=true;
+							break;
+						}else
+							index++;
+					}else
+						System.err.println("today_date가 없는 dayRecord가 있습니다");
+				}
+				// 해당 날짜에 이미 기록된 내용이 있음
+				if(dr_exist == true) {
+					drp = new dayRecordpage(curr_dR_ary,curr_dR_ary.get(index));
+					//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					//drp.setModal(true);
+					drp.setVisible(true);
+				}
+				// 해당 날짜에 처음 생성 
+				if(dr_exist == false) {
+					drp = new dayRecordpage(curr_dR_ary,new dayRecord(select_date));
+					//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					//drp.setModal(true);
+					drp.setVisible(true);
+				}
+			}
 		}
 	}
 }

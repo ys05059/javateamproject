@@ -22,6 +22,12 @@ public class dayRecord {
 		today_date = td;
 	}
 	
+	public dayRecord(LocalDate date) {
+		exr_ary = new ArrayList<exRecord>();
+		today_weight = 0.0;
+		today_date = date;
+	}
+	
 	// exRecord 한 개 추가
 	public void add_exr(exRecord other_exr) {
 		exr_ary.add(other_exr);
@@ -31,11 +37,18 @@ public class dayRecord {
 		int index =0;
 		for(exRecord exr : exr_ary) {
 			if(exr.getEx().getname().equals(other_exr.getEx().getname())) {
-				if(other_exr instanceof wc_exRecord)
-					exr_ary.set(index, (wc_exRecord)other_exr);
-				else
 					exr_ary.set(index,other_exr);
-					
+			}
+			index++;
+		}
+	}
+	
+	public void delete_exr (exRecord other_exr) {
+		int index =0;
+		for(exRecord exr : exr_ary) {
+			if(exr.getEx().getname().equals(other_exr.getEx().getname())) {
+				exr_ary.remove(index);
+				break;
 			}
 			index++;
 		}

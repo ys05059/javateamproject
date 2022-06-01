@@ -6,8 +6,8 @@ import java.util.*;
 import javax.swing.JButton;
 
 public class CalendarFunc {
-	public static final String[] DAY_OF_WEEK= {"","월","화","수","목","금","토","일"};
-	
+	public static final String[] DAY_OF_WEEK= {"","일", "월", "화", "수", "목", "금" ,"토"};
+
 	private int year, month;
 	private JButton[] buttons;
 	private Calendar sDay = Calendar.getInstance();

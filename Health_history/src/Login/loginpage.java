@@ -24,7 +24,6 @@ public class loginpage extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
-
 	private ActionListener signup_listener;
 	
 	public loginpage(ArrayList<User> user_ary) {
