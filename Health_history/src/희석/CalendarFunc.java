@@ -7,11 +7,11 @@ import javax.swing.JButton;
 
 public class CalendarFunc {
 	public static final String[] DAY_OF_WEEK= {"","일", "월", "화", "수", "목", "금" ,"토"};
-	
+
 	private int year, month;
 	private JButton[] buttons;
 	private Calendar sDay = Calendar.getInstance();
-
+	public static int fday;
 	public CalendarFunc() {
 		this.year = sDay.get(Calendar.YEAR);
 		this.month = sDay.get(Calendar.MONTH);
@@ -33,7 +33,7 @@ public class CalendarFunc {
 	public void calSet() {
 		sDay.set(year, month,1);
 		
-		int fday = sDay.get(Calendar.DAY_OF_WEEK);
+		fday = sDay.get(Calendar.DAY_OF_WEEK);
 		fday-=1;
 		
 		int i;

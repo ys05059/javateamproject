@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -29,6 +30,7 @@ import set단위class.c_set;
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.wc_exRecord;
+import 희석.CalendarDemo;
 
 public class dayRecordpage extends JFrame {
 
@@ -38,10 +40,11 @@ public class dayRecordpage extends JFrame {
 	private JPanel ex_list_panel; 
 	static dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
+
 	boolean exist; // 처음 입력하는건지, 있던거 덮어쓰는지
 	
 	public dayRecordpage(final ArrayList<dayRecord> dR_ary,dayRecord dr) {//이부분 final로 안하니 오류 떠서 final 추가했습니다(동혁)
-		
+
 		setTitle("dayRecordpage	");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
@@ -182,6 +185,7 @@ public class dayRecordpage extends JFrame {
 					}
 					dR_ary.set(index, dayrecord);
 				}
+				CalendarDemo.paintExcPane(dR_ary);
 				// 달력 페이지로 돌아감
 				dispose();
 			}
@@ -339,4 +343,8 @@ public class dayRecordpage extends JFrame {
 		}
 		
 	}
+	public void set_today_textField(String yandM) {
+		this.today_textField.setText(yandM);
+	}
+
 }

@@ -22,6 +22,9 @@ public class home {
 		//frame.setVisible(true);
 		
 		ArrayList<dayRecord> dR_ary = new ArrayList<>();
+		//dayRecordpage frame2 = new dayRecordpage(dR_ary);
+		//frame2.setVisible(true);
+		
 		
 		
 		
