@@ -46,6 +46,7 @@ public class add_csetpage extends JDialog {
 		contentPane.add(resttime_label);
 		
 		resttime_textfield = new JTextField();
+		resttime_textfield.setText("02:00");
 		resttime_textfield.setBounds(218, 157, 106, 21);
 		contentPane.add(resttime_textfield);
 		resttime_textfield.setColumns(10);

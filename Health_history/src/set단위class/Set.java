@@ -24,5 +24,5 @@ public abstract class Set {
 		rest_time = LocalTime.parse("00:"+other_resttime,DateTimeFormatter.ofPattern("HH:mm:ss"));
 	}
 	
-	public abstract void performed_update();
+	public abstract void performed_update();	// 목표를 수행으로 load하는 method
 }
