@@ -26,12 +26,12 @@ public class home {
 		//frame.setVisible(true);
 
 		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
+//			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+//				if ("Nimbus".equals(info.getName())) {
+//					UIManager.setLookAndFeel(info.getClassName());
+//					break;
+//				}
+//			}
 
 			//liquid lookandfeel
 //			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
@@ -45,7 +45,7 @@ public class home {
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
-//			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 //			com.jtattoo.plaf.bernstein.BernsteinLookAndFeel
 //			com.jtattoo.plaf.fast.FastLookAndFeel
 //			com.jtattoo.plaf.hifi.HiFiLookAndFeel
