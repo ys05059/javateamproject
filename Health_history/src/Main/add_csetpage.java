@@ -14,14 +14,11 @@ import javax.swing.border.EmptyBorder;
 
 import set단위class.exRecord;
 
-
-
-public class add_wcsetpage extends JDialog {
+public class add_csetpage extends JDialog {
 	private JPanel contentPane;
-	private JTextField weight_textField;
 	private JTextField count_textField;
 	private JTextField resttime_textfield; 
-	public add_wcsetpage(exRecord exr) {
+	public add_csetpage(exRecord exr) {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -35,15 +32,6 @@ public class add_wcsetpage extends JDialog {
 		exname_Label.setBounds(153, 32, 133, 21);
 		contentPane.add(exname_Label);
 		
-		JLabel weight_Label = new JLabel("무게");
-		weight_Label.setBounds(132, 79, 52, 15);
-		getContentPane().add(weight_Label);
-
-		weight_textField = new JTextField();
-		weight_textField.setBounds(218, 76, 106, 21);
-		contentPane.add(weight_textField);
-		weight_textField.setColumns(10);
-
 		JLabel count_label = new JLabel("횟수");
 		count_label.setBounds(132, 120, 52, 15);
 		contentPane.add(count_label);
@@ -68,8 +56,8 @@ public class add_wcsetpage extends JDialog {
 		addset_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
-					add_wcsetpage.this.dispose();
+				if(!count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
+					add_csetpage.this.dispose();
 				}
 				// 예외처리 해야함 // 시간은 mm:ss 형식 제한 필요
 				/*else {
@@ -83,10 +71,6 @@ public class add_wcsetpage extends JDialog {
 		contentPane.add(addset_Btn);
 		
 		
-	}
-	
-	public String get_weight() {
-		return weight_textField.getText();
 	}
 	public String get_count() {
 		return count_textField.getText();
