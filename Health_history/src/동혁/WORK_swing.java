@@ -221,7 +221,7 @@ public class WORK_swing {
 			res = data.searchcate(inputcate.getText());
 			switch(res) {
 			case "":
-				JOptionPane.showMessageDialog(null, "그런 운동이 없습니다.");
+				JOptionPane.showMessageDialog(null, "그런 카테고리가 없습니다.");
 				break;
 			case "filenotfound":
 				JOptionPane.showMessageDialog(null, "파일 읽기 오류. 관리자에게 문의하세요.");

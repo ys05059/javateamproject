@@ -1,54 +1,54 @@
 package set단위class;
 
-// 운동정보 class
-public class exercise {
+//운동정보 class
+public class exercise implements Cloneable {
 	
 	private String name;
-	private String type;    //카테고리
-	private String cal_type;
+	private String category;
+	private String calmethod;
 	
 	public exercise() {
-		name = "";
-		type = "";
-		cal_type = "";
+		this.name = "";
+		this.category = "";
+		this.calmethod = "";
 	}
-	
 	public exercise (String other_name) {
 		name = other_name;
-		type = "";
-		cal_type = "";
+		category = "";
+		calmethod = "";
 	}
 	
+	public exercise(String other_name, String other_category, String other_calmethod) {
+		this.name = other_name;
+		this.category = other_category;
+		this.calmethod = other_calmethod;
+	}
 	public exercise(exercise other_ex) {
 		name = other_ex.name;
-		type = other_ex.type;
-		cal_type = other_ex.cal_type;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getCal_type() {
-		return cal_type;
-	}
-
-	public void setCal_type(String cal_type) {
-		this.cal_type = cal_type;
+		category = other_ex.getcategory();
+		calmethod = other_ex.getcalmethod();
 	}
 	
+	public String getname() {
+		return this.name;
+	}
 	
-
+	public String getcategory() {
+		return this.category;
+	}
+	public String getcalmethod() {
+		return this.calmethod;
+	}
+	public void setname(String other_name) {
+		this.name = other_name;
+	}
+	public void setcategory(String other_category) {
+		this.category = other_category;
+	}
+	public void setcalmethod(String other_calmethod) {
+		this.calmethod = other_calmethod;
+	}
+	protected exercise clone() throws CloneNotSupportedException{
+		return (exercise) super.clone();
+	}
 }
