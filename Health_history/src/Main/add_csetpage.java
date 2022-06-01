@@ -19,6 +19,7 @@ public class add_csetpage extends JDialog {
 	private JTextField count_textField;
 	private JTextField resttime_textfield; 
 	public add_csetpage(exRecord exr) {
+		setTitle("add_csetpage");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

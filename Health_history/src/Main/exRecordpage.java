@@ -277,7 +277,7 @@ public class exRecordpage extends JDialog{
 		set_list_panel.repaint();
 	}
 	private void repaint_clist_panel(){
-		if(cpanel_list != null || !cpanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
+		if(cpanel_list != null && !cpanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
 			GridBagConstraints gbc = new GridBagConstraints();									// exRecord 한 개에 대한 gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
@@ -298,7 +298,7 @@ public class exRecordpage extends JDialog{
 		set_list_panel.repaint();
 	}
 	private void repaint_tlist_panel(){
-		if(tpanel_list != null || !tpanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
+		if(tpanel_list != null && !tpanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
 			GridBagConstraints gbc = new GridBagConstraints();									// exRecord 한 개에 대한 gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
@@ -690,6 +690,7 @@ public class exRecordpage extends JDialog{
 			gbc.fill = fill;
 		}
 	}
+
 	// 운동 이름으로 운동정보 set하기
 	private void setEx_byname() {
 		for(int i = 0; i < exlist.size(); i++) {

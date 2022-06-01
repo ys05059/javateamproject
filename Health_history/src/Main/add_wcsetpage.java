@@ -22,6 +22,7 @@ public class add_wcsetpage extends JDialog {
 	private JTextField count_textField;
 	private JTextField resttime_textfield; 
 	public add_wcsetpage(exRecord exr) {
+		setTitle("add_wcsetpage");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

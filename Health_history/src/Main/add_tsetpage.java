@@ -19,6 +19,7 @@ public class add_tsetpage extends JDialog {
 	private JTextField goaltime_textField;
 	private JTextField resttime_textfield; 
 	public add_tsetpage(exRecord exr) {
+		setTitle("add_tsetpage");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
