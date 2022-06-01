@@ -33,8 +33,8 @@ public class SouthMenuPanel extends JPanel{
 	
 	private class gotoStatisticsHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			//DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary);
-			WeekStatisticsDemo wsd = new WeekStatisticsDemo(curr_dR_ary);
+			DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary);
+			//PeriodStatisticsDemo wsd = new PeriodStatisticsDemo(curr_dR_ary);
 		}
 	}
 

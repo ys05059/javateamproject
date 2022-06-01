@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.wc_exRecord;
+import 희석.CalendarDemo;
 
 public class dayRecordpage extends JFrame {
 
@@ -34,11 +36,12 @@ public class dayRecordpage extends JFrame {
 	private JPanel ex_list_panel; 
 	static dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
+	private LocalDate day_of_today;
 	
 	public dayRecordpage(final ArrayList<dayRecord> dR_ary) {//이부분 final로 안하니 오류 떠서 final 추가했습니다(동혁)
 		
 		setTitle("exRecordpage	");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
@@ -136,9 +139,10 @@ public class dayRecordpage extends JFrame {
 					icd.setModal(true);
 					icd.setVisible(true);
 				}
+				dayrecord.setToday_date(day_of_today);
 				// dayRecord를 dR_ary에 추가
 				dR_ary.add(dayrecord);
-				
+				CalendarDemo.paintExcPane(dR_ary);
 				// 달력 페이지로 돌아감
 				
 			}
@@ -290,5 +294,12 @@ public class dayRecordpage extends JFrame {
 			setLocation(200, 200);
 		}
 		
+	}
+	public void set_today_textField(String yandM) {
+		this.today_textField.setText(yandM);
+	}
+
+	public void set_dayOfToday(LocalDate d) {
+		this.day_of_today = d;
 	}
 }

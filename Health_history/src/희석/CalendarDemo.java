@@ -26,9 +26,11 @@ import javax.swing.JMenuItem;
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.exercise;
+import set단위class.exlistClass;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import 동혁.search_for_ALL_WORKOUT;
 
 public class CalendarDemo extends JFrame{
 
@@ -39,21 +41,21 @@ public class CalendarDemo extends JFrame{
 	public static CalendarFunc cfunc = new CalendarFunc();
 
 	public JPanel Y_M = new JPanel();
-	public JLabel ym = new JLabel("0000년 0월");
+	public JLabel ym = new JLabel("0000년0월");
 	public JButton beforeBtn = new JButton("Before");
 	public JButton afterBtn = new JButton("After");	
 	
 	public static JButton[] daysBtn = new JButton[42];
+	public static JPanel days_num_panel;
 	public static JPanel[] one_day_panel = new JPanel[42];
 	public static JPanel[] showExInCal = new JPanel[42];
-
+	
 	private SouthMenuPanel menu;
 	
 	public dayRecordpage frame;
 	public ArrayList<dayRecord> curr_dR_ary;
 	
 	private LocalDate d;
-	
 	
 	public CalendarDemo(ArrayList<dayRecord> dR_ary){
 		super("Calendar");
@@ -89,7 +91,7 @@ public class CalendarDemo extends JFrame{
 		
 		Days.add(days_name_panel, BorderLayout.NORTH);
 		
-		JPanel days_num_panel = new JPanel();
+		days_num_panel = new JPanel();
 		days_num_panel.setLayout(new GridLayout(6, 7, 10, 10));
 		
 		for(int i=0;i<daysBtn.length;i++) {
@@ -98,12 +100,15 @@ public class CalendarDemo extends JFrame{
 			daysBtn[i] = new JButton();
 			gotoaddexRec gotoaddexAct = new gotoaddexRec();
 			daysBtn[i].addActionListener(gotoaddexAct);
-			
+			showExInCal[i] = new JPanel();
+			showExInCal[i].setLayout(new GridBagLayout());
+			showExInCal[i].setBackground(Color.white);
 			if(i%7==0) daysBtn[i].setForeground(Color.RED);
 			if(i%7==6) daysBtn[i].setForeground(Color.BLUE);
 			
 			one_day_panel[i].add(daysBtn[i], BorderLayout.NORTH);
-			
+			one_day_panel[i].add(showExInCal[i], BorderLayout.CENTER);
+
 			days_num_panel.add(one_day_panel[i]);
 		}
 		cfunc.setButtons(daysBtn);
@@ -120,58 +125,48 @@ public class CalendarDemo extends JFrame{
 		menu = new SouthMenuPanel(curr_dR_ary);
 		
 		this.add(menu, BorderLayout.SOUTH);
-		
+		paintExcPane(curr_dR_ary);
 	}
-	
 	public static void paintExcPane(ArrayList<dayRecord> dR_ary) { // 운동목록 받아오기 dayRecordpage에 메소드실행문 추가해야함
-		
 		LocalDate d;
 		GridBagConstraints gbc =new GridBagConstraints();		
+		for(int i=0;i<daysBtn.length;i++) {
+			daysBtn[i].setBackground(Color.white);
+			showExInCal[i].setBackground(Color.white);
+			showExInCal[i].removeAll();
+		}
 		
 		if(dR_ary.size()==0)
 			return;
-		
+
 		for(dayRecord x : dR_ary) {
 			d = x.getToday_date();
 			gbc.gridx = 0;
 			gbc.gridy = 0;
-			gbc.gridwidth = 2;
-			
+			gbc.gridwidth = 2;			
 			if(cfunc.getMonth().equals(String.valueOf(d.getMonthValue()))) { // 캘린더 month와 같은 month 의 dayRecord 받기
-				int i = d.getDayOfMonth()-1;
-				daysBtn[i].setBackground(Color.yellow);
-
-				showExInCal[i] = new JPanel();
-				showExInCal[i].setBackground(Color.WHITE);
-				GridBagLayout gb = new GridBagLayout();
-
-				gb.rowHeights = new int[]{20, 20, 20, 20, 20};
-				gb.columnWidths = new int[] {50,50,20,35,35};
-				
-				showExInCal[i].setLayout(gb);
-								
+				int i = d.getDayOfMonth()+CalendarFunc.fday-1;
+				daysBtn[i].setBackground(Color.yellow);				
 				ArrayList<exRecord> exs = x.getExr_ary();
-				
 				
 				for(exRecord e : exs) {
 					exercise exercise = e.getEx();
 					
-////					//String type = exercise.getType();
-////					//String exname = exercise.getName();
-////					
-////					JLabel typel = new JLabel(type);
-////					JLabel exnamel = new JLabel(exname);
-////					
-//					JPanel oneex = new JPanel();
-//					oneex.setLayout(new GridLayout(1, 2));
-//					
-//					oneex.add(typel);
-//					oneex.add(exnamel);
-//					
-//					showExInCal[i].add(oneex, gbc);
-//					
-//					gbc.gridy+=1;
-//					one_day_panel[i].add(showExInCal[i], BorderLayout.CENTER);	// 왜 안보일까 흑흑
+					String type = exercise.getcategory(); 
+					String exname = exercise.getname();
+					JLabel typel = new JLabel(type);
+					JLabel exnamel = new JLabel(exname);
+					
+					JPanel oneex = new JPanel();
+					oneex.setBackground(Color.WHITE);
+					oneex.setLayout(new GridLayout(1, 2));
+					
+					oneex.add(typel);
+					oneex.add(exnamel);
+					
+					showExInCal[i].add(oneex, gbc);
+					
+					gbc.gridy+=1;
 				}
 			}
 		}
@@ -182,12 +177,15 @@ public class CalendarDemo extends JFrame{
 			String btnStr = e.getActionCommand();
 			int move = 0;
 				
-			if(btnStr.equals("Before"))
+			if(btnStr.equals("Before")) {
 				move = -1;
-			else if(btnStr.equals("After"))
+			}
+			else if(btnStr.equals("After")) {
 				move = 1;
+			}
 			cfunc.Init(move);
 			ym.setText(cfunc.getYandM());
+			paintExcPane(curr_dR_ary);
 		}
 	}
 	
@@ -203,10 +201,9 @@ public class CalendarDemo extends JFrame{
 			
 			frame = new dayRecordpage(curr_dR_ary);
 			
-//			frame.set_today_textField(YandM);
-//			frame.set_dayOfToday(d);
-//			frame.setVisible(true);
-			
+			frame.set_today_textField(YandM);
+			frame.set_dayOfToday(d);
+			frame.setVisible(true);
 			
 		}
 	}
