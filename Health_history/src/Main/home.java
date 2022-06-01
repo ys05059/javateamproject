@@ -22,14 +22,14 @@ public class home {
 		//frame.setVisible(true);
 		
 		ArrayList<dayRecord> dR_ary = new ArrayList<>();
-		dayRecordpage frame2 = new dayRecordpage(dR_ary);
-		frame2.setVisible(true);
 		
 		
 		
+		//dayRecordpage frame2 = new dayRecordpage(dR_ary);
+		//frame2.setVisible(true);
 		
-		//CalendarDemo cd= new CalendarDemo();
-		//cd.setVisible(true);
+		CalendarDemo cd= new CalendarDemo(dR_ary);
+		cd.setVisible(true);
 		/*
 		 * 운동정보 파일에서 받아와서 exercise_ary에 저장
 		 */

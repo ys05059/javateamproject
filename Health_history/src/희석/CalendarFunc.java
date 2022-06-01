@@ -6,7 +6,7 @@ import java.util.*;
 import javax.swing.JButton;
 
 public class CalendarFunc {
-	public static final String[] DAY_OF_WEEK= {"","�썡","�솕","�닔","紐�","湲�","�넗","�씪"};
+	public static final String[] DAY_OF_WEEK= {"","일", "월", "화", "수", "목", "금" ,"토"};
 	
 	private int year, month;
 	private JButton[] buttons;
@@ -27,7 +27,7 @@ public class CalendarFunc {
 		return Integer.toString(month + 1);
 	}
 	public String getYandM() { 
-		return getYear() + "�뀈" + getMonth() + "�썡";
+		return getYear() + "년" + getMonth() + "월";
 	}
 	
 	public void calSet() {
