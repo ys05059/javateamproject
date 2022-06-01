@@ -8,7 +8,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import Login.User;
-import Login.loginpage;
+import Login.login;
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.exlistClass;
@@ -62,9 +62,9 @@ public class home {
 			//if not loaded look and feel,,, 
 			
 		}
-		ArrayList<dayRecord> dR_ary = new ArrayList<>();
-		dayRecordpage frame2 = new dayRecordpage(dR_ary);
-		frame2.setVisible(true);
+//		ArrayList<dayRecord> dR_ary = new ArrayList<>();
+//		dayRecordpage frame2 = new dayRecordpage(dR_ary);
+//		frame2.setVisible(true);
 		
 		
 		

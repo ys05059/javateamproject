@@ -23,7 +23,7 @@ public class signuppage extends JFrame {
 	
 	private ActionListener signup;
 	
-	public signuppage(ArrayList<User> user_ary) {
+	public signuppage() {//ArrayList<User> user_ary
 		User new_user = new User();
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,9 +66,9 @@ public class signuppage extends JFrame {
 		signup = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new_user.setID(textField.getText());
-				new_user.setPW(passwordField.getText());
-				user_ary.add(new_user);
+//				new_user.setID(textField.getText());
+//				new_user.setPW(passwordField.getText());
+//				user_ary.add(new_user);
 				signup_complete sf  = new signup_complete();
 				dispose();
 			}
