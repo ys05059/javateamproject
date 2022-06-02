@@ -51,12 +51,12 @@ public class exRecordpage extends JDialog{
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
 		/* 받아온 운동명으로 exRecord 정보 채우기 */
-		// other_exr는 name 과 setgoal 정보만 있음
+		// other_exr는 name 과 setgoal 정보만 있음 
 		exlistClass elc = new exlistClass("ALL_WORKOUT");
 		exlist = elc.get_exlist();
 		if (other_exr.getEx().getcalmethod().equals("")) {				//첫번째 입력
 				exrecord = new exRecord(other_exr.getEx().getname(),other_exr.getSet_goal());
-				setEx_byname();
+				setEx_byname();  //운동 이름으로 운동 정보 setting
 				if(exrecord.getEx().getcalmethod().equals("무게 * 횟수")) {
 					exrecord = new wc_exRecord(exrecord);
 				}else if (exrecord.getEx().getcalmethod().equals("횟수")) {
@@ -66,7 +66,7 @@ public class exRecordpage extends JDialog{
 				}
 		}else if(other_exr instanceof wc_exRecord) {					// 두번째 이후 중 무게 * 횟수인 운동
 			exrecord = (wc_exRecord)other_exr;
-			wc_exRecord tmp_wce = (wc_exRecord)other_exr;
+			wc_exRecord tmp_wce = (wc_exRecord)other_exr; //exRecode 클래스로 형변환(wc_exRecord 가 exRecord의 자식 클래스이기 때문)
 			// wcpanel_list 만들어주기
 			if(tmp_wce.getCount_set()==0) {
 				wcpanel_list = new ArrayList<>();
@@ -76,6 +76,7 @@ public class exRecordpage extends JDialog{
 					wcset_panel wcp = new wcset_panel(wcs);
 					wcpanel_list.add(wcp);
 				}
+				System.out.println(wcpanel_list.size());
 			}
 		}else if(other_exr instanceof c_exRecord) {
 			exrecord = (c_exRecord)other_exr;
@@ -107,7 +108,7 @@ public class exRecordpage extends JDialog{
 		else {
 			System.err.println("exrecord 새로 받아오기 실패");
 		}
-		
+
 		/* 받아온 운동명 출력 패널 */
 		JLabel today_Label = new JLabel(exrecord.getEx().getname());
 		today_Label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -168,7 +169,9 @@ public class exRecordpage extends JDialog{
 		ActionListener addset_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 추가할 세트 정보 받아오기
-				if(exrecord instanceof wc_exRecord) {
+				if(exrecord instanceof wc_exRecord) { // 이렇게 하니 운동을 하나 추가하면 세트 추가 버튼 눌러도
+					//창이 안뜬다
+					dayrecord.printallexr_ary();
 					add_wcsetpage asp = new add_wcsetpage(new exRecord(exrecord));
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
@@ -330,6 +333,7 @@ public class exRecordpage extends JDialog{
 			
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
+
 			
 			// 몇 번째 세트인지 나타내는 라벨 
 			set_lable = new JLabel(get_setnum()+"세트");
