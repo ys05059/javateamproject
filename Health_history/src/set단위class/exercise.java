@@ -2,10 +2,10 @@ package set단위class;
 
 //운동정보 class
 public class exercise implements Cloneable {
-	
 	private String name;
 	private String category;
 	private String calmethod;
+	
 	
 	public exercise() {
 		this.name = "";
@@ -25,14 +25,14 @@ public class exercise implements Cloneable {
 	}
 	public exercise(exercise other_ex) {
 		name = other_ex.name;
-		category = other_ex.getcategory();
-		calmethod = other_ex.getcalmethod();
+		category = other_ex.category;
+		calmethod = other_ex.calmethod;
 	}
+	
 	
 	public String getname() {
 		return this.name;
 	}
-	
 	public String getcategory() {
 		return this.category;
 	}
@@ -48,7 +48,10 @@ public class exercise implements Cloneable {
 	public void setcalmethod(String other_calmethod) {
 		this.calmethod = other_calmethod;
 	}
+	
 	protected exercise clone() throws CloneNotSupportedException{
 		return (exercise) super.clone();
 	}
+	
+	
 }

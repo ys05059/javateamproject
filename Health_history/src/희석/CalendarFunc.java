@@ -1,4 +1,4 @@
-package í¬ì„;
+package Èñ¼®;
 
 import java.time.*;
 import java.util.*;
@@ -6,12 +6,12 @@ import java.util.*;
 import javax.swing.JButton;
 
 public class CalendarFunc {
-	public static final String[] DAY_OF_WEEK= {"","ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ" ,"í† "};
-
+	public static final String[] DAY_OF_WEEK= {"","ÀÏ","¿ù","È­","¼ö","¸ñ","±İ"};
+	
 	private int year, month;
 	private JButton[] buttons;
 	private Calendar sDay = Calendar.getInstance();
-	public static int fday;
+
 	public CalendarFunc() {
 		this.year = sDay.get(Calendar.YEAR);
 		this.month = sDay.get(Calendar.MONTH);
@@ -26,27 +26,23 @@ public class CalendarFunc {
 	public String getMonth() {
 		return Integer.toString(month + 1);
 	}
-	public String getYandM() { 
-		return getYear() + "ë…„" + getMonth() + "ì›”";
+	public String getYandM() { // ÇØ´ç ³âµµ, ¸î¿ùÀÎÁö ¹İÈ¯( LabelÀ¸·Î »ç¿ë )
+		return getYear() + "³â " + getMonth() + "¿ù";
 	}
 	
 	public void calSet() {
-		sDay.set(year, month,1);
+		int firstDay=sDay.get(Calendar.DAY_OF_WEEK);
+		int endDay = sDay.getActualMaximum(Calendar.DATE);
 		
-		fday = sDay.get(Calendar.DAY_OF_WEEK);
-		fday-=1;
-		
-		int i;
-		
-		for(int j=0;j<fday;j++)
-			buttons[j].setText(" ");
-		
-		for(i=0;i<sDay.getActualMaximum(sDay.DATE); i++)
-			buttons[fday + i].setText(String.valueOf(i+1));
-		
-		for(int j=i+fday;j<buttons.length;j++) 
-			buttons[j].setText(" ");
-		
+		for(int i=1;i<firstDay;i++) {
+			buttons[i].setText(" ");
+		}
+		for(int i=0;i<endDay;i++) {
+			buttons[i].setText(Integer.toString(i+1));
+		}
+		for(int i=endDay;i<buttons.length;i++) {
+			buttons[i].setText(" ");
+		}
 	}
 	
 	public void Init(int move) {
@@ -54,12 +50,12 @@ public class CalendarFunc {
 			buttons[i].setText("");
 		}
 		this.month += move;
-		if(month < 0) {
+		if(month <= 0) {
 			year-=1;
-			month = 11;
-		}else if(month>=12) {
+			month = 12;
+		}else if(month>=13) {
 			year+=1;
-			month = 0;
+			month = 1;
 		}
 		calSet();
 	}

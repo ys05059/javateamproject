@@ -23,7 +23,6 @@ public class add_wcsetpage extends JDialog {
 	private JTextField count_textField;
 	private JTextField resttime_textfield; 
 	public add_wcsetpage(exRecord exr) {
-		setTitle("add_wcsetpage");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,7 +59,6 @@ public class add_wcsetpage extends JDialog {
 		contentPane.add(resttime_label);
 		
 		resttime_textfield = new JTextField();
-		resttime_textfield.setText("02:00");
 		resttime_textfield.setBounds(218, 157, 106, 21);
 		contentPane.add(resttime_textfield);
 		resttime_textfield.setColumns(10);
@@ -70,10 +68,10 @@ public class add_wcsetpage extends JDialog {
 		addset_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
+				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {											// �ϴ� ���� �Է����� �ʾ��� ���� ����ó���� ���� ����
 					add_wcsetpage.this.dispose();
 				}
-
+				// ����ó�� �ؾ���
 				/*else {
 					input_check_dialog icd = new input_check_dialog();
 					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
