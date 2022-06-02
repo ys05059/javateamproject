@@ -33,6 +33,7 @@ public class addexRecordpage extends JDialog {
 	
 
 	public addexRecordpage() {
+		setTitle("add_exRecordpage");
 		allwork = new exlistClass("ALL_WORKOUT"); 
 		cate = allwork.getcatetoStringlist();
 		

@@ -8,6 +8,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -25,9 +28,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import Main.exRecordpage.cset_panel;
+import set단위class.c_set;
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.wc_exRecord;
+import 희석.CalendarDemo;
 
 public class dayRecordpage extends JFrame {
 
@@ -37,17 +43,37 @@ public class dayRecordpage extends JFrame {
 	private JPanel ex_list_panel; 
 	static dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
+
+	boolean exist; // 처음 입력하는건지, 있던거 덮어쓰는지
 	
-	public dayRecordpage(final ArrayList<dayRecord> dR_ary) {//이부분 final로 안하니 오류 떠서 final 추가했습니다(동혁)
-		
-		setTitle("exRecordpage	");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600,400);
+
+	public dayRecordpage(final ArrayList<dayRecord> dR_ary,dayRecord dr) {//이부분 final로 안하니 오류 떠서 final 추가했습니다(동혁)
+
+		setTitle("dayRecordpage	");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(500,400);
+
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
 		gb.columnWidths = new int[] {100,100,50,50,50};
 		setLayout(gb);
-		dayrecord = new dayRecord();
+		
+		// 기존 정보 있는지에 따라 분기
+		dayrecord = dr;
+		if(dr.getExr_ary().size()>0) {
+			exist = true;
+			expanel_list = new ArrayList<>();	
+			for (exRecord exr :dr.getExr_ary()) {
+				expanel tmp_exp = new expanel(exr);
+				expanel_list.add(tmp_exp);
+			}
+		}else {
+			exist = false;
+			expanel_list = new ArrayList<>();
+			
+		}
+		// 만약 dr의 ex_ary가 차있다면 expanel_list에 기존내용 추가해줘야함
+		
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
 		/* 날짜 입력 패널 */
@@ -59,6 +85,7 @@ public class dayRecordpage extends JFrame {
 		add(today_Label,gbc_default);
 		
 		today_textField = new JTextField();
+		today_textField.setText(dayrecord.getToday_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		gbc_default.fill = GridBagConstraints.HORIZONTAL;
 		gbc_default.gridx = 1;
 		gbc_default.gridy = 0;
@@ -76,6 +103,9 @@ public class dayRecordpage extends JFrame {
 		
 		// 뭄무게 textField
 		weight_textField = new JTextField();
+		if(dayrecord.getToday_weight()>0) {
+			weight_textField.setText(Double.toString(dayrecord.getToday_weight()));
+		}
 		gbc_default = new GridBagConstraints();
 		gbc_default.fill = GridBagConstraints.HORIZONTAL;
 		gbc_default.gridx = 1;
@@ -98,6 +128,9 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridwidth = 5;
 		JScrollPane sp = new JScrollPane(ex_list_panel);
 		add(sp, gbc_default);
+		if(!expanel_list.isEmpty()) {
+			repaint_exlist_panel();
+		}
 		
 		// 운동추가 버튼 클릭
 		JButton addexr_button = new JButton("운동 추가");
@@ -136,17 +169,33 @@ public class dayRecordpage extends JFrame {
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 적어도 date와 몸무게는 있어야함 없으면 에러창
-				if(today_textField.getText().equals("") || weight_textField.getText().equals("")) {
+				if(today_textField.getText().equals("") ) {
 					savedR_check_dialog icd = new savedR_check_dialog();
 					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					icd.setModal(true);
 					icd.setVisible(true);
 				}
+				//몸무게 저장
+				if(!weight_textField.getText().equals(""))
+					dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));				
+				
 				// dayRecord를 dR_ary에 추가
-				dR_ary.add(dayrecord);
-				
+				// 없으면 추가 있으면 다시 세팅
+				if(exist == false)
+					dR_ary.add(dayrecord);
+				else {
+					int index=0;
+					for(dayRecord tmp : dR_ary) {
+						if(dr.getToday_date().equals(tmp.getToday_date()))
+							break;
+						else 
+							index++;
+					}
+					dR_ary.set(index, dayrecord);
+				}
+				CalendarDemo.paintExcPane(dR_ary);
 				// 달력 페이지로 돌아감
-				
+				dispose();
 			}
 		};
 		savedR_button.addActionListener(savedR_listener);
@@ -155,14 +204,14 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridx = 4;
 		gbc_default.gridwidth = 2;
 		add(savedR_button, gbc_default);
-
-		
 		
 	}
 	
+	
 	private void repaint_exlist_panel(){
-		if(!expanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
-			GridBagConstraints gbc = new GridBagConstraints();				// exRecord 한 개에 대한 gbc
+
+		if(expanel_list!= null && !expanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord 한 개에 대한 gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -262,16 +311,16 @@ public class dayRecordpage extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
-						dayrecord.remove_exr_ary(getindex());  //dayrecord의 해당 index 삭제
-						//복사 문제가 생길수도 있을듯(동혁)
+
+						dayrecord.delete_exr(other_exr);
 						expanel_list.remove(getindex());
 						dayrecord.printallexr_ary();
 
 					}else {
-						JOptionPane.showMessageDialog(null, "삭제할 목록이 존재하지 않습니다");
+
+						System.err.println("dayRecordpage: 운동삭제 오류");
 					}
 					//받아온 운동 정보에 대한 ex_list_panel 업데이트
-					
 					repaint_exlist_panel();
 				}
 			};
@@ -287,6 +336,12 @@ public class dayRecordpage extends JFrame {
 		
 	}
 	
+	
+	
+	public void set_date(LocalDate date) {
+		dayrecord.setToday_date(date);
+	}
+
 	class savedR_check_dialog extends JDialog{
 		public savedR_check_dialog(){
 			setSize(200,100);
@@ -305,4 +360,8 @@ public class dayRecordpage extends JFrame {
 		}
 		
 	}
+	public void set_today_textField(String yandM) {
+		this.today_textField.setText(yandM);
+	}
+
 }

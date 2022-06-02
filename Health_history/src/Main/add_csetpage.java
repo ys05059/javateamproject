@@ -12,18 +12,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import set¥‹¿ßclass.exRecord;
 
-import setÎã®ÏúÑclass.exRecord;
-
-
-
-public class add_wcsetpage extends JDialog {
+public class add_csetpage extends JDialog {
 	private JPanel contentPane;
-	private JTextField weight_textField;
 	private JTextField count_textField;
 	private JTextField resttime_textfield; 
-	public add_wcsetpage(exRecord exr) {
-		setTitle("add_wcsetpage");
+	public add_csetpage(exRecord exr) {
+		setTitle("add_csetpage");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -33,20 +29,11 @@ public class add_wcsetpage extends JDialog {
 		
 		JLabel exname_Label = new JLabel(exr.getEx().getname());
 		exname_Label.setHorizontalAlignment(SwingConstants.CENTER);
-		exname_Label.setFont(new Font("Íµ¥Î¶º", Font.PLAIN, 20));
+		exname_Label.setFont(new Font("±º∏≤", Font.PLAIN, 20));
 		exname_Label.setBounds(153, 32, 133, 21);
 		contentPane.add(exname_Label);
 		
-		JLabel weight_Label = new JLabel("Î¨¥Í≤å");
-		weight_Label.setBounds(132, 79, 52, 15);
-		getContentPane().add(weight_Label);
-
-		weight_textField = new JTextField();
-		weight_textField.setBounds(218, 76, 106, 21);
-		contentPane.add(weight_textField);
-		weight_textField.setColumns(10);
-
-		JLabel count_label = new JLabel("ÌöüÏàò");
+		JLabel count_label = new JLabel("»Ωºˆ");
 		count_label.setBounds(132, 120, 52, 15);
 		contentPane.add(count_label);
 		
@@ -55,8 +42,8 @@ public class add_wcsetpage extends JDialog {
 		contentPane.add(count_textField);
 		count_textField.setColumns(10);
 		
-		JLabel resttime_label = new JLabel("Ìú¥Ïãù ÏãúÍ∞Ñ");
-		resttime_label.setBounds(132, 160, 70, 15);
+		JLabel resttime_label = new JLabel("»ﬁΩƒ Ω√∞£");
+		resttime_label.setBounds(132, 160, 52, 15);
 		contentPane.add(resttime_label);
 		
 		resttime_textfield = new JTextField();
@@ -65,15 +52,15 @@ public class add_wcsetpage extends JDialog {
 		contentPane.add(resttime_textfield);
 		resttime_textfield.setColumns(10);
 		
-		JButton addset_Btn = new JButton("ÏÑ∏Ìä∏ Ï∂îÍ∞Ä");
+		JButton addset_Btn = new JButton("ºº∆Æ √ﬂ∞°");
 		addset_Btn.setBounds(171, 195, 95, 23);
 		addset_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
-					add_wcsetpage.this.dispose();
+				if(!count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
+					add_csetpage.this.dispose();
 				}
-
+				// øπø‹√≥∏Æ «ÿæﬂ«‘ // Ω√∞£¿∫ mm:ss «¸Ωƒ ¡¶«— « ø‰
 				/*else {
 					input_check_dialog icd = new input_check_dialog();
 					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -85,10 +72,6 @@ public class add_wcsetpage extends JDialog {
 		contentPane.add(addset_Btn);
 		
 		
-	}
-	
-	public String get_weight() {
-		return weight_textField.getText();
 	}
 	public String get_count() {
 		return count_textField.getText();
