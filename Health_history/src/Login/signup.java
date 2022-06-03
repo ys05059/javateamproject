@@ -80,7 +80,6 @@ public class signup extends JFrame implements ActionListener{
 					ObjectInputStream inputStream =
 							new ObjectInputStream (new FileInputStream("user\\" + filenames[i]));
 					AA = (User)inputStream.readObject(); //클래스 정보 가져오기
-					System.out.println(AA.getGender()); 
 					userinfoList_signup.add(AA); //add to ArrayList<user>
 					inputStream.close();
 				}catch(FileNotFoundException e) {
@@ -95,7 +94,7 @@ public class signup extends JFrame implements ActionListener{
 				}
 			}
 			
-			System.out.println(userinfoList_signup.size());
+			
 		}
 		
 		
@@ -366,8 +365,7 @@ public class signup extends JFrame implements ActionListener{
 						System.err.println("error occuered when writing to file");
 						System.exit(0);
 					}
-					System.out.println(userinfoList_signup);
-					System.out.println(userinfoList_signup.size());
+					
 					
 					log.setUserinfoList(userinfoList_signup);
 					ispushjungbokBtn = false;

@@ -107,7 +107,7 @@ public class login {
 				boolean loginok = false;
 				//회원 가입을 했든 안 했든 유저 정보는 가져와야 한다.
 				userinfoList = bringUserInfo();   //클래스 배열 얕은복사 수행
-				System.out.println(userinfoList.size() + "in login.java");
+				
 				ArrayList<String> idnow = new ArrayList<String>();
 				ArrayList<String> pwnow = new ArrayList<String>();
 				for(int i = 0; i < userinfoList.size(); i++) {
@@ -122,9 +122,6 @@ public class login {
 						ArrayList<dayRecord> dR_ary = new ArrayList<>();
 						CalendarDemo A = new CalendarDemo(dR_ary);
 						A.setVisible(true);
-//						dayRecordpage frame2 = new dayRecordpage(dR_ary);
-//						frame2.setVisible(true);
-						
 						frame.dispose(); //로그인 창 종료
 						loginok = true;
 						break;
@@ -185,7 +182,6 @@ public class login {
 					ObjectInputStream inputStream =
 							new ObjectInputStream (new FileInputStream("user\\" + filenames[i]));
 					AA = (User)inputStream.readObject(); //클래스 정보 가져오기
-					System.out.println(AA.getGender()); 
 					userinfoList.add(AA); //add to ArrayList<user>
 					inputStream.close();
 				}catch(FileNotFoundException e) {
