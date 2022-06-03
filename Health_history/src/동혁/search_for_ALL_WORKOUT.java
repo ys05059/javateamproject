@@ -13,7 +13,7 @@ import set¥‹¿ßclass.exercise;
 public class search_for_ALL_WORKOUT extends exlistClass{
 
 	
-search_for_ALL_WORKOUT(){
+	search_for_ALL_WORKOUT(){
 		super("ALL_WORKOUT");
 		
 	}
