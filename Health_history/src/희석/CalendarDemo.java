@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import Main.dayRecordpage;
 
@@ -105,7 +106,6 @@ public class CalendarDemo extends JFrame{
 			daysBtn[i].addActionListener(gotoaddexAct);
 			showExInCal[i] = new JPanel();
 			showExInCal[i].setLayout(new GridBagLayout());
-			showExInCal[i].setBackground(Color.white);
 			if(i%7==0) daysBtn[i].setForeground(Color.RED);
 			if(i%7==6) daysBtn[i].setForeground(Color.BLUE);
 			
@@ -136,6 +136,8 @@ public class CalendarDemo extends JFrame{
 			daysBtn[i].setBackground(Color.white);
 			showExInCal[i].setBackground(Color.white);
 			showExInCal[i].removeAll();
+			showExInCal[i].revalidate();										
+			showExInCal[i].repaint();									
 		}
 		
 		if(dR_ary.size()==0)
@@ -167,11 +169,14 @@ public class CalendarDemo extends JFrame{
 					oneex.add(exnamel);
 					
 					showExInCal[i].add(oneex, gbc);
+					showExInCal[i].revalidate();										
+					showExInCal[i].repaint();
 					
 					gbc.gridy+=1;
 				}
 			}
 		}
+
 	}
 	
 	private class moveHandler implements ActionListener {

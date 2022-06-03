@@ -21,8 +21,8 @@ public class SouthMenuPanel extends JPanel{
 	public SouthMenuPanel(ArrayList<dayRecord> dR_ary) {
 		setLayout(new FlowLayout());
 		gotoStatistics.addActionListener(new gotoStatisticsHandler());
-		gotoCalendar.addActionListener(new gotoCalendarHandler());
-		gotoCurri.addActionListener(new gotoCurriHandler());
+//		gotoCalendar.addActionListener(new gotoCalendarHandler());
+//		gotoCurri.addActionListener(new gotoCurriHandler());
 
 		add(gotoStatistics);
 		add(gotoCalendar);
@@ -33,20 +33,20 @@ public class SouthMenuPanel extends JPanel{
 	
 	private class gotoStatisticsHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary);
-			//PeriodStatisticsDemo wsd = new PeriodStatisticsDemo(curr_dR_ary);
+			SelectStatisticsWayDemo sswd = new SelectStatisticsWayDemo(curr_dR_ary);
+			sswd.setVisible(true);
 		}
 	}
-
-	private class gotoCalendarHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			
-		}
-	}
-
-	private class gotoCurriHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			
-		}
-	}
+//
+//	private class gotoCalendarHandler implements ActionListener {
+//		public void actionPerformed(ActionEvent e) {
+//			
+//		}
+//	}
+//
+//	private class gotoCurriHandler implements ActionListener {
+//		public void actionPerformed(ActionEvent e) {
+//			
+//		}
+//	}
 }
