@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -18,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Login.imgPanel;
 import Main.dayRecordpage;
 
 import javax.swing.JMenu;
@@ -39,11 +42,23 @@ public class CalendarDemo extends JFrame{
 	public static final int HEIGHT = 800;
 	public static final String[] DAYS_OF_NAME = {"","일", "월", "화", "수", "목", "금" ,"토"};
 	
+	public JPanel backPanel;
+	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
+	//배경 넣으려고 시도했는데 
+	
 	public static CalendarFunc cfunc = new CalendarFunc();
-
-	public JPanel Y_M = new JPanel();
+	
+	public JPanel Y_M = new JPanel(){
+		public void paintComponent(Graphics g) {
+			g.drawImage(calendarP.getImage(), 0, 0, null);
+			setOpaque(false);
+			super.paintComponent(g);
+		}
+	};
 	public JLabel ym = new JLabel("0000년0월");
+//	ImageIcon Beforeicon = new ImageIcon("icon\\before.png");
 	public JButton beforeBtn = new JButton("Before");
+//	ImageIcon Aftericon = new ImageIcon("icon\\after.png");
 	public JButton afterBtn = new JButton("After");	
 	
 	public static JButton[] daysBtn = new JButton[42];
@@ -63,13 +78,26 @@ public class CalendarDemo extends JFrame{
 		this.setSize(WIDTH, HEIGHT);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		moveHandler moveAct = new moveHandler();
+		this.setVisible(true);
+		
+		
+		
+
+		moveHandler moveAct = new moveHandler(); //달력 넘기는 버튼 actionhandler
 		beforeBtn.addActionListener(moveAct);
 		afterBtn.addActionListener(moveAct);
 		
 		curr_dR_ary = dR_ary;
 		
-		JPanel cal = new JPanel();
+		
+		
+		JPanel cal = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(calendarP.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		cal.setLayout(new BorderLayout(10, 20));
 		
 		ym.setText(cfunc.getYandM());
@@ -80,10 +108,22 @@ public class CalendarDemo extends JFrame{
 		
 		cal.add(Y_M, BorderLayout.NORTH);
 		
-		JPanel Days = new JPanel();
+		JPanel Days = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(calendarP.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		Days.setLayout(new BorderLayout(5, 10));
 				
-		JPanel days_name_panel = new JPanel();
+		JPanel days_name_panel = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(calendarP.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		days_name_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 155, 0));
 		JLabel[] days_name_label = new JLabel[8];
 		
@@ -94,7 +134,13 @@ public class CalendarDemo extends JFrame{
 		
 		Days.add(days_name_panel, BorderLayout.NORTH);
 		
-		days_num_panel = new JPanel();
+		days_num_panel = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(calendarP.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		days_num_panel.setLayout(new GridLayout(6, 7, 10, 10));
 		
 		for(int i=0;i<daysBtn.length;i++) {
@@ -175,6 +221,7 @@ public class CalendarDemo extends JFrame{
 	}
 	
 	private class moveHandler implements ActionListener {
+		
 		public void actionPerformed(ActionEvent e) {
 			String btnStr = e.getActionCommand();
 			int move = 0;
@@ -192,6 +239,7 @@ public class CalendarDemo extends JFrame{
 	}
 	
 	private class gotoaddexRec implements ActionListener{
+		
 		public void actionPerformed(ActionEvent e) {
 			String day = e.getActionCommand().toString();
 			
@@ -239,4 +287,5 @@ public class CalendarDemo extends JFrame{
 			}
 		}
 	}
+	
 }
