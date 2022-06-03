@@ -6,6 +6,10 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/idw-gpl.jar"/>
+	<classpathentry kind="lib" path="lib/JTattoo.jar"/>
+	<classpathentry kind="lib" path="lib/liquidlnf.jar"/>
+	<classpathentry kind="lib" path="lib/quaqua.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ys050/Dropbox/내 PC (LAPTOP-60DNJ58Q)/Downloads/xchart-3.8.1/xchart-3.8.1/xchart-3.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
