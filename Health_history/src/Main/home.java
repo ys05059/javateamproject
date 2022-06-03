@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import Login.User;
+import Login.login;
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.exlistClass;
@@ -26,10 +27,13 @@ public class home {
 		
 		//dayRecordpage frame2 = new dayRecordpage(dR_ary);
 		//frame2.setVisible(true);
+		System.out.println("?");
+		//login window = new login();
+		//window.frame.setVisible(true);
 		
 		//CalendarDemo cd= new CalendarDemo(dR_ary);
 		//cd.setVisible(true);
-		System.out.println("?");
+		
 		//Chartpage cp = new Chartpage(dR_ary);
 		//cp.setVisible(true);
 		/*

@@ -34,7 +34,7 @@ import set¥‹¿ßclass.exlistClass;
 import »ÒºÆ.CalendarDemo;
 public class login {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField loginField;
 	private JPasswordField passwordField;
 	private JButton regiBtn;
