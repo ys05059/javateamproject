@@ -21,11 +21,13 @@ public class t_exRecord extends exRecord{
 		t_set_ary = other_te.t_set_ary;
 	}
 	
-	
+	public void first_add_tset(t_set ts) {
+		t_set_ary.add(ts);
+	}
 	
 	public void add_tset(t_set ts) {
 		t_set_ary.add(ts);
-		super.setCount_set(t_set_ary.size());
+		super.setSet_goal(getSet_goal()+1);
 	}
 
 	public void del_tset(t_set tmp_ts) {
@@ -37,7 +39,17 @@ public class t_exRecord extends exRecord{
 			}
 			count++;
 		}
-		super.setCount_set(t_set_ary.size());
+		super.setSet_goal(getSet_goal()-1);
+	}
+	
+	@Override
+	public int cal_count_set() {
+		int count =0;
+		for(t_set ts : t_set_ary) {
+			if(ts.getPerform_check() == true)
+				count++;
+		}
+		return count;
 	}
 	
 	public ArrayList<t_set> gett_set_ary() {
