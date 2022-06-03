@@ -30,8 +30,13 @@ public class exRecord {
 		set_goal = other_exr.set_goal;
 		count_set = other_exr.count_set;
 	}
-	public int getCount_set() {
+	
+	public int cal_count_set() {
+		System.out.println("exRecord의 cal_count_set 불렸습니다. 수정하세요");
 		return count_set;
+	}
+	public int getCount_set() {
+	 return count_set;
 	}
 
 	public void setCount_set(int count_set) {

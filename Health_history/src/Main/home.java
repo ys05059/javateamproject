@@ -60,11 +60,11 @@ public class home {
 		//frame2.setVisible(true);
 		
 		
-		//dayRecordpage frame2 = new dayRecordpage(dR_ary);
-		//frame2.setVisible(true);
+		dayRecordpage frame2 = new dayRecordpage(dR_ary,new dayRecord());
+		frame2.setVisible(true);
 		
-		CalendarDemo cd= new CalendarDemo(dR_ary);
-		cd.setVisible(true);
+		//CalendarDemo cd= new CalendarDemo(dR_ary);
+		//cd.setVisible(true);
 		
 		//Chartpage cp = new Chartpage(dR_ary);
 		//cp.setVisible(true);

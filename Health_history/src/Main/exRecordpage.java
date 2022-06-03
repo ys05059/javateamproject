@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -50,64 +51,10 @@ public class exRecordpage extends JDialog{
 		setLayout(gb);
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
-		/* 받아온 운동명으로 exRecord 정보 채우기 */
-		// other_exr는 name 과 setgoal 정보만 있음 
+		/* 받아온 운동명으로 exRecord 정보 채우기 */		// other_exr는 name 과 setgoal 정보만 있음 
 		exlistClass elc = new exlistClass("ALL_WORKOUT");
 		exlist = elc.get_exlist();
-		if (other_exr.getEx().getcalmethod().equals("")) {				//첫번째 입력
-				exrecord = new exRecord(other_exr.getEx().getname(),other_exr.getSet_goal());
-				setEx_byname();  //운동 이름으로 운동 정보 setting
-				if(exrecord.getEx().getcalmethod().equals("무게 * 횟수")) {
-					exrecord = new wc_exRecord(exrecord);
-				}else if (exrecord.getEx().getcalmethod().equals("횟수")) {
-					exrecord = new c_exRecord(exrecord);
-				}else if (exrecord.getEx().getcalmethod().equals("시간")) {
-					exrecord = new t_exRecord(exrecord);
-				}
-		}else if(other_exr instanceof wc_exRecord) {					// 두번째 이후 중 무게 * 횟수인 운동
-			exrecord = (wc_exRecord)other_exr;
-			wc_exRecord tmp_wce = (wc_exRecord)other_exr; //exRecode 클래스로 형변환(wc_exRecord 가 exRecord의 자식 클래스이기 때문)
-			// wcpanel_list 만들어주기
-			if(tmp_wce.getCount_set()==0) {
-				wcpanel_list = new ArrayList<>();
-			}else {
-				wcpanel_list = new ArrayList<>();
-				for(wc_set wcs : tmp_wce.getWc_set_ary()) {
-					wcset_panel wcp = new wcset_panel(wcs);
-					wcpanel_list.add(wcp);
-				}
-				System.out.println(wcpanel_list.size());
-			}
-		}else if(other_exr instanceof c_exRecord) {
-			exrecord = (c_exRecord)other_exr;
-			c_exRecord tmp_ce = (c_exRecord)other_exr;
-			// wcpanel_list 만들어주기
-			if(tmp_ce.getCount_set()==0) {
-				cpanel_list = new ArrayList<>();
-			}else {
-				cpanel_list = new ArrayList<>();
-				for(c_set cs : tmp_ce.getc_set_ary()) {
-					cset_panel cp = new cset_panel(cs);
-					cpanel_list.add(cp);
-				}
-			}
-		}else if(other_exr instanceof t_exRecord) {
-			exrecord = (t_exRecord)other_exr;
-			t_exRecord tmp_te = (t_exRecord)other_exr;
-			// wcpanel_list 만들어주기
-			if(tmp_te.getCount_set()==0) {
-				tpanel_list = new ArrayList<>();
-			}else {
-				tpanel_list = new ArrayList<>();
-				for(t_set ts : tmp_te.gett_set_ary()) {
-					tset_panel tp = new tset_panel(ts);
-					tpanel_list.add(tp);
-				}
-			}
-		}
-		else {
-			System.err.println("exrecord 새로 받아오기 실패");
-		}
+		setting_exRecord(other_exr);
 
 		/* 받아온 운동명 출력 패널 */
 		JLabel today_Label = new JLabel(exrecord.getEx().getname());
@@ -156,11 +103,11 @@ public class exRecordpage extends JDialog{
 		add(sp, gbc_default);
 		
 		// 처음 세트 리스트 세팅하기
-		if(other_exr instanceof wc_exRecord) {
+		if(exrecord instanceof wc_exRecord) {
 			repaint_wclist_panel();
-		}else if(other_exr instanceof c_exRecord) {
+		}else if(exrecord instanceof c_exRecord) {
 			repaint_clist_panel();
-		}else if(other_exr instanceof t_exRecord) {
+		}else if(exrecord instanceof t_exRecord) {
 			repaint_tlist_panel();
 		}
 		
@@ -176,17 +123,13 @@ public class exRecordpage extends JDialog{
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
 					asp.setVisible(true);
-					// exrecord에 wc_exRecord 저장하기
-					wc_exRecord tmp_wce = (wc_exRecord)exrecord;								// 기존 정보(이름,setgoal) 넣어주기
+					// 기존 정보(이름,setgoal) 넣어주기
 					wc_set wcs = new wc_set(Integer.valueOf(asp.get_weight()),Integer.valueOf(asp.get_count()));
 					wcs.setRest_time(asp.get_resttime());
-					tmp_wce.add_wcset(wcs);
-					exrecord = tmp_wce;
+					((wc_exRecord)exrecord).add_wcset(wcs);
 					dayRecordpage.dayrecord.set_exr(exrecord);
 					// wc_set 패널 추가
 					wcset_panel wcp = new wcset_panel(wcs);
-					if(wcpanel_list == null)
-						wcpanel_list = new ArrayList<>();
 					wcpanel_list.add(wcp);
 					repaint_wclist_panel();
 				}
@@ -196,17 +139,13 @@ public class exRecordpage extends JDialog{
 					asp.setModal(true);
 					asp.setVisible(true);
 					// exrecord에 wc_exRecord 저장하기
-					c_exRecord tmp_ce = (c_exRecord)exrecord;								// 기존 정보(이름,setgoal) 넣어주기
-					c_set wcs = new c_set(Integer.valueOf(asp.get_count()));
-					wcs.setRest_time(asp.get_resttime());
-					tmp_ce.add_wcset(wcs);
-					exrecord = tmp_ce;
+					c_set cs = new c_set(Integer.valueOf(asp.get_count()));
+					cs.setRest_time(asp.get_resttime());
+					((c_exRecord)exrecord).add_wcset(cs);
 					dayRecordpage.dayrecord.set_exr(exrecord);
 					// wc_set 패널 추가
-					cset_panel wcp = new cset_panel(wcs);
-					if(cpanel_list == null)
-						cpanel_list = new ArrayList<>();
-					cpanel_list.add(wcp);
+					cset_panel cp = new cset_panel(cs);
+					cpanel_list.add(cp);
 					repaint_clist_panel();
 				}
 				else if (exrecord instanceof t_exRecord) {
@@ -215,22 +154,15 @@ public class exRecordpage extends JDialog{
 					asp.setModal(true);
 					asp.setVisible(true);
 					// exrecord에 t_exRecord 저장하기
-					t_exRecord tmp_ce = (t_exRecord)exrecord;								// 기존 정보(이름,setgoal) 넣어주기
 					t_set wcs = new t_set(asp.get_goaltime());
 					wcs.setRest_time(asp.get_resttime());
-					tmp_ce.add_tset(wcs);
-					exrecord = tmp_ce;
+					((t_exRecord)exrecord).add_tset(wcs);	
 					dayRecordpage.dayrecord.set_exr(exrecord);
 					// wc_set 패널 추가
 					 tset_panel tp = new tset_panel(wcs);
-					if(tpanel_list == null)
-						tpanel_list = new ArrayList<>();
 					tpanel_list.add(tp);
 					repaint_tlist_panel();
 				}
-				
-			
-				
 			}
 		};
 		addset_button.addActionListener(addset_listener);
@@ -244,6 +176,7 @@ public class exRecordpage extends JDialog{
 		JButton savedR_button = new JButton("저장");
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				exrecord.setCount_set(exrecord.cal_count_set());
 				dayRecordpage.dayrecord.set_exr(exrecord);
 				dispose();
 				
@@ -322,6 +255,74 @@ public class exRecordpage extends JDialog{
 		set_list_panel.repaint();
 	}
 	
+	private void setting_exRecord(exRecord other_exr) {
+		if (other_exr.getEx().getcalmethod().equals("")) {											//첫번째 접근
+			exrecord = new exRecord(other_exr.getEx().getname(),other_exr.getSet_goal());
+			setEx_byname();  																		//운동 이름으로 운동 정보 setting
+			// 입력받은 목표 세트수로 초기설정 및 패널 생성
+			if(exrecord.getEx().getcalmethod().equals("무게 * 횟수")) {
+				exrecord = new wc_exRecord(exrecord);
+				wcpanel_list = new ArrayList<>();
+				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
+					wc_set tmp_ws = new wc_set(10,3,LocalTime.of(0, 2,0));							// default 값 : 10 ,3 , 02:00
+					((wc_exRecord)exrecord).first_add_wcset(tmp_ws);
+					wcpanel_list.add(new wcset_panel(tmp_ws));
+				}
+			}else if (exrecord.getEx().getcalmethod().equals("횟수")) {
+				exrecord = new c_exRecord(exrecord);
+				cpanel_list = new ArrayList<>();
+				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
+					c_set tmp_cs = new c_set(3,LocalTime.of(0, 2,0));								// default 값 : 3 , 02:00
+					((c_exRecord)exrecord).first_add_wcset(tmp_cs);
+					cpanel_list.add(new cset_panel(tmp_cs));
+				}
+			}else if (exrecord.getEx().getcalmethod().equals("시간")) {
+				exrecord = new t_exRecord(exrecord);
+				tpanel_list = new ArrayList<>();
+				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
+					t_set tmp_cs = new t_set(LocalTime.of(0, 3,0),LocalTime.of(0, 2,0));			// default 값 : 03:00 , 02:00
+					((t_exRecord)exrecord).first_add_tset(tmp_cs);
+					tpanel_list.add(new tset_panel(tmp_cs));
+				}
+			}
+		}else if(other_exr instanceof wc_exRecord) {												// 재접근 - 무게 * 횟수
+			exrecord = other_exr;
+			// wcpanel_list 만들어주기
+			if(exrecord.getSet_goal()==0) {
+				wcpanel_list = new ArrayList<>();
+			}else {
+				wcpanel_list = new ArrayList<>();
+				for(wc_set wcs : ((wc_exRecord)exrecord).getWc_set_ary()) {
+					wcpanel_list.add(new wcset_panel(wcs));
+				}
+			}
+		}else if(other_exr instanceof c_exRecord) {													// 재접근 - 횟수
+			exrecord = other_exr;
+			// wcpanel_list 만들어주기
+			if(exrecord.getSet_goal()==0) {
+				cpanel_list = new ArrayList<>();
+			}else {
+				cpanel_list = new ArrayList<>();
+				for(c_set cs : ((c_exRecord)exrecord).getc_set_ary()) {
+					cpanel_list.add(new cset_panel(cs));
+				}
+			}
+		}else if(other_exr instanceof t_exRecord) {													// 재접근 - 시간
+			exrecord = other_exr;
+			// wcpanel_list 만들어주기
+			if(exrecord.getSet_goal()==0) {
+				tpanel_list = new ArrayList<>();
+			}else {
+				tpanel_list = new ArrayList<>();
+				for(t_set ts :((t_exRecord)exrecord).gett_set_ary()) {
+					tpanel_list.add(new tset_panel(ts));
+				}
+			}
+		}
+		else {
+			System.err.println("exrecord 새로 받아오기 실패");
+		}
+	}
 	// 무게 * 횟수 세트 패널
 	class wcset_panel extends JPanel{
 		JLabel set_lable;
@@ -334,7 +335,6 @@ public class exRecordpage extends JDialog{
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
 
-			
 			// 몇 번째 세트인지 나타내는 라벨 
 			set_lable = new JLabel(get_setnum()+"세트");
 			gbc = new GridBagConstraints();
@@ -345,7 +345,6 @@ public class exRecordpage extends JDialog{
 			gbc = new GridBagConstraints();
 			set_gbc(1, 0,GridBagConstraints.BOTH);
 			this.add(goal_label,gbc);
-			
 			
 			// 목표 무게 필드
 			JTextField gweight_textfield = new JTextField();
@@ -388,14 +387,28 @@ public class exRecordpage extends JDialog{
 			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
 			this.add(pcount_textfield,gbc);
 			
+			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
+			JButton load_btn = new JButton("Load");
+			ActionListener loadBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					wcs.performed_update();
+					pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
+					pcount_textfield.setText(Integer.toString(wcs.getP_count()));
+				}
+			};
+			load_btn.addActionListener(loadBtn_listener);
+			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
+			gbc.insets = new Insets(0, 0, 0, 5);
+			this.add(load_btn,gbc);
+			
 			// 목표 및 수행 저장
 			JButton update_btn = new JButton("저장");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
 					wcs.setCount(Integer.valueOf(gcount_textfield.getText()));
-					wcs.setP_count(Integer.valueOf(pweight_textfield.getText()));
-					wcs.setP_weight(Integer.valueOf(pcount_textfield.getText()));
+					wcs.setP_count(Integer.valueOf(pcount_textfield.getText()));
+					wcs.setP_weight(Integer.valueOf(pweight_textfield.getText()));
 					wcs.setRest_time(resttime_textfield.getText());
 				}
 			};
@@ -427,19 +440,6 @@ public class exRecordpage extends JDialog{
 			this.add(delete_btn,gbc);
 			
 			
-			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
-			JButton load_btn = new JButton("Load");
-			ActionListener loadBtn_listener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					wcs.performed_update();
-					pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
-					pcount_textfield.setText(Integer.toString(wcs.getP_count()));
-				}
-			};
-			load_btn.addActionListener(loadBtn_listener);
-			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
-			gbc.insets = new Insets(0, 0, 0, 5);
-			this.add(load_btn,gbc);
 		}
 		public void set_setlabel(int setnum) {
 			set_lable.setText(setnum + "세트");
@@ -510,6 +510,19 @@ public class exRecordpage extends JDialog{
 			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
 			this.add(pcount_textfield,gbc);
 			
+			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
+			JButton load_btn = new JButton("Load");
+			ActionListener loadBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cs.performed_update();
+					pcount_textfield.setText(Integer.toString(cs.getP_count()));
+				}
+			};
+			load_btn.addActionListener(loadBtn_listener);
+			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
+			gbc.insets = new Insets(0, 0, 0, 5);
+			this.add(load_btn,gbc);
+						
 			// 목표 및 수행 저장
 			JButton update_btn = new JButton("저장");
 			ActionListener updateBtn_listener = new ActionListener() {
@@ -543,20 +556,6 @@ public class exRecordpage extends JDialog{
 			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
 			gbc.insets= new Insets(0, 0, 0, 5);
 			this.add(delete_btn,gbc);
-			
-			
-			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
-			JButton load_btn = new JButton("Load");
-			ActionListener loadBtn_listener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cs.performed_update();
-					pcount_textfield.setText(Integer.toString(cs.getP_count()));
-				}
-			};
-			load_btn.addActionListener(loadBtn_listener);
-			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
-			gbc.insets = new Insets(0, 0, 0, 5);
-			this.add(load_btn,gbc);
 		}
 		public void set_setlabel(int setnum) {
 			set_lable.setText(setnum + "세트");
@@ -599,7 +598,6 @@ public class exRecordpage extends JDialog{
 			set_gbc(1, 0,GridBagConstraints.BOTH);
 			this.add(goal_label,gbc);
 			
-			
 			// 목표 시간
 			JTextField goaltime_textfield = new JTextField();
 			goaltime_textfield.setText(ts.getG_time().format(DateTimeFormatter.ofPattern("mm:ss")));
@@ -626,6 +624,19 @@ public class exRecordpage extends JDialog{
 			gbc = new GridBagConstraints();
 			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
 			this.add(ptime_textfield,gbc);
+			
+			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
+			JButton load_btn = new JButton("Load");
+			ActionListener loadBtn_listener = new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ts.performed_update();
+					ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
+				}
+			};
+			load_btn.addActionListener(loadBtn_listener);
+			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
+			gbc.insets = new Insets(0, 0, 0, 5);
+			this.add(load_btn,gbc);
 			
 			// 목표 및 수행 저장
 			JButton update_btn = new JButton("저장");
@@ -660,20 +671,6 @@ public class exRecordpage extends JDialog{
 			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
 			gbc.insets= new Insets(0, 0, 0, 5);
 			this.add(delete_btn,gbc);
-			
-			
-			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
-			JButton load_btn = new JButton("Load");
-			ActionListener loadBtn_listener = new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					ts.performed_update();
-					ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-				}
-			};
-			load_btn.addActionListener(loadBtn_listener);
-			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
-			gbc.insets = new Insets(0, 0, 0, 5);
-			this.add(load_btn,gbc);
 		}
 		public void set_setlabel(int setnum) {
 			set_lable.setText(setnum + "세트");
