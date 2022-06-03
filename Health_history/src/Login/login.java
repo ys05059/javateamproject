@@ -78,7 +78,7 @@ public class login {
 	private void initialize() {
 		//회원 정보 불러와 배열리스트에 저장하기.
 		
-
+		System.out.println("check");
 		frame = new JFrame("Health History");
 		frame.setBounds(100, 100, 700, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
