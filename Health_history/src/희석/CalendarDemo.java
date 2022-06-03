@@ -4,13 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -19,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import Login.imgPanel;
 import Main.dayRecordpage;
 
 import javax.swing.JMenu;
@@ -33,24 +37,45 @@ import set단위class.exlistClass;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import 동혁.search_for_ALL_WORKOUT;
+import javax.swing.SwingConstants;
 
 public class CalendarDemo extends JFrame{
 
 	public static final int WIDTH = 1200;
 	public static final int HEIGHT = 800;
 	public static final String[] DAYS_OF_NAME = {"","일", "월", "화", "수", "목", "금" ,"토"};
+	public static final String[] dongibuyeo = {"무슨 일이 있어도 2개 더 해. -아놀드 슈워제네거- " , "운동할 때 오는 건 힘든 게 아니고 통증일 뿐이다. -가수 김종국-", 
+			"자신의 몸에 만족하는 순간 더 이상의 발전은 없다 -보디빌더 강경원-", "간단합니다. 흔들리면 그것은 지방입니다. -아놀드 슈워제네거-", 
+			"몸을 만들고 싶으면 말로 떠들지 말고, 몸으로 떠들어라 - 배우 제이슨 스타뎀-" } ;
+	
+	
+	public JPanel backPanel;
+	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
+	//배경 넣기 위해
+	final ImageIcon calendar_day = new ImageIcon("image\\calendar_day.jpg");
 	
 	public static CalendarFunc cfunc = new CalendarFunc();
-
-	public JPanel Y_M = new JPanel();
+	
+	public JPanel Y_M = new JPanel(){
+		public void paintComponent(Graphics g) {
+			g.drawImage(calendarP.getImage(), 0, 0, null);
+			setOpaque(false);
+			super.paintComponent(g);
+		}
+	};
 	public JLabel ym = new JLabel("0000년0월");
+//	ImageIcon Beforeicon = new ImageIcon("icon\\before.png");
 	public JButton beforeBtn = new JButton("Before");
+//	ImageIcon Aftericon = new ImageIcon("icon\\after.png");
 	public JButton afterBtn = new JButton("After");	
 	
 	public static JButton[] daysBtn = new JButton[42];
 	public static JPanel days_num_panel;
 	public static JPanel[] one_day_panel = new JPanel[42];
 	public static JPanel[] showExInCal = new JPanel[42];
+	private JLabel DONGIbueyeo;
+	private JLabel howtomove;
+	
 	
 	private SouthMenuPanel menu;
 	
@@ -59,32 +84,69 @@ public class CalendarDemo extends JFrame{
 	
 	private LocalDate select_date;
 	
+	
+	
 	public CalendarDemo(ArrayList<dayRecord> dR_ary){
 		super("Calendar");
 		this.setSize(WIDTH, HEIGHT);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setLayout(new BorderLayout());
-		moveHandler moveAct = new moveHandler();
+		getContentPane().setLayout(new BorderLayout());
+		this.setVisible(true);
+	
+		moveHandler moveAct = new moveHandler(); //달력 넘기는 버튼 actionhandler
 		beforeBtn.addActionListener(moveAct);
 		afterBtn.addActionListener(moveAct);
 		
 		curr_dR_ary = dR_ary;
 		
-		JPanel cal = new JPanel();
+		howtomove = new JLabel("날짜 버튼을 눌러 운동을 입력하세요!");
+		
+		
+		int k = (int)(Math.random() * 6);
+		DONGIbueyeo = new JLabel(dongibuyeo[k] );
+		
+		
+		JPanel cal = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(calendarP.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		cal.setLayout(new BorderLayout(10, 20));
 		
+		
+		
 		ym.setText(cfunc.getYandM());
-		Y_M.setLayout(new FlowLayout());
+		Y_M.setLayout(new FlowLayout(FlowLayout.CENTER));
+		
+		Y_M.add(howtomove);
 		Y_M.add(beforeBtn);
 		Y_M.add(ym);
 		Y_M.add(afterBtn);
 		
 		cal.add(Y_M, BorderLayout.NORTH);
+		DONGIbueyeo.setHorizontalAlignment(SwingConstants.RIGHT);
+		DONGIbueyeo.setVerticalAlignment(SwingConstants.BOTTOM);
 		
-		JPanel Days = new JPanel();
+		Y_M.add(DONGIbueyeo);
+		
+		JPanel Days = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(calendarP.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		Days.setLayout(new BorderLayout(5, 10));
 				
-		JPanel days_name_panel = new JPanel();
+		JPanel days_name_panel = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(calendarP.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		days_name_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 155, 0));
 		JLabel[] days_name_label = new JLabel[8];
 		
@@ -95,11 +157,24 @@ public class CalendarDemo extends JFrame{
 		
 		Days.add(days_name_panel, BorderLayout.NORTH);
 		
-		days_num_panel = new JPanel();
+		days_num_panel = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(calendarP.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		days_num_panel.setLayout(new GridLayout(6, 7, 10, 10));
 		
 		for(int i=0;i<daysBtn.length;i++) {
 			one_day_panel[i] = new JPanel();
+//			{
+//				public void paintComponent(Graphics g) {
+//					g.drawImage(calendar_day.getImage(), 0, 0, null);
+//					setOpaque(false);
+//					super.paintComponent(g);
+//				}
+//			};
 			one_day_panel[i].setLayout(new BorderLayout());
 			daysBtn[i] = new JButton();
 			gotoaddexRec gotoaddexAct = new gotoaddexRec();
@@ -121,20 +196,20 @@ public class CalendarDemo extends JFrame{
 		
 		cal.add(Days, BorderLayout.CENTER);
 		
-		this.add(cal, BorderLayout.CENTER);
+		getContentPane().add(cal, BorderLayout.CENTER);
 		
 		
 		menu = new SouthMenuPanel(curr_dR_ary);
 		
-		this.add(menu, BorderLayout.SOUTH);
+		getContentPane().add(menu, BorderLayout.SOUTH);
 		paintExcPane(curr_dR_ary);
 	}
 	public static void paintExcPane(ArrayList<dayRecord> dR_ary) { // 운동목록 받아오기 dayRecordpage에 메소드실행문 추가해야함
 		LocalDate d;
 		GridBagConstraints gbc =new GridBagConstraints();		
 		for(int i=0;i<daysBtn.length;i++) {
-			daysBtn[i].setBackground(Color.white);
-			showExInCal[i].setBackground(Color.white);
+			daysBtn[i].setBackground(new Color(164, 230, 244));
+			showExInCal[i].setBackground(new Color(127, 197, 249));
 			showExInCal[i].removeAll();
 			showExInCal[i].revalidate();										
 			showExInCal[i].repaint();									
@@ -180,6 +255,7 @@ public class CalendarDemo extends JFrame{
 	}
 	
 	private class moveHandler implements ActionListener {
+		
 		public void actionPerformed(ActionEvent e) {
 			String btnStr = e.getActionCommand();
 			int move = 0;
@@ -197,6 +273,7 @@ public class CalendarDemo extends JFrame{
 	}
 	
 	private class gotoaddexRec implements ActionListener{
+		
 		public void actionPerformed(ActionEvent e) {
 			String day = e.getActionCommand().toString();
 			
@@ -244,4 +321,5 @@ public class CalendarDemo extends JFrame{
 			}
 		}
 	}
+	
 }

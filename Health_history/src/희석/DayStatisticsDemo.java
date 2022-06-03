@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,7 +39,7 @@ public class DayStatisticsDemo extends JFrame {
 	private LocalDate today;
 	
 	private String statistics;
-
+	private final ImageIcon batangG = new ImageIcon("image\\batang2.jpg"); 
 	public ArrayList<dayRecord> curr_dR_ary;
 
 	public static DayStatisticsFunc dsfunc;
@@ -52,7 +53,13 @@ public class DayStatisticsDemo extends JFrame {
 		currDate=today.toString();
 		//datesString = mk_date_str(curr_dR_ary);
 		
-		contentPane = new JPanel();
+		contentPane = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(batangG.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

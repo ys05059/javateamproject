@@ -27,7 +27,7 @@ public class CalendarFunc {
 		return Integer.toString(month + 1);
 	}
 	public String getYandM() { 
-		return getYear() + "년" + getMonth() + "월";
+		return getYear() + "년 " + getMonth() + "월";
 	}
 	
 	public void calSet() {
