@@ -25,7 +25,7 @@ public class home {
 		//loginpage frame = new loginpage(user_ary);
 		//frame.setVisible(true);
 
-		try {
+		//try {
 //			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 //				if ("Nimbus".equals(info.getName())) {
 //					UIManager.setLookAndFeel(info.getClassName());
@@ -45,7 +45,7 @@ public class home {
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
-			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 //			com.jtattoo.plaf.bernstein.BernsteinLookAndFeel
 //			com.jtattoo.plaf.fast.FastLookAndFeel
 //			com.jtattoo.plaf.hifi.HiFiLookAndFeel
@@ -69,8 +69,8 @@ public class home {
 		//dayRecordpage frame2 = new dayRecordpage(dR_ary);
 		//frame2.setVisible(true);
 		
-		CalendarDemo cd= new CalendarDemo(dR_ary);
-		cd.setVisible(true);
+		//CalendarDemo cd= new CalendarDemo(dR_ary);
+		//cd.setVisible(true);
 		
 		//Chartpage cp = new Chartpage(dR_ary);
 		//cp.setVisible(true);
