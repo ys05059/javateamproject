@@ -30,6 +30,9 @@ public class home {
 		
 		CalendarDemo cd= new CalendarDemo(dR_ary);
 		cd.setVisible(true);
+		
+		//Chartpage cp = new Chartpage(dR_ary);
+		//cp.setVisible(true);
 		/*
 		 * 운동정보 파일에서 받아와서 exercise_ary에 저장
 		 */
