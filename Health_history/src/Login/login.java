@@ -118,11 +118,10 @@ public class login {
 				
 				for(int i = 0; i < idnow.size(); i++) {
 					if(idnow.get(i).equals(loginField.getText()) &&  pwnow.get(i).equals(getPasswordInfo())) {
-						JOptionPane.showMessageDialog(null, "login success!!");
+						JOptionPane.showMessageDialog(frame, "login success!!");
 						ArrayList<dayRecord> dR_ary = new ArrayList<>();
-
-//						dayRecordpage frame2 = new dayRecordpage(dR_ary);
-//						frame2.setVisible(true);
+						CalendarDemo cd= new CalendarDemo(dR_ary);
+						cd.setVisible(true);
 						frame.dispose(); //로그인 창 종료
 						loginok = true;
 						break;

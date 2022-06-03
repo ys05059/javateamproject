@@ -1,5 +1,4 @@
 package Main;
-
 import java.awt.EventQueue;
 import java.util.ArrayList;
 
@@ -15,7 +14,6 @@ import set단위class.exlistClass;
 import 희석.CalendarDemo;
 
 public class home {
-	
 	public static void main(String[] args) {
 		/*
 		 * 회원정보 파일에서 받아오기 & 마지막에 파일에 저장하기
@@ -61,16 +59,13 @@ public class home {
 		ArrayList<dayRecord> dR_ary = new ArrayList<>();
 		//dayRecordpage frame2 = new dayRecordpage(dR_ary);
 		//frame2.setVisible(true);
-
-		
-		
 		
 		
 		//dayRecordpage frame2 = new dayRecordpage(dR_ary);
 		//frame2.setVisible(true);
 		
-		//CalendarDemo cd= new CalendarDemo(dR_ary);
-		//cd.setVisible(true);
+		CalendarDemo cd= new CalendarDemo(dR_ary);
+		cd.setVisible(true);
 		
 		//Chartpage cp = new Chartpage(dR_ary);
 		//cp.setVisible(true);
