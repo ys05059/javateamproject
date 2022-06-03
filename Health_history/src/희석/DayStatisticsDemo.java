@@ -2,6 +2,7 @@ package Èñ¼®;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
@@ -30,8 +32,10 @@ public class DayStatisticsDemo extends JFrame {
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
 	private JComboBox<String> dateComboBox;
-	private String[] datesString;
+	private JTextArea dateTextArea;
+	//private String[] datesString;
 	private String currDate;
+	private LocalDate today;
 	
 	private String statistics;
 
@@ -39,14 +43,14 @@ public class DayStatisticsDemo extends JFrame {
 
 	public static DayStatisticsFunc dsfunc;
 	
-	public DayStatisticsDemo(ArrayList<dayRecord> dR_ary) {
+	public DayStatisticsDemo(ArrayList<dayRecord> dR_ary, LocalDate dayld) {
 		setTitle("DayStatisticsDemo");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
 		curr_dR_ary = dR_ary;
-		
-		datesString = mk_date_str(curr_dR_ary);
-		dsfunc = new DayStatisticsFunc(curr_dR_ary);
+		today = dayld;
+		currDate=today.toString();
+		//datesString = mk_date_str(curr_dR_ary);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,11 +61,9 @@ public class DayStatisticsDemo extends JFrame {
 		date_of_today_label.setBounds(44, 39, 50, 15);
 		contentPane.add(date_of_today_label);
 
-		dateComboBox = new JComboBox<String>(datesString);
-		dateComboBox.setBounds(91,36,96,21);
-		contentPane.add(dateComboBox);
-		JComboHandler comboHandler = new JComboHandler();
-		dateComboBox.addActionListener(comboHandler);
+		dateTextArea = new JTextArea(currDate);
+		dateTextArea.setBounds(91,36,96,21);
+		contentPane.add(dateTextArea);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 79, 418, 257);
@@ -71,32 +73,15 @@ public class DayStatisticsDemo extends JFrame {
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
 		
+		dsfunc = new DayStatisticsFunc(curr_dR_ary, today);
+
+		statistics = dsfunc.makeTextArea();
+		setTextArea(statistics);		
 		this.setVisible(true);
 	}
 
-	private class JComboHandler implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-			currDate = dateComboBox.getSelectedItem().toString();
-			
-			statistics = dsfunc.makeTextArea();
-			setTextArea(statistics);
-		}
-	}
-	
 	public void setTextArea(String s) {
 		textArea.setText("");
 		textArea.setText(s);
-	}
-	
-	public String[] mk_date_str(ArrayList<dayRecord> curr_dR_ary) {
-		LocalDate ld;
-		String[] str = new String[curr_dR_ary.size()];
-		int i=0;
-		for(dayRecord dr : curr_dR_ary) {
-			ld = dr.getToday_date();
-			
-			str[i++]=ld.toString();
-		}
-		return str;
 	}
 }
