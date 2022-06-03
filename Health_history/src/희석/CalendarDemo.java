@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -44,7 +45,8 @@ public class CalendarDemo extends JFrame{
 	
 	public JPanel backPanel;
 	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
-	//배경 넣으려고 시도했는데 
+	//배경 넣기 위해
+	final ImageIcon calendar_day = new ImageIcon("image\\calendar_day.jpg");
 	
 	public static CalendarFunc cfunc = new CalendarFunc();
 	
@@ -145,6 +147,13 @@ public class CalendarDemo extends JFrame{
 		
 		for(int i=0;i<daysBtn.length;i++) {
 			one_day_panel[i] = new JPanel();
+//			{
+//				public void paintComponent(Graphics g) {
+//					g.drawImage(calendar_day.getImage(), 0, 0, null);
+//					setOpaque(false);
+//					super.paintComponent(g);
+//				}
+//			};
 			one_day_panel[i].setLayout(new BorderLayout());
 			daysBtn[i] = new JButton();
 			gotoaddexRec gotoaddexAct = new gotoaddexRec();
@@ -179,8 +188,8 @@ public class CalendarDemo extends JFrame{
 		LocalDate d;
 		GridBagConstraints gbc =new GridBagConstraints();		
 		for(int i=0;i<daysBtn.length;i++) {
-			daysBtn[i].setBackground(Color.white);
-			showExInCal[i].setBackground(Color.white);
+			daysBtn[i].setBackground(new Color(164, 230, 244));
+			showExInCal[i].setBackground(new Color(127, 197, 249));
 			showExInCal[i].removeAll();
 		}
 		

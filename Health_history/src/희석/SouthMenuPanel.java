@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import set¥‹¿ßclass.dayRecord;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class SouthMenuPanel extends JPanel{
 	
@@ -23,8 +25,11 @@ public class SouthMenuPanel extends JPanel{
 
 	public SouthMenuPanel(ArrayList<dayRecord> dR_ary) {
 		setLayout(new FlowLayout());
+		gotoStatistics.setBackground(SystemColor.activeCaption);
 		gotoStatistics.addActionListener(new gotoStatisticsHandler());
+		gotoCalendar.setBackground(SystemColor.activeCaption);
 		gotoCalendar.addActionListener(new gotoCalendarHandler());
+		gotoCurri.setBackground(SystemColor.activeCaption);
 		gotoCurri.addActionListener(new gotoCurriHandler());
 
 		add(gotoStatistics);

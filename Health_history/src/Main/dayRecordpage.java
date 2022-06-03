@@ -3,6 +3,7 @@ package Main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -28,6 +30,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import Login.imgPanel;
 import Main.exRecordpage.cset_panel;
 import set단위class.c_set;
 import set단위class.dayRecord;
@@ -43,7 +46,8 @@ public class dayRecordpage extends JFrame {
 	private JPanel ex_list_panel; 
 	static dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
-
+	imgPanel dayRecordP = new imgPanel(new ImageIcon("image\\batang1.jpg").getImage());
+	final ImageIcon dayRecordP2 = new ImageIcon("image\\batang1.jpg"); 
 	boolean exist; // 처음 입력하는건지, 있던거 덮어쓰는지
 	
 
@@ -52,6 +56,8 @@ public class dayRecordpage extends JFrame {
 		setTitle("dayRecordpage	");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
+//		setPreferredSize(dayRecordP.getDim());
+//		getContentPane().add(dayRecordP);
 
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
@@ -113,7 +119,15 @@ public class dayRecordpage extends JFrame {
 		add(weight_textField,gbc_default);
 		
 		/* 운동 리스트 패널 */
-		ex_list_panel = new JPanel();
+		ex_list_panel = new JPanel()
+		{
+			public void paintComponent(Graphics g) {
+				g.drawImage(dayRecordP2.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		ex_list_panel.setSize(400,320);
 		ex_list_panel.setBackground(Color.WHITE);
 		gb = new GridBagLayout();
 		gb.rowHeights = new int[]{50, 50, 50, 50, 50};
@@ -127,6 +141,7 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridheight = 5;
 		gbc_default.gridwidth = 5;
 		JScrollPane sp = new JScrollPane(ex_list_panel);
+
 		add(sp, gbc_default);
 		if(!expanel_list.isEmpty()) {
 			repaint_exlist_panel();
