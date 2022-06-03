@@ -104,7 +104,7 @@ public class signup extends JFrame implements ActionListener{
 		setVisible(true);
 		setBounds(100, 100, 900, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		imgPanel signupPanel = new imgPanel(new ImageIcon("C:\\github\\javateamproject\\Health_history\\image\\flowwater.png").getImage());
+		imgPanel signupPanel = new imgPanel(new ImageIcon("image\\flowwater.png").getImage());
 		signupPanel.setBounds(0, 0, 986, 663);
 		setSize(signupPanel.getDim());
 		setPreferredSize(signupPanel.getDim());
@@ -115,7 +115,7 @@ public class signup extends JFrame implements ActionListener{
 		registerlabel.setBounds(31, 10, 231, 56);
 		signupPanel.add(registerlabel);
 		
-		ImageIcon IDicon = new ImageIcon("C:\\github\\javateamproject\\Health_history\\icon\\id.png");
+		ImageIcon IDicon = new ImageIcon("icon\\id.png");
 		JLabel IDIcon = new JLabel(IDicon);
 		IDIcon.setBounds(31, 76, 50, 50);
 	
@@ -167,7 +167,7 @@ public class signup extends JFrame implements ActionListener{
 		});
 		signupPanel.add(isIDSame);
 		
-		ImageIcon PWicon = new ImageIcon("C:\\github\\javateamproject\\Health_history\\icon\\PW.png");
+		ImageIcon PWicon = new ImageIcon("icon\\PW.png");
 		JLabel PWIcon = new JLabel(PWicon);
 		PWIcon.setBounds(31, 148, 50, 50);
 		signupPanel.add(PWIcon);
@@ -215,7 +215,7 @@ public class signup extends JFrame implements ActionListener{
 		signupPanel.add(isPWSame);
 		
 		
-		ImageIcon NNicon = new ImageIcon("C:\\github\\javateamproject\\Health_history\\icon\\nickname.png");
+		ImageIcon NNicon = new ImageIcon("icon\\nickname.png");
 		JLabel NicknameIcon = new JLabel(NNicon);
 		NicknameIcon.setBounds(31, 296, 50, 50);
 		signupPanel.add(NicknameIcon);
@@ -231,7 +231,7 @@ public class signup extends JFrame implements ActionListener{
 		nicknameFIeld.setBounds(179, 308, 191, 35);
 		signupPanel.add(nicknameFIeld);
 		
-		ImageIcon genderIcon= new ImageIcon("C:\\github\\javateamproject\\Health_history\\icon\\gender.png");
+		ImageIcon genderIcon= new ImageIcon("icon\\gender.png");
 		JLabel gendericon = new JLabel(genderIcon);
 		gendericon.setBounds(31, 380, 50, 50);
 		signupPanel.add(gendericon);
@@ -249,7 +249,7 @@ public class signup extends JFrame implements ActionListener{
 		signupPanel.add(genderCombo);
 		
 		
-		ImageIcon weightIcon= new ImageIcon("C:\\github\\javateamproject\\Health_history\\icon\\weight.png");
+		ImageIcon weightIcon= new ImageIcon("icon\\weight.png");
 		JLabel weighticon = new JLabel(weightIcon);
 		weighticon.setBounds(600, 76, 50, 50);
 		signupPanel.add(weighticon);
@@ -271,7 +271,7 @@ public class signup extends JFrame implements ActionListener{
 		lblKg.setBounds(848, 76, 50, 43);
 		signupPanel.add(lblKg);
 		
-		ImageIcon heightIcon= new ImageIcon("C:\\github\\javateamproject\\Health_history\\icon\\height.png");
+		ImageIcon heightIcon= new ImageIcon("icon\\height.png");
 		JLabel heighticon = new JLabel(heightIcon);
 		heighticon.setBounds(600, 148, 50, 50);
 		signupPanel.add(heighticon);
@@ -293,7 +293,7 @@ public class signup extends JFrame implements ActionListener{
 		CMlabel.setBounds(848, 148, 50, 43);
 		signupPanel.add(CMlabel);
 		
-		ImageIcon muscleIcon= new ImageIcon("C:\\github\\javateamproject\\Health_history\\icon\\muscle.png");
+		ImageIcon muscleIcon= new ImageIcon("icon\\muscle.png");
 		JLabel muscleicon = new JLabel(muscleIcon);
 		muscleicon.setBounds(600, 221, 50, 50);
 		signupPanel.add(muscleicon);
@@ -320,7 +320,7 @@ public class signup extends JFrame implements ActionListener{
 		percent_1.setBounds(848, 300, 50, 43);
 		signupPanel.add(percent_1);
 		
-		ImageIcon bodyIcon= new ImageIcon("C:\\github\\javateamproject\\Health_history\\icon\\body.png");
+		ImageIcon bodyIcon= new ImageIcon("icon\\body.png");
 		JLabel bodyrateicon = new JLabel(bodyIcon);
 		bodyrateicon.setBounds(600, 296, 50, 50);
 		signupPanel.add(bodyrateicon);

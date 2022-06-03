@@ -83,7 +83,7 @@ public class login {
 		frame.setBounds(100, 100, 700, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		//from https://kr.freepik.com/free-vector/modern-login-page-template-with-blur-background_18141219.htm#&position=2&from_view=detail#&position=2&from_view=detail
-		imgPanel loginP = new imgPanel(new ImageIcon("C:\\github\\javateamproject\\Health_history\\image\\login.jpg").getImage());
+		imgPanel loginP = new imgPanel(new ImageIcon("image\\login.jpg").getImage());
 		frame.setSize(loginP.getDim());
 		frame.setPreferredSize(loginP.getDim());
 		frame.getContentPane().add(loginP);
@@ -119,8 +119,8 @@ public class login {
 					if(idnow.get(i).equals(loginField.getText()) &&  pwnow.get(i).equals(getPasswordInfo())) {
 						JOptionPane.showMessageDialog(null, "login success!!");
 						ArrayList<dayRecord> dR_ary = new ArrayList<>();
-						dayRecordpage frame2 = new dayRecordpage(dR_ary);
-						frame2.setVisible(true);
+//						dayRecordpage frame2 = new dayRecordpage(dR_ary);
+//						frame2.setVisible(true);
 						frame.dispose(); //로그인 창 종료
 						break;
 					}
