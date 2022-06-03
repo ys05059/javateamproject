@@ -104,6 +104,7 @@ public class login {
 		loginBtn.setFont(new Font("휴먼모음T", Font.PLAIN, 18));
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean loginok = false;
 				//회원 가입을 했든 안 했든 유저 정보는 가져와야 한다.
 				userinfoList = bringUserInfo();   //클래스 배열 얕은복사 수행
 				System.out.println(userinfoList.size() + "in login.java");
@@ -119,26 +120,20 @@ public class login {
 					if(idnow.get(i).equals(loginField.getText()) &&  pwnow.get(i).equals(getPasswordInfo())) {
 						JOptionPane.showMessageDialog(null, "login success!!");
 						ArrayList<dayRecord> dR_ary = new ArrayList<>();
+
 //						dayRecordpage frame2 = new dayRecordpage(dR_ary);
 //						frame2.setVisible(true);
 						frame.dispose(); //로그인 창 종료
+						loginok = true;
 						break;
 					}
-					else {
-						JOptionPane.showMessageDialog(null, "login failed.");
-						loginField.setText("");
-						passwordField.setText("");
-					}
+					
 				}
-//				if(!(rightid.equals(loginField.getText()) && 
-//						rightpwd.equals(passwordField.getText()))) {
-//					JOptionPane.showMessageDialog(null, "login failed.");
-//				}else {
-//					JOptionPane.showMessageDialog(null, "login success!!");
-//					ArrayList<dayRecord> dR_ary = new ArrayList<>();
-//					dayRecordpage frame2 = new dayRecordpage(dR_ary);
-//					frame2.setVisible(true);
-//					frame.setVisible(false);
+				if(loginok == false) {
+					JOptionPane.showMessageDialog(null, "login failed.");
+					loginField.setText("");
+					passwordField.setText("");
+				}
 
 			}
 		});
