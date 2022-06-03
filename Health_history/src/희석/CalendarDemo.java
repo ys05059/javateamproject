@@ -36,12 +36,17 @@ import set단위class.exlistClass;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import 동혁.search_for_ALL_WORKOUT;
+import javax.swing.SwingConstants;
 
 public class CalendarDemo extends JFrame{
 
 	public static final int WIDTH = 1200;
 	public static final int HEIGHT = 800;
 	public static final String[] DAYS_OF_NAME = {"","일", "월", "화", "수", "목", "금" ,"토"};
+	public static final String[] dongibuyeo = {"무슨 일이 있어도 2개 더 해. -아놀드 슈워제네거- " , "운동할 때 오는 건 힘든 게 아니고 통증일 뿐이다. -가수 김종국-", 
+			"자신의 몸에 만족하는 순간 더 이상의 발전은 없다 -보디빌더 강경원-", "간단합니다. 흔들리면 그것은 지방입니다. -아놀드 슈워제네거", 
+			"몸을 만들고 싶으면 말로 떠들지 말고, 몸으로 떠들어라 - 배우 제이슨 스타뎀-" } ;
+	
 	
 	public JPanel backPanel;
 	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
@@ -67,6 +72,9 @@ public class CalendarDemo extends JFrame{
 	public static JPanel days_num_panel;
 	public static JPanel[] one_day_panel = new JPanel[42];
 	public static JPanel[] showExInCal = new JPanel[42];
+	private JLabel DONGIbueyeo;
+	private JLabel howtomove;
+	
 	
 	private SouthMenuPanel menu;
 	
@@ -75,22 +83,26 @@ public class CalendarDemo extends JFrame{
 	
 	private LocalDate select_date;
 	
+	
+	
 	public CalendarDemo(ArrayList<dayRecord> dR_ary){
 		super("Calendar");
 		this.setSize(WIDTH, HEIGHT);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout());
 		this.setVisible(true);
-		
-		
-		
-
+	
 		moveHandler moveAct = new moveHandler(); //달력 넘기는 버튼 actionhandler
 		beforeBtn.addActionListener(moveAct);
 		afterBtn.addActionListener(moveAct);
 		
 		curr_dR_ary = dR_ary;
 		
+		howtomove = new JLabel("날짜 버튼을 눌러 운동을 입력하세요!");
+		
+		
+		int k = (int)(Math.random() * 6);
+		DONGIbueyeo = new JLabel(dongibuyeo[k] );
 		
 		
 		JPanel cal = new JPanel(){
@@ -102,13 +114,21 @@ public class CalendarDemo extends JFrame{
 		};
 		cal.setLayout(new BorderLayout(10, 20));
 		
+		
+		
 		ym.setText(cfunc.getYandM());
-		Y_M.setLayout(new FlowLayout());
+		Y_M.setLayout(new FlowLayout(FlowLayout.CENTER));
+		
+		Y_M.add(howtomove);
 		Y_M.add(beforeBtn);
 		Y_M.add(ym);
 		Y_M.add(afterBtn);
 		
 		cal.add(Y_M, BorderLayout.NORTH);
+		DONGIbueyeo.setHorizontalAlignment(SwingConstants.RIGHT);
+		DONGIbueyeo.setVerticalAlignment(SwingConstants.BOTTOM);
+		
+		Y_M.add(DONGIbueyeo);
 		
 		JPanel Days = new JPanel(){
 			public void paintComponent(Graphics g) {
@@ -176,12 +196,12 @@ public class CalendarDemo extends JFrame{
 		
 		cal.add(Days, BorderLayout.CENTER);
 		
-		this.add(cal, BorderLayout.CENTER);
+		getContentPane().add(cal, BorderLayout.CENTER);
 		
 		
 		menu = new SouthMenuPanel(curr_dR_ary);
 		
-		this.add(menu, BorderLayout.SOUTH);
+		getContentPane().add(menu, BorderLayout.SOUTH);
 		paintExcPane(curr_dR_ary);
 	}
 	public static void paintExcPane(ArrayList<dayRecord> dR_ary) { // 운동목록 받아오기 dayRecordpage에 메소드실행문 추가해야함

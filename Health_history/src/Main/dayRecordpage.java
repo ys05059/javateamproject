@@ -56,6 +56,7 @@ public class dayRecordpage extends JFrame {
 		setTitle("dayRecordpage	");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
+		
 //		setPreferredSize(dayRecordP.getDim());
 //		getContentPane().add(dayRecordP);
 
@@ -81,6 +82,7 @@ public class dayRecordpage extends JFrame {
 		// 만약 dr의 ex_ary가 차있다면 expanel_list에 기존내용 추가해줘야함
 		
 		GridBagConstraints gbc_default = new GridBagConstraints();
+		
 		
 		/* 날짜 입력 패널 */
 		JLabel today_Label = new JLabel("오늘의 날짜");
@@ -252,7 +254,7 @@ public class dayRecordpage extends JFrame {
 		}
 	}*/
 	
-	class expanel extends JPanel{ // 동적으로 추가되는 panel
+	class expanel extends JPanel{ 
 		private JLabel ex_name;
 		private JLabel setnum_label;
 		
@@ -265,7 +267,7 @@ public class dayRecordpage extends JFrame {
 			gbl.rowHeights = new int[] {50};
 			
 			this.setLayout(gbl);
-			this.setBackground(Color.YELLOW);
+			this.setBackground(new Color(175,237,100));
 			
 			ex_name = new JLabel(other_exr.getEx().getname());
 			GridBagConstraints gbc = new GridBagConstraints();
