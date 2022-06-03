@@ -102,7 +102,7 @@ public class CalendarDemo extends JFrame{
 		howtomove = new JLabel("날짜 버튼을 눌러 운동을 입력하세요!");
 		
 		
-		int k = (int)(Math.random() * 6);
+		int k = (int)(Math.random() * 5);
 		DONGIbueyeo = new JLabel(dongibuyeo[k] );
 		
 		
