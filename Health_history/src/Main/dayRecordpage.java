@@ -18,19 +18,22 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import Main.exRecordpage.cset_panel;
-import set´ÜÀ§class.c_set;
-import set´ÜÀ§class.dayRecord;
-import set´ÜÀ§class.exRecord;
-import set´ÜÀ§class.wc_exRecord;
-import Èñ¼®.CalendarDemo;
+import setë‹¨ìœ„class.c_set;
+import setë‹¨ìœ„class.dayRecord;
+import setë‹¨ìœ„class.exRecord;
+import setë‹¨ìœ„class.wc_exRecord;
+import í¬ì„.CalendarDemo;
 
 public class dayRecordpage extends JFrame {
 
@@ -41,19 +44,21 @@ public class dayRecordpage extends JFrame {
 	static dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
 
-	boolean exist; // Ã³À½ ÀÔ·ÂÇÏ´Â°ÇÁö, ÀÖ´ø°Å µ¤¾î¾²´ÂÁö
+	boolean exist; // ì²˜ìŒ ì…ë ¥í•˜ëŠ”ê±´ì§€, ìˆë˜ê±° ë®ì–´ì“°ëŠ”ì§€
 	
-	public dayRecordpage(final ArrayList<dayRecord> dR_ary,dayRecord dr) {//ÀÌºÎºĞ final·Î ¾ÈÇÏ´Ï ¿À·ù ¶°¼­ final Ãß°¡Çß½À´Ï´Ù(µ¿Çõ)
+
+	public dayRecordpage(final ArrayList<dayRecord> dR_ary,dayRecord dr) {//ì´ë¶€ë¶„ finalë¡œ ì•ˆí•˜ë‹ˆ ì˜¤ë¥˜ ë– ì„œ final ì¶”ê°€í–ˆìŠµë‹ˆë‹¤(ë™í˜)
 
 		setTitle("dayRecordpage	");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
+
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
 		gb.columnWidths = new int[] {100,100,50,50,50};
 		setLayout(gb);
 		
-		// ±âÁ¸ Á¤º¸ ÀÖ´ÂÁö¿¡ µû¶ó ºĞ±â
+		// ê¸°ì¡´ ì •ë³´ ìˆëŠ”ì§€ì— ë”°ë¼ ë¶„ê¸°
 		dayrecord = dr;
 		if(dr.getExr_ary().size()>0) {
 			exist = true;
@@ -67,12 +72,12 @@ public class dayRecordpage extends JFrame {
 			expanel_list = new ArrayList<>();
 			
 		}
-		// ¸¸¾à drÀÇ ex_ary°¡ Â÷ÀÖ´Ù¸é expanel_list¿¡ ±âÁ¸³»¿ë Ãß°¡ÇØÁà¾ßÇÔ
+		// ë§Œì•½ drì˜ ex_aryê°€ ì°¨ìˆë‹¤ë©´ expanel_listì— ê¸°ì¡´ë‚´ìš© ì¶”ê°€í•´ì¤˜ì•¼í•¨
 		
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
-		/* ³¯Â¥ ÀÔ·Â ÆĞ³Î */
-		JLabel today_Label = new JLabel("¿À´ÃÀÇ ³¯Â¥");
+		/* ë‚ ì§œ ì…ë ¥ íŒ¨ë„ */
+		JLabel today_Label = new JLabel("ì˜¤ëŠ˜ì˜ ë‚ ì§œ");
 		today_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		gbc_default.anchor = GridBagConstraints.WEST;
 		gbc_default.gridx = 0;
@@ -88,15 +93,15 @@ public class dayRecordpage extends JFrame {
 		add(today_textField,gbc_default);
 		
 		
-		// ¸ö¹«°Ô ¶óº§
-		JLabel today_weight_label = new JLabel("¿À´ÃÀÇ ¸ö¹«°Ô");
+		// ëª¸ë¬´ê²Œ ë¼ë²¨
+		JLabel today_weight_label = new JLabel("ì˜¤ëŠ˜ì˜ ëª¸ë¬´ê²Œ");
 		gbc_default = new GridBagConstraints();
 		gbc_default.fill = GridBagConstraints.HORIZONTAL;
 		gbc_default.gridx = 0;
 		gbc_default.gridy = 6;
 		add(today_weight_label,gbc_default);
 		
-		// ¹³¹«°Ô textField
+		// ë­„ë¬´ê²Œ textField
 		weight_textField = new JTextField();
 		if(dayrecord.getToday_weight()>0) {
 			weight_textField.setText(Double.toString(dayrecord.getToday_weight()));
@@ -107,7 +112,7 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridy = 6;
 		add(weight_textField,gbc_default);
 		
-		/* ¿îµ¿ ¸®½ºÆ® ÆĞ³Î */
+		/* ìš´ë™ ë¦¬ìŠ¤íŠ¸ íŒ¨ë„ */
 		ex_list_panel = new JPanel();
 		ex_list_panel.setBackground(Color.WHITE);
 		gb = new GridBagLayout();
@@ -127,25 +132,28 @@ public class dayRecordpage extends JFrame {
 			repaint_exlist_panel();
 		}
 		
-		// ¿îµ¿Ãß°¡ ¹öÆ° Å¬¸¯
-		JButton addexr_button = new JButton("¿îµ¿ Ãß°¡");
+		// ìš´ë™ì¶”ê°€ ë²„íŠ¼ í´ë¦­
+		JButton addexr_button = new JButton("ìš´ë™ ì¶”ê°€");
 		ActionListener addex_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Ãß°¡ÇÒ ¿îµ¿ Á¤º¸ ¹Ş¾Æ¿À±â
+				// ì¶”ê°€í•  ìš´ë™ ì •ë³´ ë°›ì•„ì˜¤ê¸°
+				// 
 				addexRecordpage exrp = new addexRecordpage();
 				exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				exrp.setModal(true);
-				exrp.setVisible(true);
+				exrp.setVisible(true); // ìš´ë™ ì¶”ê°€ ì°½ì´ ì—´ë¦°ë‹¤.
+				// ì¶”ê°€ ì•ˆí•˜ê³  ì°½ì„ ë‹«ì„ ì‹œ null error ê°€ ëœ¨ëŠ”ë° ì¶”í›„ì— í•´ê²°í•˜ë©´ ì¢‹ì„ë“¯í•©ë‹ˆë‹¤(ë™í˜)
 				exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
 				
-				// ¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸ ÀúÀå
+				// ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ ì €ì¥
 				dayrecord.add_exr(tmp_ex);
+				//dayrecordì— ì €ì¥í•œ ì´í›„ panelì— í‘œí˜„í•  ì •ë³´ë“¤ë„ ì €ì¥í•œë‹¤. ì´ ì‘ì—…ì€ dayrecordì™€ ë³„ê°œì¸ ë“¯(ë™í˜)
 				expanel tmp_exp = new expanel(tmp_ex);
 				if (expanel_list == null)
 					expanel_list = new ArrayList<>();	
 				expanel_list.add(tmp_exp);
 				
-				//¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
+				//ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ì— ëŒ€í•œ ex_list_panel ì—…ë°ì´íŠ¸
 				repaint_exlist_panel();
 			}
 		};
@@ -156,23 +164,23 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridwidth = 2;
 		add(addexr_button, gbc_default);
 		
-		//ÀúÀå ¹öÆ°
-		JButton savedR_button = new JButton("ÀúÀå");
+		//ì €ì¥ ë²„íŠ¼
+		JButton savedR_button = new JButton("ì €ì¥");
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Àû¾îµµ date¿Í ¸ö¹«°Ô´Â ÀÖ¾î¾ßÇÔ ¾øÀ¸¸é ¿¡·¯Ã¢
+				// ì ì–´ë„ dateì™€ ëª¸ë¬´ê²ŒëŠ” ìˆì–´ì•¼í•¨ ì—†ìœ¼ë©´ ì—ëŸ¬ì°½
 				if(today_textField.getText().equals("") ) {
 					savedR_check_dialog icd = new savedR_check_dialog();
 					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					icd.setModal(true);
 					icd.setVisible(true);
 				}
-				//¸ö¹«°Ô ÀúÀå
+				//ëª¸ë¬´ê²Œ ì €ì¥
 				if(!weight_textField.getText().equals(""))
 					dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));				
 				
-				// dayRecord¸¦ dR_ary¿¡ Ãß°¡
-				// ¾øÀ¸¸é Ãß°¡ ÀÖÀ¸¸é ´Ù½Ã ¼¼ÆÃ
+				// dayRecordë¥¼ dR_aryì— ì¶”ê°€
+				// ì—†ìœ¼ë©´ ì¶”ê°€ ìˆìœ¼ë©´ ë‹¤ì‹œ ì„¸íŒ…
 				if(exist == false)
 					dR_ary.add(dayrecord);
 				else {
@@ -186,7 +194,7 @@ public class dayRecordpage extends JFrame {
 					dR_ary.set(index, dayrecord);
 				}
 				CalendarDemo.paintExcPane(dR_ary);
-				// ´Ş·Â ÆäÀÌÁö·Î µ¹¾Æ°¨
+				// ë‹¬ë ¥ í˜ì´ì§€ë¡œ ëŒì•„ê°
 				dispose();
 			}
 		};
@@ -201,8 +209,10 @@ public class dayRecordpage extends JFrame {
 	
 	
 	private void repaint_exlist_panel(){
-		if(expanel_list!= null && !expanel_list.isEmpty()) {  												// ¿îµ¿ 1°³¶óµµ ÀÖÀ» °æ¿ì
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ÇÑ °³¿¡ ´ëÇÑ gbc
+
+		if(expanel_list!= null && !expanel_list.isEmpty()) {  												// ìš´ë™ 1ê°œë¼ë„ ìˆì„ ê²½ìš°
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord í•œ ê°œì— ëŒ€í•œ gbc
+
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -217,7 +227,7 @@ public class dayRecordpage extends JFrame {
 		}else
 			ex_list_panel.removeAll();
 		
-		ex_list_panel.revalidate();															// ¿îµ¿ ¼±ÅÃ ÆĞ³Î ÃÊ±âÈ­
+		ex_list_panel.revalidate();															// ìš´ë™ ì„ íƒ íŒ¨ë„ ì´ˆê¸°í™”
 		ex_list_panel.repaint();
 	}
 	/*
@@ -227,12 +237,14 @@ public class dayRecordpage extends JFrame {
 		}
 	}*/
 	
-	class expanel extends JPanel{
+	class expanel extends JPanel{ // ë™ì ìœ¼ë¡œ ì¶”ê°€ë˜ëŠ” panel
 		private JLabel ex_name;
 		private JLabel setnum_label;
 		
 		public expanel(exRecord other_exr) {
 			
+			TitledBorder oneTb = new TitledBorder(new LineBorder(Color.black));
+			setBorder(oneTb);
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {100,100,50,50,50};
 			gbl.rowHeights = new int[] {50};
@@ -248,7 +260,7 @@ public class dayRecordpage extends JFrame {
 			this.add(ex_name,gbc);
 			
 		
-			JLabel set_label = new JLabel("ÇöÀç/¸ñÇ¥");
+			JLabel set_label = new JLabel("í˜„ì¬/ëª©í‘œ");
 			gbc = new GridBagConstraints();
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 1;
@@ -262,7 +274,7 @@ public class dayRecordpage extends JFrame {
 			gbc.gridy = 0;
 			this.add(setnum_label,gbc);
 			
-			JButton update_btn = new JButton("¼öÁ¤");
+			JButton update_btn = new JButton("ìˆ˜ì •");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					exRecordpage exrp;
@@ -276,9 +288,9 @@ public class dayRecordpage extends JFrame {
 					exrp.setModal(true);
 					exrp.setVisible(true);
 					
-					// Ã¢ ´İÇûÀ» ¶§
-					// ¿îµ¿ ÆĞ³Î ¸®½ºÆ® ¼öÁ¤
-					exr = dayrecord.getExr_ary().get(getindex());									// ¼öÁ¤µÈ exRecord ¹Ş¾Æ¿À±â
+					// ì°½ ë‹«í˜”ì„ ë•Œ
+					// ìš´ë™ íŒ¨ë„ ë¦¬ìŠ¤íŠ¸ ìˆ˜ì •
+					exr = dayrecord.getExr_ary().get(getindex());									// ìˆ˜ì •ëœ exRecord ë°›ì•„ì˜¤ê¸°
 					ex_name.setText(exr.getEx().getname());
 					setnum_label.setText("("+Integer.toString(exr.getCount_set())+"/"+Integer.toString(exr.getSet_goal())+")");
 					repaint_exlist_panel();
@@ -293,18 +305,25 @@ public class dayRecordpage extends JFrame {
 			
 			this.add(update_btn,gbc);
 			
-			// »èÁ¦ ¹öÆ°
-			JButton delete_btn = new JButton("»èÁ¦");
+			// ì‚­ì œ ë²„íŠ¼
+			JButton delete_btn = new JButton("ì‚­ì œ");
+			// íŒ¨ë„ì—ì„œì˜ ì‚­ì œì™€ ë”ë¶ˆì–´ dayrecordì—ì„œë„ ì‚­ì œí•˜ê¸°ë¥¼  êµ¬í˜„í•´ì•¼í•œë‹¤.
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
+
 						dayrecord.delete_exr(other_exr);
+
 						expanel_list.remove(getindex());
+						dayrecord.printallexr_ary();
+
 					}else {
-						System.err.println("dayRecordpage: ¿îµ¿»èÁ¦ ¿À·ù");
+
+						System.err.println("dayRecordpage: ìš´ë™ì‚­ì œ ì˜¤ë¥˜");
+
 					}
-					//¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
+					//ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ì— ëŒ€í•œ ex_list_panel ì—…ë°ì´íŠ¸
 					repaint_exlist_panel();
 				}
 			};
@@ -315,8 +334,9 @@ public class dayRecordpage extends JFrame {
 			this.add(delete_btn,gbc);
 		}
 		private int getindex() {
-			return expanel_list.indexOf(this);
+			return expanel_list.indexOf(this); //panelì˜ indexìœ„ì¹˜ë¥¼ ë¦¬í„´í•´ì¤€ë‹¤
 		}
+		
 	}
 	
 	
@@ -328,10 +348,10 @@ public class dayRecordpage extends JFrame {
 	class savedR_check_dialog extends JDialog{
 		public savedR_check_dialog(){
 			setSize(200,100);
-			JLabel label = new JLabel("ÀÔ·ÂÀ» È®ÀÎÇÏ¼¼¿ä");
+			JLabel label = new JLabel("ì…ë ¥ì„ í™•ì¸í•˜ì„¸ìš”");
 			label.setHorizontalAlignment(JLabel.CENTER);
 			add(label,BorderLayout.CENTER);
-			JButton bt = new JButton("È®ÀÎ");
+			JButton bt = new JButton("í™•ì¸");
 			bt.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

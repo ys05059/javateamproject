@@ -108,6 +108,10 @@ public class addexRecordpage extends JDialog {
 	public String get_exname() {
 		return excombo.getSelectedItem().toString();
 	}
+	
+	public String get_excate() {
+		return catecombo.getSelectedItem().toString();
+	}
 
 	public int get_setgoal() {
 		return Integer.valueOf(setgoal_field.getText());

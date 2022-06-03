@@ -12,7 +12,7 @@ public class exercise implements Cloneable {
 		this.category = "";
 		this.calmethod = "";
 	}
-	public exercise (String other_name) {
+	public exercise (String other_name) { //운동이름 추가
 		name = other_name;
 		category = "";
 		calmethod = "";

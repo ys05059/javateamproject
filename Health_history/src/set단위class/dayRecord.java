@@ -74,6 +74,23 @@ public class dayRecord {
 		this.today_date = today_date;
 	}
 	
+	public void printallexr_ary() { //배열리스트 안에 잘 들어가는지 확인
+		if(exr_ary.size() > 0) {
+			for(int i = 0; i < exr_ary.size(); i++) {
+				System.out.println(exr_ary.get(i).getEx().getname());
+				System.out.println(exr_ary.get(i).getEx().getcategory());
+				System.out.println(exr_ary.get(i).getSet_goal());
+				System.out.println(exr_ary.get(i).getCount_set());
+			}
+		}
+	}
+	
+	public void remove_exr_ary(int here) { //index값 받아와 해당 배열리스트 정보 지우기
+		if(exr_ary.size() > 0) {
+			exr_ary.remove(here);
+		}
+	}
+	
 	
 	
 }

@@ -76,8 +76,14 @@ public class exlistClass {
 	
 	
 	public ArrayList<exercise> get_exlist() {
-		return exlist;
-		// deep copy 해줘야할 듯
+		ArrayList<exercise> A = new ArrayList<>();
+		
+		for (exercise i : exlist) {
+			A.add(i);
+		}
+		return A;
+		// deep copy 해줘야할 듯 - 일단 deepcopy 했고 
+		//후에 오류나면 다시 처리하겠습니다(동혁)
 	}
 	
 	public void clear_exlist() {
