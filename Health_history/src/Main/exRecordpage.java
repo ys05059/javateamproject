@@ -25,16 +25,16 @@ import javax.swing.border.EmptyBorder;
 
 import Main.dayRecordpage.expanel;
 import Main.dayRecordpage.savedR_check_dialog;
-import set´ÜÀ§class.c_exRecord;
-import set´ÜÀ§class.c_set;
-import set´ÜÀ§class.dayRecord;
-import set´ÜÀ§class.exRecord;
-import set´ÜÀ§class.exercise;
-import set´ÜÀ§class.exlistClass;
-import set´ÜÀ§class.t_exRecord;
-import set´ÜÀ§class.t_set;
-import set´ÜÀ§class.wc_exRecord;
-import set´ÜÀ§class.wc_set;
+import setë‹¨ìœ„class.c_exRecord;
+import setë‹¨ìœ„class.c_set;
+import setë‹¨ìœ„class.dayRecord;
+import setë‹¨ìœ„class.exRecord;
+import setë‹¨ìœ„class.exercise;
+import setë‹¨ìœ„class.exlistClass;
+import setë‹¨ìœ„class.t_exRecord;
+import setë‹¨ìœ„class.t_set;
+import setë‹¨ìœ„class.wc_exRecord;
+import setë‹¨ìœ„class.wc_set;
 
 public class exRecordpage extends JFrame{
 	private JPanel set_list_panel; 
@@ -57,12 +57,12 @@ public class exRecordpage extends JFrame{
 		gb.rowHeights = new int[] {50,50,50,50,50,50,50,50};
 		setLayout(gb);
 		GridBagConstraints gbc_default = new GridBagConstraints();
-		/* ¹Ş¾Æ¿Â ¿îµ¿¸íÀ¸·Î exRecord Á¤º¸ Ã¤¿ì±â */		// other_exr´Â name °ú setgoal Á¤º¸¸¸ ÀÖÀ½ 
+		/* ë°›ì•„ì˜¨ ìš´ë™ëª…ìœ¼ë¡œ exRecord ì •ë³´ ì±„ìš°ê¸° */		// other_exrëŠ” name ê³¼ setgoal ì •ë³´ë§Œ ìˆìŒ 
 		exlistClass elc = new exlistClass("ALL_WORKOUT");
 		exlist = elc.get_exlist();
 		setting_exRecord(other_exr);
 
-		/* ¹Ş¾Æ¿Â ¿îµ¿¸í Ãâ·Â ÆĞ³Î */
+		/* ë°›ì•„ì˜¨ ìš´ë™ëª… ì¶œë ¥ íŒ¨ë„ */
 		JLabel today_Label = new JLabel(exrecord.getEx().getname());
 		gbc_default.fill = GridBagConstraints.BOTH;
 		gbc_default.gridx = 3;
@@ -101,7 +101,7 @@ public class exRecordpage extends JFrame{
 		add(gp_label,gbc_default);
 		
 		
-		/* ¼¼Æ® ¸®½ºÆ® ÆĞ³Î */
+		/* ì„¸íŠ¸ ë¦¬ìŠ¤íŠ¸ íŒ¨ë„ */
 		set_list_panel = new JPanel();
 		set_list_panel.setBackground(Color.WHITE);
 		gb = new GridBagLayout();
@@ -119,7 +119,7 @@ public class exRecordpage extends JFrame{
 		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		add(sp, gbc_default);
 		
-		// Ã³À½ ¼¼Æ® ¸®½ºÆ® ¼¼ÆÃÇÏ±â
+		// ì²˜ìŒ ì„¸íŠ¸ ë¦¬ìŠ¤íŠ¸ ì„¸íŒ…í•˜ê¸°
 		if(exrecord instanceof wc_exRecord) {
 			repaint_wclist_panel();
 		}else if(exrecord instanceof c_exRecord) {
@@ -128,24 +128,24 @@ public class exRecordpage extends JFrame{
 			repaint_tlist_panel();
 		}
 		
-		// ¼¼Æ®Ãß°¡ ¹öÆ° Å¬¸¯
-		JButton addset_button = new JButton("¼¼Æ® Ãß°¡");
+		// ì„¸íŠ¸ì¶”ê°€ ë²„íŠ¼ í´ë¦­
+		JButton addset_button = new JButton("ì„¸íŠ¸ ì¶”ê°€");
 		ActionListener addset_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Ãß°¡ÇÒ ¼¼Æ® Á¤º¸ ¹Ş¾Æ¿À±â
-				if(exrecord instanceof wc_exRecord) { // ÀÌ·¸°Ô ÇÏ´Ï ¿îµ¿À» ÇÏ³ª Ãß°¡ÇÏ¸é ¼¼Æ® Ãß°¡ ¹öÆ° ´­·¯µµ
-					//Ã¢ÀÌ ¾È¶á´Ù
+				// ì¶”ê°€í•  ì„¸íŠ¸ ì •ë³´ ë°›ì•„ì˜¤ê¸°
+				if(exrecord instanceof wc_exRecord) { // ì´ë ‡ê²Œ í•˜ë‹ˆ ìš´ë™ì„ í•˜ë‚˜ ì¶”ê°€í•˜ë©´ ì„¸íŠ¸ ì¶”ê°€ ë²„íŠ¼ ëˆŒëŸ¬ë„
+					//ì°½ì´ ì•ˆëœ¬ë‹¤
 					dayrecord.printallexr_ary();
 					add_wcsetpage asp = new add_wcsetpage(new exRecord(exrecord));
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
 					asp.setVisible(true);
-					// ±âÁ¸ Á¤º¸(ÀÌ¸§,setgoal) ³Ö¾îÁÖ±â
+					// ê¸°ì¡´ ì •ë³´(ì´ë¦„,setgoal) ë„£ì–´ì£¼ê¸°
 					wc_set wcs = new wc_set(Integer.valueOf(asp.get_weight()),Integer.valueOf(asp.get_count()));
 					wcs.setRest_time(asp.get_resttime());
 					((wc_exRecord)exrecord).add_wcset(wcs);
 					dayrecord.set_exr(exrecord);
-					// wc_set ÆĞ³Î Ãß°¡
+					// wc_set íŒ¨ë„ ì¶”ê°€
 					wcset_panel wcp = new wcset_panel(wcs);
 					wcpanel_list.add(wcp);
 					repaint_wclist_panel();
@@ -155,12 +155,12 @@ public class exRecordpage extends JFrame{
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
 					asp.setVisible(true);
-					// exrecord¿¡ wc_exRecord ÀúÀåÇÏ±â
+					// exrecordì— wc_exRecord ì €ì¥í•˜ê¸°
 					c_set cs = new c_set(Integer.valueOf(asp.get_count()));
 					cs.setRest_time(asp.get_resttime());
 					((c_exRecord)exrecord).add_wcset(cs);
 					dayrecord.set_exr(exrecord);
-					// wc_set ÆĞ³Î Ãß°¡
+					// wc_set íŒ¨ë„ ì¶”ê°€
 					cset_panel cp = new cset_panel(cs);
 					cpanel_list.add(cp);
 					repaint_clist_panel();
@@ -170,12 +170,12 @@ public class exRecordpage extends JFrame{
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
 					asp.setVisible(true);
-					// exrecord¿¡ t_exRecord ÀúÀåÇÏ±â
+					// exrecordì— t_exRecord ì €ì¥í•˜ê¸°
 					t_set wcs = new t_set(asp.get_goaltime());
 					wcs.setRest_time(asp.get_resttime());
 					((t_exRecord)exrecord).add_tset(wcs);	
 					dayrecord.set_exr(exrecord);
-					// wc_set ÆĞ³Î Ãß°¡
+					// wc_set íŒ¨ë„ ì¶”ê°€
 					 tset_panel tp = new tset_panel(wcs);
 					tpanel_list.add(tp);
 					repaint_tlist_panel();
@@ -191,8 +191,8 @@ public class exRecordpage extends JFrame{
 		gbc_default.gridwidth = 2;
 		add(addset_button, gbc_default);
 		
-		//ÀúÀå ¹öÆ°
-		JButton savedR_button = new JButton("ÀúÀå");
+		//ì €ì¥ ë²„íŠ¼
+		JButton savedR_button = new JButton("ì €ì¥");
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exrecord.setCount_set(exrecord.cal_count_set());
@@ -210,10 +210,10 @@ public class exRecordpage extends JFrame{
 		add(savedR_button, gbc_default);
 	}
 	
-	// wcpanel_list¸¦ ¹ÙÅÁÀ¸·Î wclist_panel repaintÇÏ±â
+	// wcpanel_listë¥¼ ë°”íƒ•ìœ¼ë¡œ wclist_panel repaintí•˜ê¸°
 	private void repaint_wclist_panel(){
-		if(wcpanel_list != null && !wcpanel_list.isEmpty()) {  												// ¿îµ¿ 1°³¶óµµ ÀÖÀ» °æ¿ì
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ÇÑ °³¿¡ ´ëÇÑ gbc
+		if(wcpanel_list != null && !wcpanel_list.isEmpty()) {  												// ìš´ë™ 1ê°œë¼ë„ ìˆì„ ê²½ìš°
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord í•œ ê°œì— ëŒ€í•œ gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -229,12 +229,12 @@ public class exRecordpage extends JFrame{
 		}else
 			set_list_panel.removeAll();
 		
-		set_list_panel.revalidate();															// ¿îµ¿ ¼±ÅÃ ÆĞ³Î ÃÊ±âÈ­
+		set_list_panel.revalidate();															// ìš´ë™ ì„ íƒ íŒ¨ë„ ì´ˆê¸°í™”
 		set_list_panel.repaint();
 	}
 	private void repaint_clist_panel(){
-		if(cpanel_list != null && !cpanel_list.isEmpty()) {  												// ¿îµ¿ 1°³¶óµµ ÀÖÀ» °æ¿ì
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ÇÑ °³¿¡ ´ëÇÑ gbc
+		if(cpanel_list != null && !cpanel_list.isEmpty()) {  												// ìš´ë™ 1ê°œë¼ë„ ìˆì„ ê²½ìš°
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord í•œ ê°œì— ëŒ€í•œ gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -250,12 +250,12 @@ public class exRecordpage extends JFrame{
 		}else
 			set_list_panel.removeAll();
 		
-		set_list_panel.revalidate();															// ¿îµ¿ ¼±ÅÃ ÆĞ³Î ÃÊ±âÈ­
+		set_list_panel.revalidate();															// ìš´ë™ ì„ íƒ íŒ¨ë„ ì´ˆê¸°í™”
 		set_list_panel.repaint();
 	}
 	private void repaint_tlist_panel(){
-		if(tpanel_list != null && !tpanel_list.isEmpty()) {  												// ¿îµ¿ 1°³¶óµµ ÀÖÀ» °æ¿ì
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ÇÑ °³¿¡ ´ëÇÑ gbc
+		if(tpanel_list != null && !tpanel_list.isEmpty()) {  												// ìš´ë™ 1ê°œë¼ë„ ìˆì„ ê²½ìš°
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord í•œ ê°œì— ëŒ€í•œ gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -271,43 +271,43 @@ public class exRecordpage extends JFrame{
 		}else
 			set_list_panel.removeAll();
 		
-		set_list_panel.revalidate();															// ¿îµ¿ ¼±ÅÃ ÆĞ³Î ÃÊ±âÈ­
+		set_list_panel.revalidate();															// ìš´ë™ ì„ íƒ íŒ¨ë„ ì´ˆê¸°í™”
 		set_list_panel.repaint();
 	}
 
 	private void setting_exRecord(exRecord other_exr) {
-		if (other_exr.getEx().getcalmethod().equals("")) {											//Ã¹¹øÂ° Á¢±Ù
+		if (other_exr.getEx().getcalmethod().equals("")) {											//ì²«ë²ˆì§¸ ì ‘ê·¼
 			exrecord = new exRecord(other_exr.getEx().getname(),other_exr.getSet_goal());
-			setEx_byname();  																		//¿îµ¿ ÀÌ¸§À¸·Î ¿îµ¿ Á¤º¸ setting
-			// ÀÔ·Â¹ŞÀº ¸ñÇ¥ ¼¼Æ®¼ö·Î ÃÊ±â¼³Á¤ ¹× ÆĞ³Î »ı¼º
-			if(exrecord.getEx().getcalmethod().equals("¹«°Ô * È½¼ö")) {
+			setEx_byname();  																		//ìš´ë™ ì´ë¦„ìœ¼ë¡œ ìš´ë™ ì •ë³´ setting
+			// ì…ë ¥ë°›ì€ ëª©í‘œ ì„¸íŠ¸ìˆ˜ë¡œ ì´ˆê¸°ì„¤ì • ë° íŒ¨ë„ ìƒì„±
+			if(exrecord.getEx().getcalmethod().equals("ë¬´ê²Œ * íšŸìˆ˜")) {
 				exrecord = new wc_exRecord(exrecord);
 				wcpanel_list = new ArrayList<>();
 				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
-					wc_set tmp_ws = new wc_set(10,3,LocalTime.of(0, 2,0));							// default °ª : 10 ,3 , 02:00
+					wc_set tmp_ws = new wc_set(10,3,LocalTime.of(0, 2,0));							// default ê°’ : 10 ,3 , 02:00
 					((wc_exRecord)exrecord).first_add_wcset(tmp_ws);
 					wcpanel_list.add(new wcset_panel(tmp_ws));
 				}
-			}else if (exrecord.getEx().getcalmethod().equals("È½¼ö")) {
+			}else if (exrecord.getEx().getcalmethod().equals("íšŸìˆ˜")) {
 				exrecord = new c_exRecord(exrecord);
 				cpanel_list = new ArrayList<>();
 				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
-					c_set tmp_cs = new c_set(3,LocalTime.of(0, 2,0));								// default °ª : 3 , 02:00
+					c_set tmp_cs = new c_set(3,LocalTime.of(0, 2,0));								// default ê°’ : 3 , 02:00
 					((c_exRecord)exrecord).first_add_wcset(tmp_cs);
 					cpanel_list.add(new cset_panel(tmp_cs));
 				}
-			}else if (exrecord.getEx().getcalmethod().equals("½Ã°£")) {
+			}else if (exrecord.getEx().getcalmethod().equals("ì‹œê°„")) {
 				exrecord = new t_exRecord(exrecord);
 				tpanel_list = new ArrayList<>();
 				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
-					t_set tmp_cs = new t_set(LocalTime.of(0, 3,0),LocalTime.of(0, 2,0));			// default °ª : 03:00 , 02:00
+					t_set tmp_cs = new t_set(LocalTime.of(0, 3,0),LocalTime.of(0, 2,0));			// default ê°’ : 03:00 , 02:00
 					((t_exRecord)exrecord).first_add_tset(tmp_cs);
 					tpanel_list.add(new tset_panel(tmp_cs));
 				}
 			}
-		}else if(other_exr instanceof wc_exRecord) {												// ÀçÁ¢±Ù - ¹«°Ô * È½¼ö
+		}else if(other_exr instanceof wc_exRecord) {												// ì¬ì ‘ê·¼ - ë¬´ê²Œ * íšŸìˆ˜
 			exrecord = other_exr;
-			// wcpanel_list ¸¸µé¾îÁÖ±â
+			// wcpanel_list ë§Œë“¤ì–´ì£¼ê¸°
 			if(exrecord.getSet_goal()==0) {
 				wcpanel_list = new ArrayList<>();
 			}else {
@@ -316,9 +316,9 @@ public class exRecordpage extends JFrame{
 					wcpanel_list.add(new wcset_panel(wcs));
 				}
 			}
-		}else if(other_exr instanceof c_exRecord) {													// ÀçÁ¢±Ù - È½¼ö
+		}else if(other_exr instanceof c_exRecord) {													// ì¬ì ‘ê·¼ - íšŸìˆ˜
 			exrecord = other_exr;
-			// wcpanel_list ¸¸µé¾îÁÖ±â
+			// wcpanel_list ë§Œë“¤ì–´ì£¼ê¸°
 			if(exrecord.getSet_goal()==0) {
 				cpanel_list = new ArrayList<>();
 			}else {
@@ -327,9 +327,9 @@ public class exRecordpage extends JFrame{
 					cpanel_list.add(new cset_panel(cs));
 				}
 			}
-		}else if(other_exr instanceof t_exRecord) {													// ÀçÁ¢±Ù - ½Ã°£
+		}else if(other_exr instanceof t_exRecord) {													// ì¬ì ‘ê·¼ - ì‹œê°„
 			exrecord = other_exr;
-			// wcpanel_list ¸¸µé¾îÁÖ±â
+			// wcpanel_list ë§Œë“¤ì–´ì£¼ê¸°
 			if(exrecord.getSet_goal()==0) {
 				tpanel_list = new ArrayList<>();
 			}else {
@@ -340,30 +340,30 @@ public class exRecordpage extends JFrame{
 			}
 		}
 		else {
-			System.err.println("exrecord »õ·Î ¹Ş¾Æ¿À±â ½ÇÆĞ");
+			System.err.println("exrecord ìƒˆë¡œ ë°›ì•„ì˜¤ê¸° ì‹¤íŒ¨");
 		}
 	}
 	private void set_labelary() {
 		label_ary = new String[3];
 		if(exrecord instanceof wc_exRecord) {
-			label_ary[0] = "¹«°Ô";
-			label_ary[1] = "È½¼ö";
-			label_ary[2] = "ÈŞ½Ä½Ã°£";
+			label_ary[0] = "ë¬´ê²Œ";
+			label_ary[1] = "íšŸìˆ˜";
+			label_ary[2] = "íœ´ì‹ì‹œê°„";
 		}else if(exrecord instanceof c_exRecord){
-			label_ary[0] = "È½¼ö";
-			label_ary[1] = "ÈŞ½Ä½Ã°£";
+			label_ary[0] = "íšŸìˆ˜";
+			label_ary[1] = "íœ´ì‹ì‹œê°„";
 			label_ary[2] = "";
 		}else if(exrecord instanceof t_exRecord){
-			label_ary[0] = "¸ñÇ¥½Ã°£";
-			label_ary[1] = "¼öÇà½Ã°£";
-			label_ary[2] = "ÈŞ½Ä½Ã°£";
+			label_ary[0] = "ëª©í‘œì‹œê°„";
+			label_ary[1] = "ìˆ˜í–‰ì‹œê°„";
+			label_ary[2] = "íœ´ì‹ì‹œê°„";
 		}
 	}
 	private void set_gplabel() {
 		exrecord.setCount_set(exrecord.cal_count_set());
 		gp_label.setText("("+Integer.toString(exrecord.getCount_set())+"/"+Integer.toString(exrecord.getSet_goal())+")");
 	}
-	// ¹«°Ô * È½¼ö ¼¼Æ® ÆĞ³Î
+	// ë¬´ê²Œ * íšŸìˆ˜ ì„¸íŠ¸ íŒ¨ë„
 	class wcset_panel extends JPanel{
 		JLabel set_lable;
 		JPanel summaryPanel;
@@ -391,14 +391,14 @@ public class exRecordpage extends JFrame{
 			gbl.rowHeights = new int[] {50};
 			this.setLayout(gbl);
 			
-			/*±âº» Ãâ·Â ÆĞ³Î*/
+			/*ê¸°ë³¸ ì¶œë ¥ íŒ¨ë„*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {75,70,70,80,60,60};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			
-			set_lable = new JLabel(get_setnum()+"¼¼Æ®");
+			set_lable = new JLabel(get_setnum()+"ì„¸íŠ¸");
 			set_gbc(0, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			summaryPanel.add(set_lable,gbc);
@@ -415,42 +415,42 @@ public class exRecordpage extends JFrame{
 			set_gbc(3, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(resttime_sum_label,gbc);
 			
-			// »èÁ¦ ¹öÆ°
-			JButton delete_btn = new JButton("»èÁ¦");
+			// ì‚­ì œ ë²„íŠ¼
+			JButton delete_btn = new JButton("ì‚­ì œ");
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
 						wcpanel_list.remove(getindex());
 					}else {
-						System.out.println("Àß¸øµÊ");
+						System.out.println("ì˜ëª»ë¨");
 					}
-					((wc_exRecord)exrecord).del_wcset(wcs);										//exrecord¿¡¼­ »èÁ¦µÈ ³»¿ë ³¯·ÁÁÖ±â
-					repaint_wclist_panel();														//¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
+					((wc_exRecord)exrecord).del_wcset(wcs);										//exrecordì—ì„œ ì‚­ì œëœ ë‚´ìš© ë‚ ë ¤ì£¼ê¸°
+					repaint_wclist_panel();														//ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ì— ëŒ€í•œ ex_list_panel ì—…ë°ì´íŠ¸
 				}
 			};
 			delete_btn.addActionListener(delBtn_listener);
 			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(delete_btn,gbc);
 			
-			open_Btn = new JButton("¿­±â");
+			open_Btn = new JButton("ì—´ê¸°");
 			ActionListener loadBtn_listener2 = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					set_gbc(0, 1, GridBagConstraints.BOTH);
-					wcset_panel.this.add(updatePanel,gbc);										// updateÆĞ³Î º¸¿©ÁÖ±â
-					wcset_panel.this.summaryPanel.remove(check_btn);							// ´İÈû ¹öÆ°À¸·Î ¹Ù²Ù±â
+					wcset_panel.this.add(updatePanel,gbc);										// updateíŒ¨ë„ ë³´ì—¬ì£¼ê¸°
+					wcset_panel.this.summaryPanel.remove(check_btn);							// ë‹«í˜ ë²„íŠ¼ìœ¼ë¡œ ë°”ê¾¸ê¸°
 					wcset_panel.this.check_btn = wcset_panel.this.close_Btn;
 					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
 					wcset_panel.this.summaryPanel.add(check_btn,gbc);
 					
-					wcpanel_list.set(wcset_panel.this.getindex(), wcset_panel.this);			// ÆĞ³Î¸®½ºÆ®¿¡ ÆĞ³Î »õ·Î°íÄ§ ÈÄ repaint
+					wcpanel_list.set(wcset_panel.this.getindex(), wcset_panel.this);			// íŒ¨ë„ë¦¬ìŠ¤íŠ¸ì— íŒ¨ë„ ìƒˆë¡œê³ ì¹¨ í›„ repaint
 					repaint_wclist_panel();
 				}
 				
 			};
 			open_Btn.addActionListener(loadBtn_listener2);
 			
-			close_Btn= new JButton("´İ±â");
+			close_Btn= new JButton("ë‹«ê¸°");
 			ActionListener closeBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					wcset_panel.this.remove(updatePanel);
@@ -471,7 +471,7 @@ public class exRecordpage extends JFrame{
 			set_gbc(0, 0, GridBagConstraints.BOTH);
 			this.add(summaryPanel,gbc);
 			
-			/* ¿­±â¹öÆ° Å¬¸¯½Ã ³ª¿À´Â ÆĞ³Î */
+			/* ì—´ê¸°ë²„íŠ¼ í´ë¦­ì‹œ ë‚˜ì˜¤ëŠ” íŒ¨ë„ */
 			updatePanel = new JPanel();
 			GridBagLayout gbl2 = new GridBagLayout();
 			gbl2.columnWidths = new int[]  {70,70,70,80,60,60};
@@ -479,48 +479,48 @@ public class exRecordpage extends JFrame{
 			
 			updatePanel.setLayout(gbl2);
 
-			// ¸î ¹øÂ° ¼¼Æ®ÀÎÁö ³ªÅ¸³»´Â ¶óº§ 
-			JLabel set_lable = new JLabel("¸ñÇ¥");
+			// ëª‡ ë²ˆì§¸ ì„¸íŠ¸ì¸ì§€ ë‚˜íƒ€ë‚´ëŠ” ë¼ë²¨ 
+			JLabel set_lable = new JLabel("ëª©í‘œ");
 			set_gbc(0, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			updatePanel.add(set_lable,gbc);
 			
-			// ¸ñÇ¥ ¹«°Ô ÇÊµå
+			// ëª©í‘œ ë¬´ê²Œ í•„ë“œ
 			gweight_textfield = new JTextField();
 			gweight_textfield.setText(Integer.toString(other_wcs.getWeight()));
 			set_gbc(1, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(gweight_textfield,gbc);
 			
-			// ¸ñÇ¥ È½¼ö
+			// ëª©í‘œ íšŸìˆ˜
 			gcount_textfield = new JTextField();
 			gcount_textfield.setText(Integer.toString(other_wcs.getCount()));
 			set_gbc(2, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(gcount_textfield,gbc);
 			
-			// ÈŞ½Ä½Ã°£
+			// íœ´ì‹ì‹œê°„
 			resttime_textfield = new JTextField();
 			resttime_textfield.setText(other_wcs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(resttime_textfield,gbc);
 			
-			// ¼öÇà ¶óº§
-			JLabel performed_label = new JLabel("¼öÇà");
+			// ìˆ˜í–‰ ë¼ë²¨
+			JLabel performed_label = new JLabel("ìˆ˜í–‰");
 			set_gbc(0, 1,GridBagConstraints.BOTH);
 			updatePanel.add(performed_label,gbc);
 			
-			// ¼öÇà ¹«°Ô ÇÊµå
+			// ìˆ˜í–‰ ë¬´ê²Œ í•„ë“œ
 			pweight_textfield = new JTextField();
 			pweight_textfield.setText(Integer.toString(other_wcs.getP_weight()));
 			set_gbc(1, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(pweight_textfield,gbc);
 			
-			// ¼öÇà È½¼ö
+			// ìˆ˜í–‰ íšŸìˆ˜
 			pcount_textfield = new JTextField();
 			pcount_textfield.setText(Integer.toString(other_wcs.getP_count()));
 			set_gbc(2, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(pcount_textfield,gbc);
 			
-			// ¸ñÇ¥-> ¼öÇà load ¹öÆ° // ¼öÇà default ´Â 0À¸·Î ¼³Á¤. load ´©¸£¸é ¸ñÇ¥ °ª °¡Á®¿È
+			// ëª©í‘œ-> ìˆ˜í–‰ load ë²„íŠ¼ // ìˆ˜í–‰ default ëŠ” 0ìœ¼ë¡œ ì„¤ì •. load ëˆ„ë¥´ë©´ ëª©í‘œ ê°’ ê°€ì ¸ì˜´
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -551,8 +551,8 @@ public class exRecordpage extends JFrame{
 			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(reset_Btn,gbc);
 			
-			// ¸ñÇ¥ ¹× ¼öÇà ÀúÀå
-			JButton update_btn = new JButton("ÀúÀå");
+			// ëª©í‘œ ë° ìˆ˜í–‰ ì €ì¥
+			JButton update_btn = new JButton("ì €ì¥");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
@@ -571,7 +571,7 @@ public class exRecordpage extends JFrame{
 			updatePanel.add(update_btn,gbc);
 		}
 		public void set_setlabel(int setnum) {
-			set_lable.setText(setnum + "¼¼Æ®");
+			set_lable.setText(setnum + "ì„¸íŠ¸");
 		}
 		private int getindex() {
 			return wcpanel_list.indexOf(this);
@@ -605,6 +605,7 @@ public class exRecordpage extends JFrame{
 		c_set cs;
 		GridBagConstraints gbc;
 		
+		c_set cs;
 		public cset_panel(c_set other_cs) {
 			cs = other_cs;
 			GridBagLayout gbl = new GridBagLayout();
@@ -614,14 +615,14 @@ public class exRecordpage extends JFrame{
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
 			
-			/*±âº» Ãâ·Â ÆĞ³Î*/
+			/*ê¸°ë³¸ ì¶œë ¥ íŒ¨ë„*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {75,70,70,80,60,60};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			
-			set_lable = new JLabel(get_setnum()+"¼¼Æ®");
+			set_lable = new JLabel(get_setnum()+"ì„¸íŠ¸");
 			set_gbc(0, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			summaryPanel.add(set_lable,gbc);
@@ -634,42 +635,42 @@ public class exRecordpage extends JFrame{
 			set_gbc(2, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(resttime_sum_label,gbc);
 			
-			// »èÁ¦ ¹öÆ°
-			JButton delete_btn = new JButton("»èÁ¦");
+			// ì‚­ì œ ë²„íŠ¼
+			JButton delete_btn = new JButton("ì‚­ì œ");
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
 						cpanel_list.remove(getindex());
 					}else {
-						System.out.println("Àß¸øµÊ");
+						System.out.println("ì˜ëª»ë¨");
 					}
-					((c_exRecord)exrecord).del_cset(cs);										//exrecord¿¡¼­ »èÁ¦µÈ ³»¿ë ³¯·ÁÁÖ±â
-					repaint_clist_panel();														//¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
+					((c_exRecord)exrecord).del_cset(cs);										//exrecordì—ì„œ ì‚­ì œëœ ë‚´ìš© ë‚ ë ¤ì£¼ê¸°
+					repaint_clist_panel();														//ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ì— ëŒ€í•œ ex_list_panel ì—…ë°ì´íŠ¸
 				}
 			};
 			delete_btn.addActionListener(delBtn_listener);
 			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(delete_btn,gbc);
 			
-			open_Btn = new JButton("¿­±â");
+			open_Btn = new JButton("ì—´ê¸°");
 			ActionListener loadBtn_listener2 = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					set_gbc(0, 1, GridBagConstraints.BOTH);
-					cset_panel.this.add(updatePanel,gbc);										// updateÆĞ³Î º¸¿©ÁÖ±â
-					cset_panel.this.summaryPanel.remove(check_btn);							// ´İÈû ¹öÆ°À¸·Î ¹Ù²Ù±â
+					cset_panel.this.add(updatePanel,gbc);										// updateíŒ¨ë„ ë³´ì—¬ì£¼ê¸°
+					cset_panel.this.summaryPanel.remove(check_btn);							// ë‹«í˜ ë²„íŠ¼ìœ¼ë¡œ ë°”ê¾¸ê¸°
 					cset_panel.this.check_btn = cset_panel.this.close_Btn;
 					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
 					cset_panel.this.summaryPanel.add(check_btn,gbc);
 					
-					cpanel_list.set(cset_panel.this.getindex(), cset_panel.this);			// ÆĞ³Î¸®½ºÆ®¿¡ ÆĞ³Î »õ·Î°íÄ§ ÈÄ repaint
+					cpanel_list.set(cset_panel.this.getindex(), cset_panel.this);			// íŒ¨ë„ë¦¬ìŠ¤íŠ¸ì— íŒ¨ë„ ìƒˆë¡œê³ ì¹¨ í›„ repaint
 					repaint_clist_panel();
 				}
 				
 			};
 			open_Btn.addActionListener(loadBtn_listener2);
 			
-			close_Btn= new JButton("´İ±â");
+			close_Btn= new JButton("ë‹«ê¸°");
 			ActionListener closeBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cset_panel.this.remove(updatePanel);
@@ -690,41 +691,41 @@ public class exRecordpage extends JFrame{
 			set_gbc(0, 0, GridBagConstraints.BOTH);
 			this.add(summaryPanel,gbc);
 			
-			/* ¿­±â¹öÆ° Å¬¸¯½Ã ³ª¿À´Â ÆĞ³Î */
+			/* ì—´ê¸°ë²„íŠ¼ í´ë¦­ì‹œ ë‚˜ì˜¤ëŠ” íŒ¨ë„ */
 			updatePanel = new JPanel();
 			GridBagLayout gbl2 = new GridBagLayout();
 			gbl2.columnWidths = new int[] {70,70,70,80,60,60};
 			gbl2.rowHeights = new int[] {50,50};
 			updatePanel.setLayout(gbl2);
 			
-			JLabel goal_label = new JLabel("¸ñÇ¥");
+			JLabel goal_label = new JLabel("ëª©í‘œ");
 			set_gbc(1, 0,GridBagConstraints.BOTH);
 			updatePanel.add(goal_label,gbc);
 			
-			// ¸ñÇ¥ È½¼ö
+			// ëª©í‘œ íšŸìˆ˜
 			gcount_textfield = new JTextField();
 			gcount_textfield.setText(Integer.toString(cs.getCount()));
 			set_gbc(2, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(gcount_textfield,gbc);
 			
-			// ÈŞ½Ä½Ã°£
+			// íœ´ì‹ì‹œê°„
 			resttime_textfield = new JTextField();
 			resttime_textfield.setText(cs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(resttime_textfield,gbc);
 			
-			// ¼öÇà ¶óº§
-			JLabel performed_label = new JLabel("¼öÇà");
+			// ìˆ˜í–‰ ë¼ë²¨
+			JLabel performed_label = new JLabel("ìˆ˜í–‰");
 			set_gbc(1, 1,GridBagConstraints.BOTH);
 			updatePanel.add(performed_label,gbc);
 			
-			// ¼öÇà È½¼ö
+			// ìˆ˜í–‰ íšŸìˆ˜
 			pcount_textfield = new JTextField();
 			pcount_textfield.setText(Integer.toString(cs.getP_count()));
 			set_gbc(2, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(pcount_textfield,gbc);
 			
-			// ¸ñÇ¥-> ¼öÇà load ¹öÆ° // ¼öÇà default ´Â 0À¸·Î ¼³Á¤. load ´©¸£¸é ¸ñÇ¥ °ª °¡Á®¿È
+			// ëª©í‘œ-> ìˆ˜í–‰ load ë²„íŠ¼ // ìˆ˜í–‰ default ëŠ” 0ìœ¼ë¡œ ì„¤ì •. load ëˆ„ë¥´ë©´ ëª©í‘œ ê°’ ê°€ì ¸ì˜´
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -751,8 +752,8 @@ public class exRecordpage extends JFrame{
 			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(reset_Btn,gbc);
 			
-			// ¸ñÇ¥ ¹× ¼öÇà ÀúÀå
-			JButton update_btn = new JButton("ÀúÀå");
+			// ëª©í‘œ ë° ìˆ˜í–‰ ì €ì¥
+			JButton update_btn = new JButton("ì €ì¥");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cs.setCount(Integer.valueOf(gcount_textfield.getText()));
@@ -769,7 +770,7 @@ public class exRecordpage extends JFrame{
 			
 		}
 		public void set_setlabel(int setnum) {
-			set_lable.setText(setnum + "¼¼Æ®");
+			set_lable.setText(setnum + "ì„¸íŠ¸");
 		}
 		private int getindex() {
 			return cpanel_list.indexOf(this);
@@ -811,14 +812,14 @@ public class exRecordpage extends JFrame{
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
 			
-			/*±âº» Ãâ·Â ÆĞ³Î*/
+			/*ê¸°ë³¸ ì¶œë ¥ íŒ¨ë„*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[]{75,70,70,80,60,60};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			
-			set_lable = new JLabel(get_setnum()+"¼¼Æ®");
+			set_lable = new JLabel(get_setnum()+"ì„¸íŠ¸");
 			set_gbc(0, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			summaryPanel.add(set_lable,gbc);
@@ -835,42 +836,42 @@ public class exRecordpage extends JFrame{
 			set_gbc(3, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(resttime_label,gbc);
 			
-			// »èÁ¦ ¹öÆ°
-			JButton delete_btn = new JButton("»èÁ¦");
+			// ì‚­ì œ ë²„íŠ¼
+			JButton delete_btn = new JButton("ì‚­ì œ");
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
 						tpanel_list.remove(getindex());
 					}else {
-						System.out.println("Àß¸øµÊ");
+						System.out.println("ì˜ëª»ë¨");
 					}
-					((t_exRecord)exrecord).del_tset(ts);										//exrecord¿¡¼­ »èÁ¦µÈ ³»¿ë ³¯·ÁÁÖ±â
-					repaint_tlist_panel();														//¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
+					((t_exRecord)exrecord).del_tset(ts);										//exrecordì—ì„œ ì‚­ì œëœ ë‚´ìš© ë‚ ë ¤ì£¼ê¸°
+					repaint_tlist_panel();														//ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ì— ëŒ€í•œ ex_list_panel ì—…ë°ì´íŠ¸
 				}
 			};
 			delete_btn.addActionListener(delBtn_listener);
 			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(delete_btn,gbc);
 			
-			open_Btn = new JButton("¿­±â");
+			open_Btn = new JButton("ì—´ê¸°");
 			ActionListener loadBtn_listener2 = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					set_gbc(0, 1, GridBagConstraints.BOTH);
-					tset_panel.this.add(updatePanel,gbc);										// updateÆĞ³Î º¸¿©ÁÖ±â
-					tset_panel.this.summaryPanel.remove(check_btn);							// ´İÈû ¹öÆ°À¸·Î ¹Ù²Ù±â
+					tset_panel.this.add(updatePanel,gbc);										// updateíŒ¨ë„ ë³´ì—¬ì£¼ê¸°
+					tset_panel.this.summaryPanel.remove(check_btn);							// ë‹«í˜ ë²„íŠ¼ìœ¼ë¡œ ë°”ê¾¸ê¸°
 					tset_panel.this.check_btn = tset_panel.this.close_Btn;
 					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
 					tset_panel.this.summaryPanel.add(check_btn,gbc);
 					
-					tpanel_list.set(tset_panel.this.getindex(), tset_panel.this);			// ÆĞ³Î¸®½ºÆ®¿¡ ÆĞ³Î »õ·Î°íÄ§ ÈÄ repaint
+					tpanel_list.set(tset_panel.this.getindex(), tset_panel.this);			// íŒ¨ë„ë¦¬ìŠ¤íŠ¸ì— íŒ¨ë„ ìƒˆë¡œê³ ì¹¨ í›„ repaint
 					repaint_tlist_panel();
 				}
 				
 			};
 			open_Btn.addActionListener(loadBtn_listener2);
 			
-			close_Btn= new JButton("´İ±â");
+			close_Btn= new JButton("ë‹«ê¸°");
 			ActionListener closeBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					tset_panel.this.remove(updatePanel);
@@ -891,41 +892,41 @@ public class exRecordpage extends JFrame{
 			set_gbc(0, 0, GridBagConstraints.BOTH);
 			this.add(summaryPanel,gbc);
 			
-			/* ¿­±â¹öÆ° Å¬¸¯½Ã ³ª¿À´Â ÆĞ³Î */
+			/* ì—´ê¸°ë²„íŠ¼ í´ë¦­ì‹œ ë‚˜ì˜¤ëŠ” íŒ¨ë„ */
 			updatePanel = new JPanel();
 			GridBagLayout gbl2 = new GridBagLayout();
 			gbl2.columnWidths = new int[]{70,70,70,80,60,60};
 			gbl2.rowHeights = new int[] {50,50};
 			updatePanel.setLayout(gbl2);
 			
-			JLabel goal_label = new JLabel("¸ñÇ¥");
+			JLabel goal_label = new JLabel("ëª©í‘œ");
 			set_gbc(1, 0,GridBagConstraints.BOTH);
 			updatePanel.add(goal_label,gbc);
 			
-			// ¸ñÇ¥ ½Ã°£
+			// ëª©í‘œ ì‹œê°„
 			goaltime_textfield = new JTextField();
 			goaltime_textfield.setText(ts.getG_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			set_gbc(2, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(goaltime_textfield,gbc);
 			
-			// ÈŞ½Ä½Ã°£
+			// íœ´ì‹ì‹œê°„
 			resttime_textfield = new JTextField();
 			resttime_textfield.setText(ts.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(resttime_textfield,gbc);
 			
-			// ¼öÇà ¶óº§
-			JLabel performed_label = new JLabel("¼öÇà");
+			// ìˆ˜í–‰ ë¼ë²¨
+			JLabel performed_label = new JLabel("ìˆ˜í–‰");
 			set_gbc(1, 1,GridBagConstraints.BOTH);
 			updatePanel.add(performed_label,gbc);
 			
-			// ¼öÇà È½¼ö
+			// ìˆ˜í–‰ íšŸìˆ˜
 			ptime_textfield = new JTextField();
 			ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			set_gbc(2, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(ptime_textfield,gbc);
 			
-			// ¸ñÇ¥-> ¼öÇà load ¹öÆ° // ¼öÇà default ´Â 0À¸·Î ¼³Á¤. load ´©¸£¸é ¸ñÇ¥ °ª °¡Á®¿È
+			// ëª©í‘œ-> ìˆ˜í–‰ load ë²„íŠ¼ // ìˆ˜í–‰ default ëŠ” 0ìœ¼ë¡œ ì„¤ì •. load ëˆ„ë¥´ë©´ ëª©í‘œ ê°’ ê°€ì ¸ì˜´
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -952,13 +953,13 @@ public class exRecordpage extends JFrame{
 			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(reset_Btn,gbc);
 			
-			// ¸ñÇ¥ ¹× ¼öÇà ÀúÀå
-			JButton update_btn = new JButton("ÀúÀå");
+			// ëª©í‘œ ë° ìˆ˜í–‰ ì €ì¥
+			JButton update_btn = new JButton("ì €ì¥");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					/* 
 					 * 
-					 * ÀÔ·Â ¿¹¿ÜÃ³¸®
+					 * ì…ë ¥ ì˜ˆì™¸ì²˜ë¦¬
 					 * 
 					 */
 					
@@ -977,7 +978,7 @@ public class exRecordpage extends JFrame{
 			
 		}
 		public void set_setlabel(int setnum) {
-			set_lable.setText(setnum + "¼¼Æ®");
+			set_lable.setText(setnum + "ì„¸íŠ¸");
 		}
 		private int getindex() {
 			return tpanel_list.indexOf(this);
@@ -997,11 +998,11 @@ public class exRecordpage extends JFrame{
 		}
 	}
 
-	// ¿îµ¿ ÀÌ¸§À¸·Î ¿îµ¿Á¤º¸ setÇÏ±â
+	// ìš´ë™ ì´ë¦„ìœ¼ë¡œ ìš´ë™ì •ë³´ setí•˜ê¸°
 	
 	private void setEx_byname() {
 		for(int i = 0; i < exlist.size(); i++) {
-			if (exrecord.getEx().getname().equals(exlist.get(i).getname())) { // ÀÌ¸§À¸·Î °Ë»öÇÏ±â -> Ã£¾ÒÀ» ¶§  
+			if (exrecord.getEx().getname().equals(exlist.get(i).getname())) { // ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰í•˜ê¸° -> ì°¾ì•˜ì„ ë•Œ  
 				exrecord.setEx(exlist.get(i));
 				break;
 			}
@@ -1014,10 +1015,10 @@ public class exRecordpage extends JFrame{
 	class savedR_check_dialog extends JDialog{
 		public savedR_check_dialog(){
 			setSize(200,100);
-			JLabel label = new JLabel("ÀÔ·ÂÀ» È®ÀÎÇÏ¼¼¿ä");
+			JLabel label = new JLabel("ì…ë ¥ì„ í™•ì¸í•˜ì„¸ìš”");
 			label.setHorizontalAlignment(JLabel.CENTER);
 			add(label,BorderLayout.CENTER);
-			JButton bt = new JButton("È®ÀÎ");
+			JButton bt = new JButton("í™•ì¸");
 			bt.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
