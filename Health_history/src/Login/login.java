@@ -16,6 +16,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,6 +58,7 @@ public class login {
 						}
 					}
 					login window = new login();
+					
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -118,7 +121,8 @@ public class login {
 				
 				for(int i = 0; i < idnow.size(); i++) {
 					if(idnow.get(i).equals(loginField.getText()) &&  pwnow.get(i).equals(getPasswordInfo())) {
-						JOptionPane.showMessageDialog(frame, "login success!!", "축하합니다", JOptionPane.INFORMATION_MESSAGE);
+//					JOptionPane.showMessageDialog(null, "login success.");
+						System.out.println("hello");
 						ArrayList<dayRecord> dR_ary = new ArrayList<>();
 						CalendarDemo A = new CalendarDemo(dR_ary);
 						A.setVisible(true);
@@ -129,7 +133,7 @@ public class login {
 					
 				}
 				if(loginok == false) {
-					JOptionPane.showMessageDialog(null, "login failed..", "경고", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "login fail.");
 					loginField.setText("");
 					passwordField.setText("");
 				}
