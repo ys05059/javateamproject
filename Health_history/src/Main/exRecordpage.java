@@ -341,6 +341,12 @@ public class exRecordpage extends JFrame{
 		JButton open_Btn;
 		JButton close_Btn;
 		
+		JTextField gweight_textfield;
+		JTextField gcount_textfield;
+		JTextField resttime_textfield;
+		JTextField pweight_textfield;
+		JTextField pcount_textfield;
+		
 		wc_set wcs;
 		
 		public wcset_panel(wc_set other_wcs) {
@@ -470,21 +476,21 @@ public class exRecordpage extends JFrame{
 			updatePanel.add(set_lable,gbc);
 			
 			// 목표 무게 필드
-			JTextField gweight_textfield = new JTextField();
+			gweight_textfield = new JTextField();
 			gweight_textfield.setText(Integer.toString(other_wcs.getWeight()));
 			gbc = new GridBagConstraints();
 			set_gbc(1, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(gweight_textfield,gbc);
 			
 			// 목표 횟수
-			JTextField gcount_textfield = new JTextField();
+			gcount_textfield = new JTextField();
 			gcount_textfield.setText(Integer.toString(other_wcs.getCount()));
 			gbc = new GridBagConstraints();
 			set_gbc(2, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(gcount_textfield,gbc);
 			
 			// 휴식시간
-			JTextField resttime_textfield = new JTextField();
+			resttime_textfield = new JTextField();
 			resttime_textfield.setText(other_wcs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
@@ -497,14 +503,14 @@ public class exRecordpage extends JFrame{
 			updatePanel.add(performed_label,gbc);
 			
 			// 수행 무게 필드
-			JTextField pweight_textfield = new JTextField();
+			pweight_textfield = new JTextField();
 			pweight_textfield.setText(Integer.toString(other_wcs.getP_weight()));
 			gbc = new GridBagConstraints();
 			set_gbc(1, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(pweight_textfield,gbc);
 			
 			// 수행 횟수
-			JTextField pcount_textfield = new JTextField();
+			pcount_textfield = new JTextField();
 			pcount_textfield.setText(Integer.toString(other_wcs.getP_count()));
 			gbc = new GridBagConstraints();
 			set_gbc(2, 1,GridBagConstraints.HORIZONTAL);
@@ -514,9 +520,9 @@ public class exRecordpage extends JFrame{
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					other_wcs.performed_update();
-					pweight_textfield.setText(Integer.toString(other_wcs.getP_weight()));
-					pcount_textfield.setText(Integer.toString(other_wcs.getP_count()));
+					wcs.performed_update();
+					pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
+					pcount_textfield.setText(Integer.toString(wcs.getP_count()));
 				}
 			};
 			load_btn.addActionListener(loadBtn_listener);
@@ -536,11 +542,11 @@ public class exRecordpage extends JFrame{
 			JButton update_btn = new JButton("저장");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					other_wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
-					other_wcs.setCount(Integer.valueOf(gcount_textfield.getText()));
-					other_wcs.setP_count(Integer.valueOf(pcount_textfield.getText()));
-					other_wcs.setP_weight(Integer.valueOf(pweight_textfield.getText()));
-					other_wcs.setRest_time(resttime_textfield.getText());
+					wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
+					wcs.setCount(Integer.valueOf(gcount_textfield.getText()));
+					wcs.setP_count(Integer.valueOf(pcount_textfield.getText()));
+					wcs.setP_weight(Integer.valueOf(pweight_textfield.getText()));
+					wcs.setRest_time(resttime_textfield.getText());
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);
@@ -573,6 +579,10 @@ public class exRecordpage extends JFrame{
 		GridBagConstraints gbc;
 		
 		c_set cs;
+		JTextField gcount_textfield;
+		JTextField resttime_textfield;
+		JTextField pcount_textfield;
+		
 		public cset_panel(c_set other_cs) {
 			cs = other_cs;
 			GridBagLayout gbl = new GridBagLayout();
@@ -595,14 +605,14 @@ public class exRecordpage extends JFrame{
 			
 			
 			// 목표 횟수
-			JTextField gcount_textfield = new JTextField();
+			gcount_textfield = new JTextField();
 			gcount_textfield.setText(Integer.toString(cs.getCount()));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
 			this.add(gcount_textfield,gbc);
 			
 			// 휴식시간
-			JTextField resttime_textfield = new JTextField();
+			resttime_textfield = new JTextField();
 			resttime_textfield.setText(cs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
@@ -615,7 +625,7 @@ public class exRecordpage extends JFrame{
 			this.add(performed_label,gbc);
 			
 			// 수행 횟수
-			JTextField pcount_textfield = new JTextField();
+			pcount_textfield = new JTextField();
 			pcount_textfield.setText(Integer.toString(cs.getP_count()));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
@@ -691,6 +701,9 @@ public class exRecordpage extends JFrame{
 		JLabel set_lable;
 		GridBagConstraints gbc;
 		t_set ts;
+		JTextField resttime_textfield;
+		JTextField goaltime_textfield;
+		JTextField ptime_textfield;
 		public tset_panel(t_set other_ts) {
 			ts = other_ts;
 			GridBagLayout gbl = new GridBagLayout();
@@ -712,14 +725,14 @@ public class exRecordpage extends JFrame{
 			this.add(goal_label,gbc);
 			
 			// 목표 시간
-			JTextField goaltime_textfield = new JTextField();
+			goaltime_textfield = new JTextField();
 			goaltime_textfield.setText(ts.getG_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
 			this.add(goaltime_textfield,gbc);
 			
 			// 휴식시간
-			JTextField resttime_textfield = new JTextField();
+			resttime_textfield = new JTextField();
 			resttime_textfield.setText(ts.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
@@ -732,7 +745,7 @@ public class exRecordpage extends JFrame{
 			this.add(performed_label,gbc);
 			
 			// 수행 횟수
-			JTextField ptime_textfield = new JTextField();
+			ptime_textfield = new JTextField();
 			ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
