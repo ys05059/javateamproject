@@ -56,6 +56,7 @@ public class dayRecordpage extends JFrame {
 		setTitle("dayRecordpage	");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
+		getContentPane().setBackground(new Color(203, 254, 255));
 		
 //		setPreferredSize(dayRecordP.getDim());
 //		getContentPane().add(dayRecordP);
