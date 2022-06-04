@@ -35,7 +35,7 @@ import set단위class.t_set;
 import set단위class.wc_exRecord;
 import set단위class.wc_set;
 
-public class exRecordpage extends JDialog{
+public class exRecordpage extends JFrame{
 	private JPanel set_list_panel; 
 	private exRecord exrecord;
 	private ArrayList<wcset_panel> wcpanel_list; 
@@ -45,6 +45,7 @@ public class exRecordpage extends JDialog{
 	
 	public exRecordpage(exRecord other_exr, dayRecord pre_dayRecord) {
 		setTitle("exRecordpage	");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(450,500);
 		GridBagLayout gb = new GridBagLayout();
 		gb.columnWidths = new int[] {50,50,50,100,75,75};

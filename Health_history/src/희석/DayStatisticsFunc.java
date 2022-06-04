@@ -18,8 +18,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import javafx.util.Pair;
-
 public class DayStatisticsFunc {
 	private LocalDate today;
 	private String totalTimeStr;
