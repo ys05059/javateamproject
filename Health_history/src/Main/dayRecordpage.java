@@ -44,7 +44,7 @@ public class dayRecordpage extends JFrame {
 	private JTextField weight_textField;
 	private JTextField today_textField;
 	private JPanel ex_list_panel; 
-	static dayRecord dayrecord;
+	public dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
 	imgPanel dayRecordP = new imgPanel(new ImageIcon("image\\batang1.jpg").getImage());
 	final ImageIcon dayRecordP2 = new ImageIcon("image\\batang1.jpg"); 

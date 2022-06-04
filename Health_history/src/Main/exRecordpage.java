@@ -42,8 +42,10 @@ public class exRecordpage extends JFrame{
 	private ArrayList<cset_panel> cpanel_list; 
 	private ArrayList<tset_panel> tpanel_list; 
 	private ArrayList<exercise> exlist;
+	private dayRecord dayrecord;
 	
 	public exRecordpage(exRecord other_exr, dayRecord pre_dayRecord) {
+		dayrecord = pre_dayRecord;
 		setTitle("exRecordpage	");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(450,500);
@@ -121,7 +123,7 @@ public class exRecordpage extends JFrame{
 				// 추가할 세트 정보 받아오기
 				if(exrecord instanceof wc_exRecord) { // 이렇게 하니 운동을 하나 추가하면 세트 추가 버튼 눌러도
 					//창이 안뜬다
-					dayRecordpage.dayrecord.printallexr_ary();
+					dayrecord.printallexr_ary();
 					add_wcsetpage asp = new add_wcsetpage(new exRecord(exrecord));
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
@@ -130,7 +132,7 @@ public class exRecordpage extends JFrame{
 					wc_set wcs = new wc_set(Integer.valueOf(asp.get_weight()),Integer.valueOf(asp.get_count()));
 					wcs.setRest_time(asp.get_resttime());
 					((wc_exRecord)exrecord).add_wcset(wcs);
-					dayRecordpage.dayrecord.set_exr(exrecord);
+					dayrecord.set_exr(exrecord);
 					// wc_set 패널 추가
 					wcset_panel wcp = new wcset_panel(wcs);
 					wcpanel_list.add(wcp);
@@ -145,7 +147,7 @@ public class exRecordpage extends JFrame{
 					c_set cs = new c_set(Integer.valueOf(asp.get_count()));
 					cs.setRest_time(asp.get_resttime());
 					((c_exRecord)exrecord).add_wcset(cs);
-					dayRecordpage.dayrecord.set_exr(exrecord);
+					dayrecord.set_exr(exrecord);
 					// wc_set 패널 추가
 					cset_panel cp = new cset_panel(cs);
 					cpanel_list.add(cp);
@@ -160,7 +162,7 @@ public class exRecordpage extends JFrame{
 					t_set wcs = new t_set(asp.get_goaltime());
 					wcs.setRest_time(asp.get_resttime());
 					((t_exRecord)exrecord).add_tset(wcs);	
-					dayRecordpage.dayrecord.set_exr(exrecord);
+					dayrecord.set_exr(exrecord);
 					// wc_set 패널 추가
 					 tset_panel tp = new tset_panel(wcs);
 					tpanel_list.add(tp);
@@ -181,7 +183,7 @@ public class exRecordpage extends JFrame{
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exrecord.setCount_set(exrecord.cal_count_set());
-				dayRecordpage.dayrecord.set_exr(exrecord);
+				dayrecord.set_exr(exrecord);
 				dispose();
 				
 			}
