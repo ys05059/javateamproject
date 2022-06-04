@@ -204,7 +204,7 @@ public class dayRecordpage extends JFrame {
 				else {
 					int index=0;
 					for(dayRecord tmp : dR_ary) {
-						if(dr.getToday_date().equals(tmp.getToday_date()))
+						if(dayrecord.getToday_date().equals(tmp.getToday_date()))
 							break;
 						else 
 							index++;
@@ -258,9 +258,10 @@ public class dayRecordpage extends JFrame {
 	class expanel extends JPanel{ 
 		private JLabel ex_name;
 		private JLabel setnum_label;
+		private exRecord exr;
 		
 		public expanel(exRecord other_exr) {
-			
+			exr = other_exr;
 			TitledBorder oneTb = new TitledBorder(new LineBorder(Color.black));
 			setBorder(oneTb);
 			GridBagLayout gbl = new GridBagLayout();
@@ -329,7 +330,7 @@ public class dayRecordpage extends JFrame {
 					if (getindex() >=0) {
 						System.out.println(getindex());
 
-						dayrecord.delete_exr(other_exr);
+						dayrecord.delete_exr(exr);
 
 						expanel_list.remove(getindex());
 						dayrecord.printallexr_ary();

@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import Login.User;
-import Login.login;
+
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.exlistClass;
