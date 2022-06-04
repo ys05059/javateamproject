@@ -577,12 +577,11 @@ public class exRecordpage extends JFrame{
 	class cset_panel extends JPanel{
 		JLabel set_lable;
 		GridBagConstraints gbc;
-		
-		c_set cs;
 		JTextField gcount_textfield;
 		JTextField resttime_textfield;
 		JTextField pcount_textfield;
 		
+		c_set cs;
 		public cset_panel(c_set other_cs) {
 			cs = other_cs;
 			GridBagLayout gbl = new GridBagLayout();

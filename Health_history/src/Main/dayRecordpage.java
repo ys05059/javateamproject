@@ -259,7 +259,6 @@ public class dayRecordpage extends JFrame {
 		private JLabel ex_name;
 		private JLabel setnum_label;
 		private exRecord exr;
-		
 		public expanel(exRecord other_exr) {
 			exr = other_exr;
 			TitledBorder oneTb = new TitledBorder(new LineBorder(Color.black));
