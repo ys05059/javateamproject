@@ -1,6 +1,9 @@
 package Login;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import set¥‹¿ßclass.dayRecord;
 
 public class User implements Serializable{
 	private String ID;
@@ -21,6 +24,7 @@ public class User implements Serializable{
 		this.height = 0;
 		this.bodyfat = 0;
 		this.skeletalmuscle = 0;
+
 	}
 	
 	public User(String new_ID, String new_PW) {
@@ -32,6 +36,7 @@ public class User implements Serializable{
 		this.height = 0;
 		this.bodyfat = 0;
 		this.skeletalmuscle = 0;
+
 	}
 	
 	public User(String new_ID, String new_PW,String new_Gender, String new_Nickname, float new_weight, float new_height, float new_bodyfat, float new_skeletalmuscle) {
@@ -43,7 +48,9 @@ public class User implements Serializable{
 		this.height = new_height;
 		this.bodyfat = new_bodyfat;
 		this.skeletalmuscle = new_skeletalmuscle;
+
 	}
+	
 
 	public String getID() {
 		return ID;
