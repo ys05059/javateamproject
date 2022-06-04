@@ -81,7 +81,7 @@ public class login {
 		System.out.println("check");
 		frame = new JFrame("Health History");
 		frame.setBounds(100, 100, 700, 700);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
 		//from https://kr.freepik.com/free-vector/modern-login-page-template-with-blur-background_18141219.htm#&position=2&from_view=detail#&position=2&from_view=detail
 		imgPanel loginP = new imgPanel(new ImageIcon("image\\login.jpg").getImage());
 		frame.setSize(loginP.getDim());

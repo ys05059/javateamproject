@@ -301,8 +301,6 @@ public class dayRecordpage extends JFrame {
 					}else {
 						exrp = new exRecordpage(exr,dayrecord);
 					}
-					exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					exrp.setModal(true);
 					exrp.setVisible(true);
 					
 					// 창 닫혔을 때
