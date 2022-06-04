@@ -514,9 +514,9 @@ public class exRecordpage extends JFrame{
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					other_wcs.performed_update();
-					pweight_textfield.setText(Integer.toString(other_wcs.getP_weight()));
-					pcount_textfield.setText(Integer.toString(other_wcs.getP_count()));
+					wcs.performed_update();
+					pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
+					pcount_textfield.setText(Integer.toString(wcs.getP_count()));
 				}
 			};
 			load_btn.addActionListener(loadBtn_listener);
@@ -536,11 +536,11 @@ public class exRecordpage extends JFrame{
 			JButton update_btn = new JButton("¿˙¿Â");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					other_wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
-					other_wcs.setCount(Integer.valueOf(gcount_textfield.getText()));
-					other_wcs.setP_count(Integer.valueOf(pcount_textfield.getText()));
-					other_wcs.setP_weight(Integer.valueOf(pweight_textfield.getText()));
-					other_wcs.setRest_time(resttime_textfield.getText());
+					wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
+					wcs.setCount(Integer.valueOf(gcount_textfield.getText()));
+					wcs.setP_count(Integer.valueOf(pcount_textfield.getText()));
+					wcs.setP_weight(Integer.valueOf(pweight_textfield.getText()));
+					wcs.setRest_time(resttime_textfield.getText());
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);
