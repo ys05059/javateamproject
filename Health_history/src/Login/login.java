@@ -118,7 +118,7 @@ public class login {
 				
 				for(int i = 0; i < idnow.size(); i++) {
 					if(idnow.get(i).equals(loginField.getText()) &&  pwnow.get(i).equals(getPasswordInfo())) {
-						JOptionPane.showMessageDialog(frame, "login success!!");
+						JOptionPane.showMessageDialog(frame, "login success!!", "축하합니다", JOptionPane.INFORMATION_MESSAGE);
 						ArrayList<dayRecord> dR_ary = new ArrayList<>();
 						CalendarDemo A = new CalendarDemo(dR_ary);
 						A.setVisible(true);
@@ -129,7 +129,7 @@ public class login {
 					
 				}
 				if(loginok == false) {
-					JOptionPane.showMessageDialog(null, "login failed.");
+					JOptionPane.showMessageDialog(null, "login failed..", "경고", JOptionPane.WARNING_MESSAGE);
 					loginField.setText("");
 					passwordField.setText("");
 				}

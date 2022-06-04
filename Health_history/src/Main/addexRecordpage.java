@@ -1,11 +1,14 @@
 package Main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -26,6 +29,9 @@ public class addexRecordpage extends JDialog {
 	private JComboBox<String> catecombo; //카테고리 고를 수 있는 박스
 	private JComboBox<String> excombo;//카테고리가 입력되면 그에 해당하는 운동 고를 수 있는 박스
 	private exlistClass allwork; //ALL_WORKOUT에서 arraylist뽑아오는 클래스
+	
+	private final ImageIcon addRecordB = new ImageIcon("image\\batang1.jpg");
+	
 	String nowcate = "";
 	String nowwork = "";
 	ArrayList<String> cate = new ArrayList<>();
@@ -41,6 +47,7 @@ public class addexRecordpage extends JDialog {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		getContentPane().setBackground(new Color(203, 254, 255));
 		contentPane.setLayout(null);
 		
 		JLabel catename_Label = new JLabel("Category");
