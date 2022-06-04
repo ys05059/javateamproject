@@ -12,6 +12,10 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,6 +33,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import set단위class.Set;
 import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.exercise;
@@ -38,6 +43,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import 동혁.search_for_ALL_WORKOUT;
 import javax.swing.SwingConstants;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CalendarDemo extends JFrame{
 
@@ -83,7 +91,6 @@ public class CalendarDemo extends JFrame{
 	public ArrayList<dayRecord> curr_dR_ary;
 	
 	private LocalDate select_date;
-	
 	
 	
 	public CalendarDemo(ArrayList<dayRecord> dR_ary){
@@ -206,7 +213,9 @@ public class CalendarDemo extends JFrame{
 	}
 	public static void paintExcPane(ArrayList<dayRecord> dR_ary) { // 운동목록 받아오기 dayRecordpage에 메소드실행문 추가해야함
 		LocalDate d;
-		GridBagConstraints gbc =new GridBagConstraints();		
+		GridBagConstraints gbc =new GridBagConstraints();	
+		HashMap<String, int[]> catemap = null;
+		
 		for(int i=0;i<daysBtn.length;i++) {
 			daysBtn[i].setBackground(new Color(164, 230, 244));
 			showExInCal[i].setBackground(new Color(127, 197, 249));
@@ -227,33 +236,58 @@ public class CalendarDemo extends JFrame{
 				int i = d.getDayOfMonth()+CalendarFunc.fday-1;
 				daysBtn[i].setBackground(Color.yellow);				
 				ArrayList<exRecord> exs = x.getExr_ary();
-				
+				catemap = new HashMap<String, int[]>();
 				for(exRecord e : exs) {
-					exercise exercise = e.getEx();
-					
-					String type = exercise.getcategory(); 
-					String exname = exercise.getname();
-					JLabel typel = new JLabel(type);
-					JLabel exnamel = new JLabel(exname);
-					
+					exercise ex = e.getEx();
+					if(!catemap.containsKey(ex.getcategory())) { // 카테고리 맵에 해당 운동의 카테고리가 없으면 카테고리 추가
+						int []cnts = new int[3]; // 카테고리 운동 수, 수행 세트 수, 목표 세트 수
+						catemap.put(ex.getcategory(), cnts);
+					}
+					catemap.get(ex.getcategory())[0]+=1;
+					catemap.get(ex.getcategory())[1]+=e.getCount_set();
+					catemap.get(ex.getcategory())[2]+=e.getSet_goal();
+					System.out.println(ex.getcategory());
+				}
+				List<Entry<String, int[]>> entryList = new ArrayList<Entry<String,int[]>>(catemap.entrySet());
+				Collections.sort(entryList, new Comparator<Entry<String, int[]>>(){
+					public int compare(Entry<String, int[]> a, Entry<String, int[]> b) {
+						if(a.getValue()[0] <b.getValue()[0])
+							return 1;
+						else if(a.getValue()[0] > b.getValue()[0])
+							return -1;
+						else {
+							return a.getKey().compareTo(b.getKey());
+						}
+					}
+				});
+				int idx=0;
+				for(Entry<String, int[]> entry : entryList) {
+					System.out.println(entry.getKey() + entry.getValue()[0]);
+					if(idx==3)
+						break;
+					idx++;
 					JPanel oneex = new JPanel();
-					oneex.setBackground(Color.WHITE);
+					oneex.setBackground(new Color(127, 197, 249));
 					oneex.setLayout(new GridLayout(1, 2));
 					
-					oneex.add(typel);
-					oneex.add(exnamel);
+					JLabel first = new JLabel(entry.getKey() + " " + String.valueOf(entry.getValue()[0]) + "개");
+					first.setForeground(Color.white);
+					first.setHorizontalAlignment(JLabel.LEFT);
+					JLabel second = new JLabel(String.valueOf(entry.getValue()[1]) + "/" + String.valueOf(entry.getValue()[2]));
+					second.setForeground(Color.white);
+					second.setHorizontalAlignment(JLabel.RIGHT);
+					
+					oneex.add(first);
+					oneex.add(second);
 					
 					showExInCal[i].add(oneex, gbc);
-					showExInCal[i].revalidate();										
-					showExInCal[i].repaint();
-					
 					gbc.gridy+=1;
 				}
+				showExInCal[i].revalidate();										
+				showExInCal[i].repaint();
 			}
 		}
-
 	}
-	
 	private class moveHandler implements ActionListener {
 		
 		public void actionPerformed(ActionEvent e) {
