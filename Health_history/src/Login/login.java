@@ -147,10 +147,10 @@ public class login {
 						}
 						
 						// 기간통계 수정중
-						//PeriodStatisticsDemo A = new PeriodStatisticsDemo(curr_dR_ary, LocalDate.of(2022,6,6), LocalDate.of(2022,6,16));
+//						PeriodStatisticsDemo A = new PeriodStatisticsDemo(curr_dR_ary, LocalDate.of(2022,6,6), LocalDate.of(2022,6,16));
 						CalendarDemo A = new CalendarDemo(curr_dR_ary, idnow.get(i));
 						A.setVisible(true);
-						frame.dispose(); //로그인 창 종료
+						frame.setVisible(false); //로그인 창 종료
 						loginok = true;
 						break;
 					}
@@ -230,5 +230,9 @@ public class login {
 	private String getPasswordInfo() {
 		String str = new String(passwordField.getPassword());
 		return str;
+	}
+	
+	public void turnonLoginPage() {
+		frame.setVisible(true);
 	}
 }
