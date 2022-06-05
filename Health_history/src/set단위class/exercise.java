@@ -1,7 +1,9 @@
 package set단위class;
 
+import java.io.Serializable;
+
 //운동정보 class
-public class exercise implements Cloneable {
+public class exercise implements Cloneable, Serializable {
 	
 	private String name;
 	private String category;

@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 
 import Login.User;
 import Login.login;
+import Main.UserRecord;
 import Main.dayRecordpage;
 import set단위class.dayRecord;
 import set단위class.exRecord;
@@ -40,6 +41,7 @@ public class login {
 	private JPasswordField passwordField;
 	private JButton regiBtn;
 	private JButton loginBtn;
+	private ArrayList<dayRecord> curr_dR_ary;
 	/**
 	 * Launch the application.
 	 */
@@ -78,8 +80,7 @@ public class login {
 	 */
 	private void initialize() {
 		//회원 정보 불러와 배열리스트에 저장하기.
-		
-		System.out.println("check");
+
 		frame = new JFrame("Health History");
 		frame.setBounds(100, 100, 700, 700);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
@@ -120,8 +121,32 @@ public class login {
 				for(int i = 0; i < idnow.size(); i++) {
 					if(idnow.get(i).equals(loginField.getText()) &&  pwnow.get(i).equals(getPasswordInfo())) {
 						JOptionPane.showMessageDialog(null, "login success!!", "축하합니다", JOptionPane.INFORMATION_MESSAGE);
-						ArrayList<dayRecord> dR_ary = new ArrayList<>();
-						CalendarDemo A = new CalendarDemo(dR_ary);
+						//로그인 정보가 확인되면 아이디로 저장된 파일이 있는지 확인하고 있다면 deserialize
+						File f = new File("userworkinfo//" + idnow.get(i) +".dat");
+						if(f.exists()) {
+							UserRecord AA = new UserRecord();
+							try {
+								ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userworkinfo//" +idnow.get(i) +".dat"));
+								AA = (UserRecord)inputStream.readObject();
+								inputStream.close();
+							}catch(FileNotFoundException e1) {
+								System.err.println("Can't find file.");
+								System.exit(0);
+							}catch(ClassNotFoundException e1) {
+								System.err.println("error1");
+								System.exit(0);
+							}catch(IOException e1) {
+								e1.printStackTrace();
+								System.exit(0);
+							}
+							curr_dR_ary = AA.getUserWorkInfo();
+							
+						}else {
+							curr_dR_ary = new ArrayList<dayRecord>();
+							System.out.println("nothing");
+						}
+						
+						CalendarDemo A = new CalendarDemo(curr_dR_ary, idnow.get(i));
 						A.setVisible(true);
 						frame.dispose(); //로그인 창 종료
 						loginok = true;
