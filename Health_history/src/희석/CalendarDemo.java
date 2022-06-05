@@ -11,15 +11,6 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -32,13 +23,11 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import Login.imgPanel;
-import Main.UserRecord;
 import Main.dayRecordpage;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 import set단위class.dayRecord;
 import set단위class.exRecord;
@@ -95,95 +84,20 @@ public class CalendarDemo extends JFrame{
 	
 	private LocalDate select_date;
 	
-	private UserRecord UR;  //serialize 할 User운동기록클래스 불러오기
 	
 	
-	
-	public CalendarDemo(ArrayList<dayRecord> dR_ary, final String ID){
+	public CalendarDemo(ArrayList<dayRecord> dR_ary){
 		super("Calendar");
-		
-		String whatID = ID; //id 받아오기
-		
-		//calender 시작 전에 , id로 된 dat 파일이 있는 지 확인하고ㅡ 있다면 deserialize 한다.
-		
-		
-		
-		
 		this.setSize(WIDTH, HEIGHT);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		this.setVisible(true);
-		this.addWindowListener(new WindowListener(){
-
-			@Override
-			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
-				int A = JOptionPane.showConfirmDialog(null, "저장하시겠습니까?", "종료", JOptionPane.YES_NO_OPTION);
-				if(A == 1 || A == -1) { //no or x 누를 때 -> 저장 안하고 나가기
-					System.exit(0);
-				}
-				else if(A == 0) { //yes 누르면 -> 저장
-					UR = new UserRecord(ID, curr_dR_ary);
-					try {
-						ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userworkinfo//" + ID + ".dat"));
-						outputStream.writeObject(UR);
-						outputStream.close();
-						System.exit(0);
-						
-					}catch(IOException e1) {
-						System.err.println("Error writing to file.");
-						System.exit(0);
-					}
-					
-				}
-				
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-				
-			}
-
-			@Override
-			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-				
-				
-			}
-
-			@Override
-			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 	
 		moveHandler moveAct = new moveHandler(); //달력 넘기는 버튼 actionhandler
 		beforeBtn.addActionListener(moveAct);
 		afterBtn.addActionListener(moveAct);
 		
-		curr_dR_ary = dR_ary;  //얖은 복사 실행중, 두개가 주소값이 같아진다
+		curr_dR_ary = dR_ary;
 		
 		howtomove = new JLabel("날짜 버튼을 눌러 운동을 입력하세요!");
 		
@@ -323,8 +237,8 @@ public class CalendarDemo extends JFrame{
 					JLabel exnamel = new JLabel(exname);
 					
 					JPanel oneex = new JPanel();
-					oneex.setBackground(new Color(127, 197, 249));
-					oneex.setLayout(new GridLayout(1, 3));
+					oneex.setBackground(Color.WHITE);
+					oneex.setLayout(new GridLayout(1, 2));
 					
 					oneex.add(typel);
 					oneex.add(exnamel);

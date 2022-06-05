@@ -1,10 +1,9 @@
 package set¥‹¿ßclass;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class dayRecord implements Serializable{
+public class dayRecord {
 	private ArrayList<exRecord> exr_ary;
 	private double today_weight;
 	private LocalDate today_date;
@@ -83,7 +82,6 @@ public class dayRecord implements Serializable{
 				System.out.println(exr_ary.get(i).getSet_goal());
 				System.out.println(exr_ary.get(i).getCount_set());
 			}
-			System.out.println(today_date);
 		}
 	}
 	

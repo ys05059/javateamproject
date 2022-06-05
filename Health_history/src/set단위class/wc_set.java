@@ -1,10 +1,9 @@
 package set단위class;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 
 // 무게x횟수 set
-public class wc_set extends Set implements Cloneable , Serializable{
+public class wc_set extends Set implements Cloneable{
 	private int weight;
 	private int count;
 	private int p_weight; 						// 수행 무게

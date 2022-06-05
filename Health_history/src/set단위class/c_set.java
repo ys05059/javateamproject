@@ -1,10 +1,9 @@
 package set´ÜÀ§class;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 
 // È½¼ö set
-public class c_set extends Set implements Cloneable, Serializable{
+public class c_set extends Set implements Cloneable{
 	private int count;
 	private int p_count;
 	
