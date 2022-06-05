@@ -70,6 +70,7 @@ public class DayStatisticsDemo extends JFrame {
 
 		dateTextArea = new JTextArea(currDate);
 		dateTextArea.setBounds(91,36,96,21);
+		dateTextArea.setEditable(false);
 		contentPane.add(dateTextArea);
 		
 		scrollPane = new JScrollPane();
