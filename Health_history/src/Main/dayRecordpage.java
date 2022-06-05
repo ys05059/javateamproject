@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -36,14 +37,12 @@ import 희석.CalendarDemo;
 public class dayRecordpage extends JFrame {
 
 	private JTextField weight_textField;
-	private JTextField today_textField;
 	private JPanel ex_list_panel; 
 	public dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
 	imgPanel dayRecordP = new imgPanel(new ImageIcon("image\\batang1.jpg").getImage());
 	final ImageIcon dayRecordP2 = new ImageIcon("image\\batang1.jpg"); 
 	boolean exist; // 처음 입력하는건지, 있던거 덮어쓰는지
-	
 
 	public dayRecordpage(final ArrayList<dayRecord> dR_ary,dayRecord dr) {//이부분 final로 안하니 오류 떠서 final 추가했습니다(동혁)
 
@@ -52,8 +51,6 @@ public class dayRecordpage extends JFrame {
 		setSize(500,400);
 		getContentPane().setBackground(new Color(203, 254, 255));
 		
-//		setPreferredSize(dayRecordP.getDim());
-//		getContentPane().add(dayRecordP);
 
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
@@ -78,7 +75,6 @@ public class dayRecordpage extends JFrame {
 		
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
-		
 		/* 날짜 입력 패널 */
 		JLabel today_Label = new JLabel("오늘의 날짜");
 		today_Label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -87,13 +83,14 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridy = 0;
 		add(today_Label,gbc_default);
 		
-		today_textField = new JTextField();
-		today_textField.setText(dayrecord.getToday_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		JLabel todaydate_Label = new JLabel();
+		todaydate_Label.setText(dayrecord.getToday_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		gbc_default = new GridBagConstraints();
 		gbc_default.fill = GridBagConstraints.HORIZONTAL;
 		gbc_default.gridx = 1;
 		gbc_default.gridy = 0;
 		gbc_default.anchor = GridBagConstraints.WEST;
-		add(today_textField,gbc_default);
+		add(todaydate_Label,gbc_default);
 		
 		
 		// 몸무게 라벨
@@ -178,19 +175,21 @@ public class dayRecordpage extends JFrame {
 		JButton savedR_button = new JButton("저장");
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 적어도 date와 몸무게는 있어야함 없으면 에러창
-				if(today_textField.getText().equals("") ) {
-					savedR_check_dialog icd = new savedR_check_dialog();
-					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					icd.setModal(true);
-					icd.setVisible(true);
-				}
-				//몸무게 저장
-				if(!weight_textField.getText().equals(""))
-					dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));				
+				 try { // 몸무게 입력 오류처리
+					 Double.parseDouble(weight_textField.getText());
+					 if(Double.valueOf(weight_textField.getText())<0) {
+						 JOptionPane.showMessageDialog(null, "몸무게를 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+						 weight_textField.setText("");
+						 return;
+					 }
+					 dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));
+				 }catch(NumberFormatException e1) {
+					 JOptionPane.showMessageDialog(null, "몸무게를 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+					 weight_textField.setText("");
+					 return;
+	            }
 				
-				// dayRecord를 dR_ary에 추가
-				// 없으면 추가 있으면 다시 세팅
+				// dayRecord를 dR_ary에 추가 -> 없으면 add / 있으면 set
 				if(exist == false)
 					dR_ary.add(dayrecord);
 				else {
@@ -209,13 +208,13 @@ public class dayRecordpage extends JFrame {
 			}
 		};
 		savedR_button.addActionListener(savedR_listener);
+		gbc_default = new GridBagConstraints();
 		gbc_default.anchor = GridBagConstraints.CENTER;
 		gbc_default.ipadx = 20;
 		gbc_default.gridx = 4;
 		gbc_default.gridwidth = 2;
 		add(savedR_button, gbc_default);
 	}
-	
 	
 	private void repaint_exlist_panel(){
 		if(expanel_list!= null && !expanel_list.isEmpty()) {  												// 운동 1개라도 있을 경우
@@ -331,9 +330,6 @@ public class dayRecordpage extends JFrame {
 		dayrecord.setToday_date(date);
 	}
 	
-	public void set_today_textField(String yandM) {
-		this.today_textField.setText(yandM);
-	}
 	
 	class savedR_check_dialog extends JDialog{
 		public savedR_check_dialog(){

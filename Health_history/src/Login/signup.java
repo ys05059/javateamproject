@@ -92,7 +92,6 @@ public class signup extends JFrame implements ActionListener{
 			
 		}
 		
-		
 		setVisible(true);
 		setBounds(100, 100, 900, 700);
 		
