@@ -40,6 +40,11 @@ public class wc_set extends Set implements Cloneable , Serializable{
 		super.setPerform_check(true);
 	}
 	
+	public void performed_reset() {
+		p_weight = 0;
+		p_count = 0;
+		super.setPerform_check(false);
+	}
 	
 	@Override
 	public wc_set clone() throws CloneNotSupportedException{
