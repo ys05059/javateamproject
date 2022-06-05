@@ -27,7 +27,7 @@ public class c_exRecord extends exRecord{
 	
 	public void add_wcset(c_set cs) {
 		c_set_ary.add(cs);
-		super.setSet_goal(super.getSet_goal()-1);
+		super.setSet_goal(super.getSet_goal()+1);
 	}
 	
 	public void del_cset(c_set tmp_cs) {

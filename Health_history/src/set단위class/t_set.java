@@ -38,6 +38,11 @@ public class t_set extends Set implements Cloneable{
 		super.setPerform_check(true);
 	}
 
+	public void performed_reset() {
+		p_time = LocalTime.of(0, 0);
+		super.setPerform_check(false);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o == this)
