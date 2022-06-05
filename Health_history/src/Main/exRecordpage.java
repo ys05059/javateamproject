@@ -24,16 +24,17 @@ import javax.swing.border.EmptyBorder;
 
 import Main.dayRecordpage.expanel;
 import Main.dayRecordpage.savedR_check_dialog;
-import set´ÜÀ§class.c_exRecord;
-import set´ÜÀ§class.c_set;
-import set´ÜÀ§class.dayRecord;
-import set´ÜÀ§class.exRecord;
-import set´ÜÀ§class.exercise;
-import set´ÜÀ§class.exlistClass;
-import set´ÜÀ§class.t_exRecord;
-import set´ÜÀ§class.t_set;
-import set´ÜÀ§class.wc_exRecord;
-import set´ÜÀ§class.wc_set;
+import setë‹¨ìœ„class.c_set;
+import setï¿½ï¿½ï¿½ï¿½class.c_exRecord;
+import setï¿½ï¿½ï¿½ï¿½class.c_set;
+import setï¿½ï¿½ï¿½ï¿½class.dayRecord;
+import setï¿½ï¿½ï¿½ï¿½class.exRecord;
+import setï¿½ï¿½ï¿½ï¿½class.exercise;
+import setï¿½ï¿½ï¿½ï¿½class.exlistClass;
+import setï¿½ï¿½ï¿½ï¿½class.t_exRecord;
+import setï¿½ï¿½ï¿½ï¿½class.t_set;
+import setï¿½ï¿½ï¿½ï¿½class.wc_exRecord;
+import setï¿½ï¿½ï¿½ï¿½class.wc_set;
 
 public class exRecordpage extends JFrame{
 	private JPanel set_list_panel; 
@@ -55,12 +56,12 @@ public class exRecordpage extends JFrame{
 		setLayout(gb);
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
-		/* ¹Þ¾Æ¿Â ¿îµ¿¸íÀ¸·Î exRecord Á¤º¸ Ã¤¿ì±â */		// other_exr´Â name °ú setgoal Á¤º¸¸¸ ÀÖÀ½ 
+		/* ï¿½Þ¾Æ¿ï¿½ ï¿½îµ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ exRecord ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ */		// other_exrï¿½ï¿½ name ï¿½ï¿½ setgoal ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 		exlistClass elc = new exlistClass("ALL_WORKOUT");
 		exlist = elc.get_exlist();
 		setting_exRecord(other_exr);
 
-		/* ¹Þ¾Æ¿Â ¿îµ¿¸í Ãâ·Â ÆÐ³Î */
+		/* ï¿½Þ¾Æ¿ï¿½ ï¿½îµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ */
 		JLabel today_Label = new JLabel(exrecord.getEx().getname());
 		today_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		gbc_default.anchor = GridBagConstraints.CENTER;
@@ -69,28 +70,28 @@ public class exRecordpage extends JFrame{
 		gbc_default.weightx =2;
 		add(today_Label,gbc_default);
 		
-		JLabel weight_label = new JLabel("¹«°Ô");
+		JLabel weight_label = new JLabel("ï¿½ï¿½ï¿½ï¿½");
 		weight_label.setHorizontalAlignment(SwingConstants.CENTER);
 		gbc_default.anchor = GridBagConstraints.CENTER;
 		gbc_default.gridx = 1;
 		gbc_default.gridy = 1;
 		add(weight_label,gbc_default);
 		
-		JLabel count_label = new JLabel("È½¼ö");
+		JLabel count_label = new JLabel("È½ï¿½ï¿½");
 		count_label.setHorizontalAlignment(SwingConstants.CENTER);
 		gbc_default.anchor = GridBagConstraints.CENTER;
 		gbc_default.gridx = 2;
 		gbc_default.gridy = 1;
 		add(count_label,gbc_default);
 		
-		JLabel resttime_label = new JLabel("ÈÞ½Ä½Ã°£");
+		JLabel resttime_label = new JLabel("ï¿½Þ½Ä½Ã°ï¿½");
 		resttime_label.setHorizontalAlignment(SwingConstants.CENTER);
 		gbc_default.anchor = GridBagConstraints.CENTER;
 		gbc_default.gridx = 3;
 		gbc_default.gridy = 1;
 		add(resttime_label,gbc_default);
 		
-		/* ¼¼Æ® ¸®½ºÆ® ÆÐ³Î */
+		/* ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ð³ï¿½ */
 		set_list_panel = new JPanel();
 		set_list_panel.setBackground(Color.WHITE);
 		gb = new GridBagLayout();
@@ -107,7 +108,7 @@ public class exRecordpage extends JFrame{
 		JScrollPane sp = new JScrollPane(set_list_panel);
 		add(sp, gbc_default);
 		
-		// Ã³À½ ¼¼Æ® ¸®½ºÆ® ¼¼ÆÃÇÏ±â
+		// Ã³ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		if(exrecord instanceof wc_exRecord) {
 			repaint_wclist_panel();
 		}else if(exrecord instanceof c_exRecord) {
@@ -116,24 +117,24 @@ public class exRecordpage extends JFrame{
 			repaint_tlist_panel();
 		}
 		
-		// ¼¼Æ®Ãß°¡ ¹öÆ° Å¬¸¯
-		JButton addset_button = new JButton("¼¼Æ® Ãß°¡");
+		// ï¿½ï¿½Æ®ï¿½ß°ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½
+		JButton addset_button = new JButton("ï¿½ï¿½Æ® ï¿½ß°ï¿½");
 		ActionListener addset_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Ãß°¡ÇÒ ¼¼Æ® Á¤º¸ ¹Þ¾Æ¿À±â
-				if(exrecord instanceof wc_exRecord) { // ÀÌ·¸°Ô ÇÏ´Ï ¿îµ¿À» ÇÏ³ª Ãß°¡ÇÏ¸é ¼¼Æ® Ãß°¡ ¹öÆ° ´­·¯µµ
-					//Ã¢ÀÌ ¾È¶á´Ù
+				// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+				if(exrecord instanceof wc_exRecord) { // ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½îµ¿ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ß°ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Æ® ï¿½ß°ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					//Ã¢ï¿½ï¿½ ï¿½È¶ï¿½ï¿½
 					dayrecord.printallexr_ary();
 					add_wcsetpage asp = new add_wcsetpage(new exRecord(exrecord));
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
 					asp.setVisible(true);
-					// ±âÁ¸ Á¤º¸(ÀÌ¸§,setgoal) ³Ö¾îÁÖ±â
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ì¸ï¿½,setgoal) ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
 					wc_set wcs = new wc_set(Integer.valueOf(asp.get_weight()),Integer.valueOf(asp.get_count()));
 					wcs.setRest_time(asp.get_resttime());
 					((wc_exRecord)exrecord).add_wcset(wcs);
 					dayrecord.set_exr(exrecord);
-					// wc_set ÆÐ³Î Ãß°¡
+					// wc_set ï¿½Ð³ï¿½ ï¿½ß°ï¿½
 					wcset_panel wcp = new wcset_panel(wcs);
 					wcpanel_list.add(wcp);
 					repaint_wclist_panel();
@@ -143,12 +144,12 @@ public class exRecordpage extends JFrame{
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
 					asp.setVisible(true);
-					// exrecord¿¡ wc_exRecord ÀúÀåÇÏ±â
+					// exrecordï¿½ï¿½ wc_exRecord ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 					c_set cs = new c_set(Integer.valueOf(asp.get_count()));
 					cs.setRest_time(asp.get_resttime());
 					((c_exRecord)exrecord).add_wcset(cs);
 					dayrecord.set_exr(exrecord);
-					// wc_set ÆÐ³Î Ãß°¡
+					// wc_set ï¿½Ð³ï¿½ ï¿½ß°ï¿½
 					cset_panel cp = new cset_panel(cs);
 					cpanel_list.add(cp);
 					repaint_clist_panel();
@@ -158,12 +159,12 @@ public class exRecordpage extends JFrame{
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);
 					asp.setVisible(true);
-					// exrecord¿¡ t_exRecord ÀúÀåÇÏ±â
+					// exrecordï¿½ï¿½ t_exRecord ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 					t_set wcs = new t_set(asp.get_goaltime());
 					wcs.setRest_time(asp.get_resttime());
 					((t_exRecord)exrecord).add_tset(wcs);	
 					dayrecord.set_exr(exrecord);
-					// wc_set ÆÐ³Î Ãß°¡
+					// wc_set ï¿½Ð³ï¿½ ï¿½ß°ï¿½
 					 tset_panel tp = new tset_panel(wcs);
 					tpanel_list.add(tp);
 					repaint_tlist_panel();
@@ -178,8 +179,8 @@ public class exRecordpage extends JFrame{
 		gbc_default.gridwidth = 2;
 		add(addset_button, gbc_default);
 		
-		//ÀúÀå ¹öÆ°
-		JButton savedR_button = new JButton("ÀúÀå");
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+		JButton savedR_button = new JButton("ï¿½ï¿½ï¿½ï¿½");
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exrecord.setCount_set(exrecord.cal_count_set());
@@ -197,10 +198,10 @@ public class exRecordpage extends JFrame{
 		add(savedR_button, gbc_default);
 	}
 	
-	// wcpanel_list¸¦ ¹ÙÅÁÀ¸·Î wclist_panel repaintÇÏ±â
+	// wcpanel_listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ wclist_panel repaintï¿½Ï±ï¿½
 	private void repaint_wclist_panel(){
-		if(wcpanel_list != null && !wcpanel_list.isEmpty()) {  												// ¿îµ¿ 1°³¶óµµ ÀÖÀ» °æ¿ì
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ÇÑ °³¿¡ ´ëÇÑ gbc
+		if(wcpanel_list != null && !wcpanel_list.isEmpty()) {  												// ï¿½îµ¿ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -216,12 +217,12 @@ public class exRecordpage extends JFrame{
 		}else
 			set_list_panel.removeAll();
 		
-		set_list_panel.revalidate();															// ¿îµ¿ ¼±ÅÃ ÆÐ³Î ÃÊ±âÈ­
+		set_list_panel.revalidate();															// ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½Ê±ï¿½È­
 		set_list_panel.repaint();
 	}
 	private void repaint_clist_panel(){
-		if(cpanel_list != null && !cpanel_list.isEmpty()) {  												// ¿îµ¿ 1°³¶óµµ ÀÖÀ» °æ¿ì
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ÇÑ °³¿¡ ´ëÇÑ gbc
+		if(cpanel_list != null && !cpanel_list.isEmpty()) {  												// ï¿½îµ¿ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -237,12 +238,12 @@ public class exRecordpage extends JFrame{
 		}else
 			set_list_panel.removeAll();
 		
-		set_list_panel.revalidate();															// ¿îµ¿ ¼±ÅÃ ÆÐ³Î ÃÊ±âÈ­
+		set_list_panel.revalidate();															// ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½Ê±ï¿½È­
 		set_list_panel.repaint();
 	}
 	private void repaint_tlist_panel(){
-		if(tpanel_list != null && !tpanel_list.isEmpty()) {  												// ¿îµ¿ 1°³¶óµµ ÀÖÀ» °æ¿ì
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ÇÑ °³¿¡ ´ëÇÑ gbc
+		if(tpanel_list != null && !tpanel_list.isEmpty()) {  												// ï¿½îµ¿ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
@@ -258,43 +259,43 @@ public class exRecordpage extends JFrame{
 		}else
 			set_list_panel.removeAll();
 		
-		set_list_panel.revalidate();															// ¿îµ¿ ¼±ÅÃ ÆÐ³Î ÃÊ±âÈ­
+		set_list_panel.revalidate();															// ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½Ê±ï¿½È­
 		set_list_panel.repaint();
 	}
 	
 	private void setting_exRecord(exRecord other_exr) {
-		if (other_exr.getEx().getcalmethod().equals("")) {											//Ã¹¹øÂ° Á¢±Ù
+		if (other_exr.getEx().getcalmethod().equals("")) {											//Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½
 			exrecord = new exRecord(other_exr.getEx().getname(),other_exr.getSet_goal());
-			setEx_byname();  																		//¿îµ¿ ÀÌ¸§À¸·Î ¿îµ¿ Á¤º¸ setting
-			// ÀÔ·Â¹ÞÀº ¸ñÇ¥ ¼¼Æ®¼ö·Î ÃÊ±â¼³Á¤ ¹× ÆÐ³Î »ý¼º
-			if(exrecord.getEx().getcalmethod().equals("¹«°Ô * È½¼ö")) {
+			setEx_byname();  																		//ï¿½îµ¿ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½ setting
+			// ï¿½Ô·Â¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±â¼³ï¿½ï¿½ ï¿½ï¿½ ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½
+			if(exrecord.getEx().getcalmethod().equals("ï¿½ï¿½ï¿½ï¿½ * È½ï¿½ï¿½")) {
 				exrecord = new wc_exRecord(exrecord);
 				wcpanel_list = new ArrayList<>();
 				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
-					wc_set tmp_ws = new wc_set(10,3,LocalTime.of(0, 2,0));							// default °ª : 10 ,3 , 02:00
+					wc_set tmp_ws = new wc_set(10,3,LocalTime.of(0, 2,0));							// default ï¿½ï¿½ : 10 ,3 , 02:00
 					((wc_exRecord)exrecord).first_add_wcset(tmp_ws);
 					wcpanel_list.add(new wcset_panel(tmp_ws));
 				}
-			}else if (exrecord.getEx().getcalmethod().equals("È½¼ö")) {
+			}else if (exrecord.getEx().getcalmethod().equals("È½ï¿½ï¿½")) {
 				exrecord = new c_exRecord(exrecord);
 				cpanel_list = new ArrayList<>();
 				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
-					c_set tmp_cs = new c_set(3,LocalTime.of(0, 2,0));								// default °ª : 3 , 02:00
+					c_set tmp_cs = new c_set(3,LocalTime.of(0, 2,0));								// default ï¿½ï¿½ : 3 , 02:00
 					((c_exRecord)exrecord).first_add_wcset(tmp_cs);
 					cpanel_list.add(new cset_panel(tmp_cs));
 				}
-			}else if (exrecord.getEx().getcalmethod().equals("½Ã°£")) {
+			}else if (exrecord.getEx().getcalmethod().equals("ï¿½Ã°ï¿½")) {
 				exrecord = new t_exRecord(exrecord);
 				tpanel_list = new ArrayList<>();
 				for(int i =0 ; i < other_exr.getSet_goal() ;i++) {
-					t_set tmp_cs = new t_set(LocalTime.of(0, 3,0),LocalTime.of(0, 2,0));			// default °ª : 03:00 , 02:00
+					t_set tmp_cs = new t_set(LocalTime.of(0, 3,0),LocalTime.of(0, 2,0));			// default ï¿½ï¿½ : 03:00 , 02:00
 					((t_exRecord)exrecord).first_add_tset(tmp_cs);
 					tpanel_list.add(new tset_panel(tmp_cs));
 				}
 			}
-		}else if(other_exr instanceof wc_exRecord) {												// ÀçÁ¢±Ù - ¹«°Ô * È½¼ö
+		}else if(other_exr instanceof wc_exRecord) {												// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ * È½ï¿½ï¿½
 			exrecord = other_exr;
-			// wcpanel_list ¸¸µé¾îÁÖ±â
+			// wcpanel_list ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 			if(exrecord.getSet_goal()==0) {
 				wcpanel_list = new ArrayList<>();
 			}else {
@@ -303,9 +304,9 @@ public class exRecordpage extends JFrame{
 					wcpanel_list.add(new wcset_panel(wcs));
 				}
 			}
-		}else if(other_exr instanceof c_exRecord) {													// ÀçÁ¢±Ù - È½¼ö
+		}else if(other_exr instanceof c_exRecord) {													// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - È½ï¿½ï¿½
 			exrecord = other_exr;
-			// wcpanel_list ¸¸µé¾îÁÖ±â
+			// wcpanel_list ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 			if(exrecord.getSet_goal()==0) {
 				cpanel_list = new ArrayList<>();
 			}else {
@@ -314,9 +315,9 @@ public class exRecordpage extends JFrame{
 					cpanel_list.add(new cset_panel(cs));
 				}
 			}
-		}else if(other_exr instanceof t_exRecord) {													// ÀçÁ¢±Ù - ½Ã°£
+		}else if(other_exr instanceof t_exRecord) {													// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½Ã°ï¿½
 			exrecord = other_exr;
-			// wcpanel_list ¸¸µé¾îÁÖ±â
+			// wcpanel_list ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 			if(exrecord.getSet_goal()==0) {
 				tpanel_list = new ArrayList<>();
 			}else {
@@ -327,10 +328,10 @@ public class exRecordpage extends JFrame{
 			}
 		}
 		else {
-			System.err.println("exrecord »õ·Î ¹Þ¾Æ¿À±â ½ÇÆÐ");
+			System.err.println("exrecord ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
-	// ¹«°Ô * È½¼ö ¼¼Æ® ÆÐ³Î
+	// ï¿½ï¿½ï¿½ï¿½ * È½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½Ð³ï¿½
 	class wcset_panel extends JPanel{
 		JLabel set_lable;
 		GridBagConstraints gbc;
@@ -365,7 +366,7 @@ public class exRecordpage extends JFrame{
 			
 			summaryPanel.setLayout(gbl2);
 			
-			set_lable = new JLabel(get_setnum()+"¼¼Æ®");
+			set_lable = new JLabel(get_setnum()+"ï¿½ï¿½Æ®");
 			gbc = new GridBagConstraints();
 			set_gbc(0, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
@@ -387,20 +388,20 @@ public class exRecordpage extends JFrame{
 			set_gbc(3, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(goal_label3,gbc);
 			
-			// »èÁ¦ ¹öÆ°
-			JButton delete_btn = new JButton("»èÁ¦");
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+			JButton delete_btn = new JButton("ï¿½ï¿½ï¿½ï¿½");
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
 						wcpanel_list.remove(getindex());
 					}else {
-						System.out.println("Àß¸øµÊ");
+						System.out.println("ï¿½ß¸ï¿½ï¿½ï¿½");
 					}
 					
-					//exrecord¿¡¼­ »èÁ¦µÈ ³»¿ë ³¯·ÁÁÖ±â
+					//exrecordï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 					((wc_exRecord)exrecord).del_wcset(wcs);
-					//¹Þ¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
+					//ï¿½Þ¾Æ¿ï¿½ ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ex_list_panel ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 					repaint_wclist_panel();
 				}
 			};
@@ -408,7 +409,7 @@ public class exRecordpage extends JFrame{
 			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(delete_btn,gbc);
 			
-			open_Btn = new JButton("¿­±â");
+			open_Btn = new JButton("ï¿½ï¿½ï¿½ï¿½");
 			ActionListener loadBtn_listener2 = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					gbc = new GridBagConstraints();
@@ -433,7 +434,7 @@ public class exRecordpage extends JFrame{
 			};
 			open_Btn.addActionListener(loadBtn_listener2);
 			
-			close_Btn= new JButton("´Ý±â");
+			close_Btn= new JButton("ï¿½Ý±ï¿½");
 			ActionListener closeBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					wcset_panel.this.remove(updatePanel);
@@ -468,55 +469,55 @@ public class exRecordpage extends JFrame{
 			
 			updatePanel.setLayout(gbl);
 
-			// ¸î ¹øÂ° ¼¼Æ®ÀÎÁö ³ªÅ¸³»´Â ¶óº§ 
-			JLabel set_lable = new JLabel("¸ñÇ¥");
+			// ï¿½ï¿½ ï¿½ï¿½Â° ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
+			JLabel set_lable = new JLabel("ï¿½ï¿½Ç¥");
 			gbc = new GridBagConstraints();
 			set_gbc(0, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			updatePanel.add(set_lable,gbc);
 			
-			// ¸ñÇ¥ ¹«°Ô ÇÊµå
+			// ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½
 			gweight_textfield = new JTextField();
 			gweight_textfield.setText(Integer.toString(other_wcs.getWeight()));
 			gbc = new GridBagConstraints();
 			set_gbc(1, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(gweight_textfield,gbc);
 			
-			// ¸ñÇ¥ È½¼ö
+			// ï¿½ï¿½Ç¥ È½ï¿½ï¿½
 			gcount_textfield = new JTextField();
 			gcount_textfield.setText(Integer.toString(other_wcs.getCount()));
 			gbc = new GridBagConstraints();
 			set_gbc(2, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(gcount_textfield,gbc);
 			
-			// ÈÞ½Ä½Ã°£
+			// ï¿½Þ½Ä½Ã°ï¿½
 			resttime_textfield = new JTextField();
 			resttime_textfield.setText(other_wcs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(resttime_textfield,gbc);
 			
-			// ¼öÇà ¶óº§
-			JLabel performed_label = new JLabel("¼öÇà");
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+			JLabel performed_label = new JLabel("ï¿½ï¿½ï¿½ï¿½");
 			gbc = new GridBagConstraints();
 			set_gbc(0, 1,GridBagConstraints.BOTH);
 			updatePanel.add(performed_label,gbc);
 			
-			// ¼öÇà ¹«°Ô ÇÊµå
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½
 			pweight_textfield = new JTextField();
 			pweight_textfield.setText(Integer.toString(other_wcs.getP_weight()));
 			gbc = new GridBagConstraints();
 			set_gbc(1, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(pweight_textfield,gbc);
 			
-			// ¼öÇà È½¼ö
+			// ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
 			pcount_textfield = new JTextField();
 			pcount_textfield.setText(Integer.toString(other_wcs.getP_count()));
 			gbc = new GridBagConstraints();
 			set_gbc(2, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(pcount_textfield,gbc);
 			
-			// ¸ñÇ¥-> ¼öÇà load ¹öÆ° // ¼öÇà default ´Â 0À¸·Î ¼³Á¤. load ´©¸£¸é ¸ñÇ¥ °ª °¡Á®¿È
+			// ï¿½ï¿½Ç¥-> ï¿½ï¿½ï¿½ï¿½ load ï¿½ï¿½Æ° // ï¿½ï¿½ï¿½ï¿½ default ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. load ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -538,8 +539,8 @@ public class exRecordpage extends JFrame{
 			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(reset_Btn,gbc);
 			
-			// ¸ñÇ¥ ¹× ¼öÇà ÀúÀå
-			JButton update_btn = new JButton("ÀúÀå");
+			// ï¿½ï¿½Ç¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			JButton update_btn = new JButton("ï¿½ï¿½ï¿½ï¿½");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
@@ -556,7 +557,7 @@ public class exRecordpage extends JFrame{
 			
 		}
 		public void set_setlabel(int setnum) {
-			set_lable.setText(setnum + "¼¼Æ®");
+			set_lable.setText(setnum + "ï¿½ï¿½Æ®");
 		}
 		private int getindex() {
 			return wcpanel_list.indexOf(this);
@@ -580,7 +581,8 @@ public class exRecordpage extends JFrame{
 		JTextField gcount_textfield;
 		JTextField resttime_textfield;
 		JTextField pcount_textfield;
-		
+		JLabel count_sum_label;
+		JLabel resttime_sum_label;
 		c_set cs;
 		public cset_panel(c_set other_cs) {
 			cs = other_cs;
@@ -591,46 +593,46 @@ public class exRecordpage extends JFrame{
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
 			
-			// ¸î ¹øÂ° ¼¼Æ®ÀÎÁö ³ªÅ¸³»´Â ¶óº§ 
-			set_lable = new JLabel(get_setnum()+"¼¼Æ®");
+			// ï¿½ï¿½ ï¿½ï¿½Â° ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
+			set_lable = new JLabel(get_setnum()+"ï¿½ï¿½Æ®");
 			gbc = new GridBagConstraints();
 			set_gbc(0, 0,GridBagConstraints.BOTH);
 			this.add(set_lable,gbc);
 			
-			JLabel goal_label = new JLabel("¸ñÇ¥");
+			JLabel goal_label = new JLabel("ï¿½ï¿½Ç¥");
 			gbc = new GridBagConstraints();
 			set_gbc(1, 0,GridBagConstraints.BOTH);
 			this.add(goal_label,gbc);
 			
 			
-			// ¸ñÇ¥ È½¼ö
+			// ï¿½ï¿½Ç¥ È½ï¿½ï¿½
 			gcount_textfield = new JTextField();
 			gcount_textfield.setText(Integer.toString(cs.getCount()));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
 			this.add(gcount_textfield,gbc);
 			
-			// ÈÞ½Ä½Ã°£
+			// ï¿½Þ½Ä½Ã°ï¿½
 			resttime_textfield = new JTextField();
 			resttime_textfield.setText(cs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
 			this.add(resttime_textfield,gbc);
 			
-			// ¼öÇà ¶óº§
-			JLabel performed_label = new JLabel("¼öÇà");
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+			JLabel performed_label = new JLabel("ï¿½ï¿½ï¿½ï¿½");
 			gbc = new GridBagConstraints();
 			set_gbc(1, 1,GridBagConstraints.BOTH);
 			this.add(performed_label,gbc);
 			
-			// ¼öÇà È½¼ö
+			// ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
 			pcount_textfield = new JTextField();
 			pcount_textfield.setText(Integer.toString(cs.getP_count()));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
 			this.add(pcount_textfield,gbc);
 			
-			// ¸ñÇ¥-> ¼öÇà load ¹öÆ° // ¼öÇà default ´Â 0À¸·Î ¼³Á¤. load ´©¸£¸é ¸ñÇ¥ °ª °¡Á®¿È
+			// ï¿½ï¿½Ç¥-> ï¿½ï¿½ï¿½ï¿½ load ï¿½ï¿½Æ° // ï¿½ï¿½ï¿½ï¿½ default ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. load ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -643,8 +645,8 @@ public class exRecordpage extends JFrame{
 			gbc.insets = new Insets(0, 0, 0, 5);
 			this.add(load_btn,gbc);
 						
-			// ¸ñÇ¥ ¹× ¼öÇà ÀúÀå
-			JButton update_btn = new JButton("ÀúÀå");
+			// ï¿½ï¿½Ç¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			JButton update_btn = new JButton("ï¿½ï¿½ï¿½ï¿½");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cs.setCount(Integer.valueOf(gcount_textfield.getText()));
@@ -657,17 +659,17 @@ public class exRecordpage extends JFrame{
 			gbc.insets = new Insets(0, 0, 0, 5);
 			this.add(update_btn,gbc);
 			
-			// »èÁ¦ ¹öÆ°
-			JButton delete_btn = new JButton("»èÁ¦");
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+			JButton delete_btn = new JButton("ï¿½ï¿½ï¿½ï¿½");
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
 						cpanel_list.remove(getindex());
 					}else {
-						System.out.println("Àß¸øµÊ");
+						System.out.println("ï¿½ß¸ï¿½ï¿½ï¿½");
 					}
-					//¹Þ¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
+					//ï¿½Þ¾Æ¿ï¿½ ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ex_list_panel ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 					((c_exRecord)exrecord).del_cset(cs);
 					repaint_clist_panel();
 				}
@@ -678,7 +680,7 @@ public class exRecordpage extends JFrame{
 			this.add(delete_btn,gbc);
 		}
 		public void set_setlabel(int setnum) {
-			set_lable.setText(setnum + "¼¼Æ®");
+			set_lable.setText(setnum + "ï¿½ï¿½Æ®");
 		}
 		private int getindex() {
 			return cpanel_list.indexOf(this);
@@ -712,45 +714,45 @@ public class exRecordpage extends JFrame{
 			this.setLayout(gbl);
 			this.setBackground(Color.YELLOW);
 			
-			// ¸î ¹øÂ° ¼¼Æ®ÀÎÁö ³ªÅ¸³»´Â ¶óº§ 
-			set_lable = new JLabel(get_setnum()+"¼¼Æ®");
+			// ï¿½ï¿½ ï¿½ï¿½Â° ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
+			set_lable = new JLabel(get_setnum()+"ï¿½ï¿½Æ®");
 			gbc = new GridBagConstraints();
 			set_gbc(0, 0,GridBagConstraints.BOTH);
 			this.add(set_lable,gbc);
 			
-			JLabel goal_label = new JLabel("¸ñÇ¥");
+			JLabel goal_label = new JLabel("ï¿½ï¿½Ç¥");
 			gbc = new GridBagConstraints();
 			set_gbc(1, 0,GridBagConstraints.BOTH);
 			this.add(goal_label,gbc);
 			
-			// ¸ñÇ¥ ½Ã°£
+			// ï¿½ï¿½Ç¥ ï¿½Ã°ï¿½
 			goaltime_textfield = new JTextField();
 			goaltime_textfield.setText(ts.getG_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
 			this.add(goaltime_textfield,gbc);
 			
-			// ÈÞ½Ä½Ã°£
+			// ï¿½Þ½Ä½Ã°ï¿½
 			resttime_textfield = new JTextField();
 			resttime_textfield.setText(ts.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
 			this.add(resttime_textfield,gbc);
 			
-			// ¼öÇà ¶óº§
-			JLabel performed_label = new JLabel("¼öÇà");
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+			JLabel performed_label = new JLabel("ï¿½ï¿½ï¿½ï¿½");
 			gbc = new GridBagConstraints();
 			set_gbc(1, 1,GridBagConstraints.BOTH);
 			this.add(performed_label,gbc);
 			
-			// ¼öÇà È½¼ö
+			// ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
 			ptime_textfield = new JTextField();
 			ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 			gbc = new GridBagConstraints();
 			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
 			this.add(ptime_textfield,gbc);
 			
-			// ¸ñÇ¥-> ¼öÇà load ¹öÆ° // ¼öÇà default ´Â 0À¸·Î ¼³Á¤. load ´©¸£¸é ¸ñÇ¥ °ª °¡Á®¿È
+			// ï¿½ï¿½Ç¥-> ï¿½ï¿½ï¿½ï¿½ load ï¿½ï¿½Æ° // ï¿½ï¿½ï¿½ï¿½ default ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. load ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -763,8 +765,8 @@ public class exRecordpage extends JFrame{
 			gbc.insets = new Insets(0, 0, 0, 5);
 			this.add(load_btn,gbc);
 			
-			// ¸ñÇ¥ ¹× ¼öÇà ÀúÀå
-			JButton update_btn = new JButton("ÀúÀå");
+			// ï¿½ï¿½Ç¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			JButton update_btn = new JButton("ï¿½ï¿½ï¿½ï¿½");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ts.setG_time(goaltime_textfield.getText());
@@ -777,17 +779,17 @@ public class exRecordpage extends JFrame{
 			gbc.insets = new Insets(0, 0, 0, 5);
 			this.add(update_btn,gbc);
 			
-			// »èÁ¦ ¹öÆ°
-			JButton delete_btn = new JButton("»èÁ¦");
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+			JButton delete_btn = new JButton("ï¿½ï¿½ï¿½ï¿½");
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
 						tpanel_list.remove(getindex());
 					}else {
-						System.out.println("Àß¸øµÊ");
+						System.out.println("ï¿½ß¸ï¿½ï¿½ï¿½");
 					}
-					//¹Þ¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
+					//ï¿½Þ¾Æ¿ï¿½ ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ex_list_panel ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 					((t_exRecord)exrecord).del_tset(ts);
 					repaint_tlist_panel();
 				}
@@ -798,7 +800,7 @@ public class exRecordpage extends JFrame{
 			this.add(delete_btn,gbc);
 		}
 		public void set_setlabel(int setnum) {
-			set_lable.setText(setnum + "¼¼Æ®");
+			set_lable.setText(setnum + "ï¿½ï¿½Æ®");
 		}
 		private int getindex() {
 			return tpanel_list.indexOf(this);
@@ -817,10 +819,10 @@ public class exRecordpage extends JFrame{
 		}
 	}
 
-	// ¿îµ¿ ÀÌ¸§À¸·Î ¿îµ¿Á¤º¸ setÇÏ±â
+	// ï¿½îµ¿ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½îµ¿ï¿½ï¿½ï¿½ï¿½ setï¿½Ï±ï¿½
 	private void setEx_byname() {
 		for(int i = 0; i < exlist.size(); i++) {
-			if (exrecord.getEx().getname().equals(exlist.get(i).getname())) { // ÀÌ¸§À¸·Î °Ë»öÇÏ±â -> Ã£¾ÒÀ» ¶§  
+			if (exrecord.getEx().getname().equals(exlist.get(i).getname())) { // ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï±ï¿½ -> Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½  
 				exrecord.setEx(exlist.get(i));
 				break;
 			}
@@ -833,10 +835,10 @@ public class exRecordpage extends JFrame{
 	class savedR_check_dialog extends JDialog{
 		public savedR_check_dialog(){
 			setSize(200,100);
-			JLabel label = new JLabel("ÀÔ·ÂÀ» È®ÀÎÇÏ¼¼¿ä");
+			JLabel label = new JLabel("ï¿½Ô·ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½");
 			label.setHorizontalAlignment(JLabel.CENTER);
 			add(label,BorderLayout.CENTER);
-			JButton bt = new JButton("È®ÀÎ");
+			JButton bt = new JButton("È®ï¿½ï¿½");
 			bt.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
