@@ -52,6 +52,4 @@ public abstract class Set {
 
 
 	public abstract void performed_update();	// 목표를 수행으로 load하는 method
-	public abstract void performed_reset();	// 수행으로 reset하는 method
-	
 }
