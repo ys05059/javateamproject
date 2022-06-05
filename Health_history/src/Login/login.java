@@ -2,8 +2,6 @@ package Login;
 
 
 import java.awt.EventQueue;
-
-
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
 import Login.User;
@@ -34,6 +33,7 @@ import set단위class.dayRecord;
 import set단위class.exRecord;
 import set단위class.exlistClass;
 import 희석.CalendarDemo;
+import 희석.PeriodStatisticsDemo;
 public class login {
 
 	private JFrame frame;
@@ -146,7 +146,9 @@ public class login {
 							System.out.println("nothing");
 						}
 						
-						CalendarDemo A = new CalendarDemo(curr_dR_ary, idnow.get(i));
+						// 기간통계 수정중
+						PeriodStatisticsDemo A = new PeriodStatisticsDemo(curr_dR_ary, LocalDate.of(2022,6,6), LocalDate.of(2022,6,16));
+						//CalendarDemo A = new CalendarDemo(curr_dR_ary, idnow.get(i));
 						A.setVisible(true);
 						frame.setVisible(false); //로그인 창 종료
 						loginok = true;

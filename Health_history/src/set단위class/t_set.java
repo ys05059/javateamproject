@@ -1,10 +1,11 @@
 package set단위class;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 // 목표 시간 set
-public class t_set extends Set implements Cloneable{
+public class t_set extends Set implements Cloneable,Serializable{
 	private LocalTime g_time;
 	private LocalTime p_time;
 	
@@ -38,6 +39,11 @@ public class t_set extends Set implements Cloneable{
 		super.setPerform_check(true);
 	}
 
+	public void performed_reset() {
+		p_time = LocalTime.of(0, 0);
+		super.setPerform_check(false);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o == this)

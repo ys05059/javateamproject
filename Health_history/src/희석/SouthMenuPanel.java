@@ -1,4 +1,4 @@
-package Èñ¼®;
+package ÃˆÃ±Â¼Â®;
 
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -11,17 +11,16 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Login.login;
-import set´ÜÀ§class.dayRecord;
+import setÂ´ÃœÃ€Â§class.dayRecord;
 import java.awt.Color;
 import java.awt.SystemColor;
 
 public class SouthMenuPanel extends JPanel{
 	
 	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
-	private JButton gotoStatistics = new JButton("Åë°è");
-	private JButton gotoCalendar = new JButton("ÀÏÁ¤");
-	private JButton gotoCurri = new JButton("Ä¿¸®Å§·³");
-//	private JButton gotoLogin = new JButton("·Î±×¾Æ¿ô");
+	private JButton gotoStatistics = new JButton("Ã…Ã«Â°Ã¨");
+	private JButton gotoCurri = new JButton("Ã„Â¿Â¸Â®Ã…Â§Â·Â³");
+//	private JButton gotoLogin = new JButton("Â·ÃŽÂ±Ã—Â¾Ã†Â¿Ã´");
 	
 	public ArrayList<dayRecord> curr_dR_ary;
 
@@ -30,18 +29,17 @@ public class SouthMenuPanel extends JPanel{
 		gotoStatistics.setBackground(SystemColor.activeCaption);
 		gotoStatistics.addActionListener(new gotoStatisticsHandler());
 
-		gotoCalendar.setBackground(SystemColor.activeCaption);
 //		gotoCalendar.addActionListener(new gotoCalendarHandler());
-		gotoCurri.setBackground(SystemColor.activeCaption);
-//		gotoLogin.setBackground(SystemColor.PINK);
-//		gotoLogin.addActionListener(new gotoLoginPage());
+
+//		gotoCurri.setBackground(SystemColor.activeCaption);
+
 //		gotoCurri.addActionListener(new gotoCurriHandler());
 
 
 		add(gotoStatistics);
-		add(gotoCalendar);
-		add(gotoCurri);
-//		add(gotoLogin);
+
+
+		//add(gotoCurri);
 		curr_dR_ary = dR_ary;
 
 	}
@@ -52,29 +50,13 @@ public class SouthMenuPanel extends JPanel{
 			sswd.setVisible(true);
 		}
 	}
-	
-//	private class gotoLoginPage implements ActionListener{
-//		public void actionPerformed(ActionEvent e) {
-//			login A = new login();
-//			A.turnonLoginPage();
-//			
-//		}
-//	}
-//
-//	private class gotoCalendarHandler implements ActionListener {
-//		public void actionPerformed(ActionEvent e) {
-//			
-//		}
-//	}
-//
+
 //	private class gotoCurriHandler implements ActionListener {
 //		public void actionPerformed(ActionEvent e) {
 //			
 //		}
 //	}
 
-	
-	
 	public void paintComponent(Graphics g) {
 		
 		g.drawImage(calendarP.getImage(), 0, 0, null);
