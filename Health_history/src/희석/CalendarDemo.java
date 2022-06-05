@@ -1,4 +1,4 @@
-package Èñ¼®;
+package í¬ì„;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +12,15 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,21 +37,23 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import Login.imgPanel;
+import Main.UserRecord;
 import Main.dayRecordpage;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
-import set´ÜÀ§class.Set;
-import set´ÜÀ§class.dayRecord;
-import set´ÜÀ§class.exRecord;
-import set´ÜÀ§class.exercise;
-import set´ÜÀ§class.exlistClass;
+import setë‹¨ìœ„class.Set;
+import setë‹¨ìœ„class.dayRecord;
+import setë‹¨ìœ„class.exRecord;
+import setë‹¨ìœ„class.exercise;
+import setë‹¨ìœ„class.exlistClass;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import µ¿Çõ.search_for_ALL_WORKOUT;
+import ë™í˜.search_for_ALL_WORKOUT;
 import javax.swing.SwingConstants;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,15 +63,15 @@ public class CalendarDemo extends JFrame{
 
 	public static final int WIDTH = 1200;
 	public static final int HEIGHT = 800;
-	public static final String[] DAYS_OF_NAME = {"","ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ" ,"Åä"};
-	public static final String[] dongibuyeo = {"¹«½¼ ÀÏÀÌ ÀÖ¾îµµ 2°³ ´õ ÇØ. -¾Æ³îµå ½´¿öÁ¦³×°Å- " , "¿îµ¿ÇÒ ¶§ ¿À´Â °Ç Èûµç °Ô ¾Æ´Ï°í ÅëÁõÀÏ »ÓÀÌ´Ù. -°¡¼ö ±èÁ¾±¹-", 
-			"ÀÚ½ÅÀÇ ¸ö¿¡ ¸¸Á·ÇÏ´Â ¼ø°£ ´õ ÀÌ»óÀÇ ¹ßÀüÀº ¾ø´Ù -º¸µğºô´õ °­°æ¿ø-", "°£´ÜÇÕ´Ï´Ù. Èçµé¸®¸é ±×°ÍÀº Áö¹æÀÔ´Ï´Ù. -¾Æ³îµå ½´¿öÁ¦³×°Å-", 
-			"¸öÀ» ¸¸µé°í ½ÍÀ¸¸é ¸»·Î ¶°µéÁö ¸»°í, ¸öÀ¸·Î ¶°µé¾î¶ó - ¹è¿ì Á¦ÀÌ½¼ ½ºÅ¸µ©-" } ;
+	public static final String[] DAYS_OF_NAME = {"","ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ" ,"í† "};
+	public static final String[] dongibuyeo = {"ë¬´ìŠ¨ ì¼ì´ ìˆì–´ë„ 2ê°œ ë” í•´. -ì•„ë†€ë“œ ìŠˆì›Œì œë„¤ê±°- " , "ìš´ë™í•  ë•Œ ì˜¤ëŠ” ê±´ í˜ë“  ê²Œ ì•„ë‹ˆê³  í†µì¦ì¼ ë¿ì´ë‹¤. -ê°€ìˆ˜ ê¹€ì¢…êµ­-", 
+			"ìì‹ ì˜ ëª¸ì— ë§Œì¡±í•˜ëŠ” ìˆœê°„ ë” ì´ìƒì˜ ë°œì „ì€ ì—†ë‹¤ -ë³´ë””ë¹Œë” ê°•ê²½ì›-", "ê°„ë‹¨í•©ë‹ˆë‹¤. í”ë“¤ë¦¬ë©´ ê·¸ê²ƒì€ ì§€ë°©ì…ë‹ˆë‹¤. -ì•„ë†€ë“œ ìŠˆì›Œì œë„¤ê±°-", 
+			"ëª¸ì„ ë§Œë“¤ê³  ì‹¶ìœ¼ë©´ ë§ë¡œ ë– ë“¤ì§€ ë§ê³ , ëª¸ìœ¼ë¡œ ë– ë“¤ì–´ë¼ - ë°°ìš° ì œì´ìŠ¨ ìŠ¤íƒ€ë€-" } ;
 	
 	
 	public JPanel backPanel;
 	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
-	//¹è°æ ³Ö±â À§ÇØ
+	//ë°°ê²½ ë„£ê¸° ìœ„í•´
 	final ImageIcon calendar_day = new ImageIcon("image\\calendar_day.jpg");
 	
 	public static CalendarFunc cfunc = new CalendarFunc();
@@ -80,7 +91,7 @@ public class CalendarDemo extends JFrame{
 			super.paintComponent(g);
 		}
 	};
-	public JLabel ym = new JLabel("0000³â0¿ù");
+	public JLabel ym = new JLabel("0000ë…„0ì›”");
 //	ImageIcon Beforeicon = new ImageIcon("icon\\before.png");
 	public JButton beforeBtn = new JButton("Before");
 //	ImageIcon Aftericon = new ImageIcon("icon\\after.png");
@@ -101,21 +112,96 @@ public class CalendarDemo extends JFrame{
 	
 	private LocalDate select_date;
 	
+	private UserRecord UR;  //serialize í•  Userìš´ë™ê¸°ë¡í´ë˜ìŠ¤ ë¶ˆëŸ¬ì˜¤ê¸°
 	
-	public CalendarDemo(ArrayList<dayRecord> dR_ary){
+	
+	public CalendarDemo(ArrayList<dayRecord> dR_ary, final String ID){
 		super("Calendar");
+		
+		String whatID = ID; //id ë°›ì•„ì˜¤ê¸°
+		
+		//calender ì‹œì‘ ì „ì— , idë¡œ ëœ dat íŒŒì¼ì´ ìˆëŠ” ì§€ í™•ì¸í•˜ê³ ã…¡ ìˆë‹¤ë©´ deserialize í•œë‹¤.
+		
+		
+		
+		
 		this.setSize(WIDTH, HEIGHT);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		this.setVisible(true);
+		this.addWindowListener(new WindowListener(){
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				int A = JOptionPane.showConfirmDialog(null, "ì €ì¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "ì¢…ë£Œ", JOptionPane.YES_NO_OPTION);
+				if(A == 1 || A == -1) { //no or x ëˆ„ë¥¼ ë•Œ -> ì €ì¥ ì•ˆí•˜ê³  ë‚˜ê°€ê¸°
+					System.exit(0);
+				}
+				else if(A == 0) { //yes ëˆ„ë¥´ë©´ -> ì €ì¥
+					UR = new UserRecord(ID, curr_dR_ary);
+					try {
+						ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userworkinfo//" + ID + ".dat"));
+						outputStream.writeObject(UR);
+						outputStream.close();
+						System.exit(0);
+						
+					}catch(IOException e1) {
+						System.err.println("Error writing to file.");
+						System.exit(0);
+					}
+					
+				}
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	
-		moveHandler moveAct = new moveHandler(); //´Ş·Â ³Ñ±â´Â ¹öÆ° actionhandler
+		moveHandler moveAct = new moveHandler(); //ë‹¬ë ¥ ë„˜ê¸°ëŠ” ë²„íŠ¼ actionhandler
 		beforeBtn.addActionListener(moveAct);
 		afterBtn.addActionListener(moveAct);
 		
-		curr_dR_ary = dR_ary;
+		curr_dR_ary = dR_ary;  //ÂAì€ ë³µì‚¬ ì‹¤í–‰ì¤‘, ë‘ê°œê°€ ì£¼ì†Œê°’ì´ ê°™ì•„ì§„ë‹¤
 		
-		howtomove = new JLabel("³¯Â¥ ¹öÆ°À» ´­·¯ ¿îµ¿À» ÀÔ·ÂÇÏ¼¼¿ä!");
+		howtomove = new JLabel("ë‚ ì§œ ë²„íŠ¼ì„ ëˆŒëŸ¬ ìš´ë™ì„ ì…ë ¥í•˜ì„¸ìš”!");
 		
 		
 		int k = (int)(Math.random() * 5);
@@ -221,7 +307,7 @@ public class CalendarDemo extends JFrame{
 		getContentPane().add(menu, BorderLayout.SOUTH);
 		paintExcPane(curr_dR_ary);
 	}
-	public static void paintExcPane(ArrayList<dayRecord> dR_ary) { // ¿îµ¿¸ñ·Ï ¹Ş¾Æ¿À±â dayRecordpage¿¡ ¸Ş¼Òµå½ÇÇà¹® Ãß°¡ÇØ¾ßÇÔ
+	public static void paintExcPane(ArrayList<dayRecord> dR_ary) { // ìš´ë™ëª©ë¡ ë°›ì•„ì˜¤ê¸° dayRecordpageì— ë©”ì†Œë“œì‹¤í–‰ë¬¸ ì¶”ê°€í•´ì•¼í•¨
 		LocalDate d;
 		GridBagConstraints gbc =new GridBagConstraints();	
 		HashMap<String, int[]> catemap = null;
@@ -242,15 +328,15 @@ public class CalendarDemo extends JFrame{
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			gbc.gridwidth = 2;			
-			if(cfunc.getMonth().equals(String.valueOf(d.getMonthValue()))) { // Ä¶¸°´õ month¿Í °°Àº month ÀÇ dayRecord ¹Ş±â
+			if(cfunc.getMonth().equals(String.valueOf(d.getMonthValue()))) { // ìº˜ë¦°ë” monthì™€ ê°™ì€ month ì˜ dayRecord ë°›ê¸°
 				int i = d.getDayOfMonth()+CalendarFunc.fday-1;
 				daysBtn[i].setBackground(Color.yellow);				
 				ArrayList<exRecord> exs = x.getExr_ary();
 				catemap = new HashMap<String, int[]>();
 				for(exRecord e : exs) {
 					exercise ex = e.getEx();
-					if(!catemap.containsKey(ex.getcategory())) { // Ä«Å×°í¸® ¸Ê¿¡ ÇØ´ç ¿îµ¿ÀÇ Ä«Å×°í¸®°¡ ¾øÀ¸¸é Ä«Å×°í¸® Ãß°¡
-						int []cnts = new int[3]; // Ä«Å×°í¸® ¿îµ¿ ¼ö, ¼öÇà ¼¼Æ® ¼ö, ¸ñÇ¥ ¼¼Æ® ¼ö
+					if(!catemap.containsKey(ex.getcategory())) { // ì¹´í…Œê³ ë¦¬ ë§µì— í•´ë‹¹ ìš´ë™ì˜ ì¹´í…Œê³ ë¦¬ê°€ ì—†ìœ¼ë©´ ì¹´í…Œê³ ë¦¬ ì¶”ê°€
+						int []cnts = new int[3]; // ì¹´í…Œê³ ë¦¬ ìš´ë™ ìˆ˜, ìˆ˜í–‰ ì„¸íŠ¸ ìˆ˜, ëª©í‘œ ì„¸íŠ¸ ìˆ˜
 						catemap.put(ex.getcategory(), cnts);
 					}
 					catemap.get(ex.getcategory())[0]+=1;
@@ -278,9 +364,9 @@ public class CalendarDemo extends JFrame{
 					idx++;
 					JPanel oneex = new JPanel();
 					oneex.setBackground(new Color(127, 197, 249));
-					oneex.setLayout(new GridLayout(1, 2));
+					oneex.setLayout(new GridLayout(1, 3));
 					
-					JLabel first = new JLabel(entry.getKey() + " " + String.valueOf(entry.getValue()[0]) + "°³");
+					JLabel first = new JLabel(entry.getKey() + " " + String.valueOf(entry.getValue()[0]) + "ê°œ");
 					first.setForeground(Color.BLACK);
 					first.setHorizontalAlignment(JLabel.LEFT);
 					first.setFont(new Font("Serif", Font.PLAIN ,11));
@@ -326,15 +412,15 @@ public class CalendarDemo extends JFrame{
 			String day = e.getActionCommand().toString();
 			
 			//String YandM = cfunc.getYandM();
-			//YandM += day +"ÀÏ";
+			//YandM += day +"ì¼";
 			
 			select_date = LocalDate.of(Integer.parseInt(cfunc.getYear()),Integer.parseInt(cfunc.getMonth()), 
 					Integer.parseInt(day));
 
-			// ¿îµ¿±â·ÏÀÌ ÀÖÀ» ¶§ ¾øÀ» ¶§ ±¸ºĞ
+			// ìš´ë™ê¸°ë¡ì´ ìˆì„ ë•Œ ì—†ì„ ë•Œ êµ¬ë¶„
 			int index =0; 
 			boolean dr_exist= false;
-			// ÇÁ·Î±×·¥ Ã³À½ ½ÃÀÛ
+			// í”„ë¡œê·¸ë¨ ì²˜ìŒ ì‹œì‘
 			if (curr_dR_ary.isEmpty()) {
 				drp = new dayRecordpage(curr_dR_ary,new dayRecord(select_date));
 				//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -350,16 +436,16 @@ public class CalendarDemo extends JFrame{
 						}else
 							index++;
 					}else
-						System.err.println("today_date°¡ ¾ø´Â dayRecord°¡ ÀÖ½À´Ï´Ù");
+						System.err.println("today_dateê°€ ì—†ëŠ” dayRecordê°€ ìˆìŠµë‹ˆë‹¤");
 				}
-				// ÇØ´ç ³¯Â¥¿¡ ÀÌ¹Ì ±â·ÏµÈ ³»¿ëÀÌ ÀÖÀ½
+				// í•´ë‹¹ ë‚ ì§œì— ì´ë¯¸ ê¸°ë¡ëœ ë‚´ìš©ì´ ìˆìŒ
 				if(dr_exist == true) {
 					drp = new dayRecordpage(curr_dR_ary,curr_dR_ary.get(index));
 					//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					//drp.setModal(true);
 					drp.setVisible(true);
 				}
-				// ÇØ´ç ³¯Â¥¿¡ Ã³À½ »ı¼º 
+				// í•´ë‹¹ ë‚ ì§œì— ì²˜ìŒ ìƒì„± 
 				if(dr_exist == false) {
 					drp = new dayRecordpage(curr_dR_ary,new dayRecord(select_date));
 					//drp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

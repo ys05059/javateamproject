@@ -1,9 +1,10 @@
 package set´ÜÀ§class;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 // È½¼ö set
-public class c_set extends Set implements Cloneable{
+public class c_set extends Set implements Cloneable, Serializable{
 	private int count;
 	private int p_count;
 	
@@ -26,6 +27,11 @@ public class c_set extends Set implements Cloneable{
 	public void performed_update() {
 		p_count = count;
 		super.setPerform_check(true);
+	}
+	
+	public void performed_reset() {
+		p_count = 0;
+		super.setPerform_check(false);
 	}
 	
 	@Override

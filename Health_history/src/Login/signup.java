@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,13 +62,6 @@ public class signup extends JFrame implements ActionListener{
 	boolean ispushinputcheckBtn = false; //입력확인버튼 눌렀는지 쳌
 	
 	public signup() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
 		
 		
 //		before signup, we should bring all user info .
@@ -100,7 +95,55 @@ public class signup extends JFrame implements ActionListener{
 		
 		setVisible(true);
 		setBounds(100, 100, 900, 700);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.addWindowListener(new WindowListener(){
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		imgPanel signupPanel = new imgPanel(new ImageIcon("image\\flowwater.png").getImage());
 		signupPanel.setBounds(0, 0, 986, 663);
 		setSize(signupPanel.getDim());
@@ -140,22 +183,28 @@ public class signup extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				boolean avail = true;
 				ArrayList<String> idnow = new ArrayList<String>();
-				for(int i = 0; i < userinfoList_signup.size(); i++) {
-					idnow.add(userinfoList_signup.get(i).getID());
-				}
-				for(int i = 0; i < idnow.size(); i++) {
-					if(idnow.get(i).equals(idInputFIeld.getText())) {
-						JOptionPane.showMessageDialog(null, "이미 존재하는 아이디입니다.");
-						idInputFIeld.setText("");
-						avail = false;
-						ispushjungbokBtn = false;
-						break;
+				if(!(idInputFIeld.getText().equals(""))) {
+					for(int i = 0; i < userinfoList_signup.size(); i++) {
+						idnow.add(userinfoList_signup.get(i).getID());
 					}
+					for(int i = 0; i < idnow.size(); i++) {
+						if(idnow.get(i).equals(idInputFIeld.getText())) {
+							JOptionPane.showMessageDialog(null, "이미 존재하는 아이디입니다.","경고", JOptionPane.ERROR_MESSAGE);
+							idInputFIeld.setText("");
+							avail = false;
+							ispushjungbokBtn = false;
+							break;
+						}
+					}
+					if(avail == true ) {
+						JOptionPane.showMessageDialog(null, "사용 가능한 아이디입니다.");
+						ispushjungbokBtn = true;
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "아이디를 입력하셔야 합니다.", "경고", JOptionPane.ERROR_MESSAGE);
+					ispushjungbokBtn = false;
 				}
-				if(avail == true) {
-					JOptionPane.showMessageDialog(null, "사용 가능한 아이디입니다.");
-					ispushjungbokBtn = true;
-				}
+				
 				
 				
 				
@@ -195,17 +244,24 @@ public class signup extends JFrame implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(getPasswordInfo().equals(getPasswordInfo2())) {
-					JOptionPane.showMessageDialog(null, "동일한 비밀번호입니다.");
-					ispushinputcheckBtn = true;
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "두 입력이 서로 다릅니다. 다시 입력하세요");
+				if(!(getPasswordInfo().equals("")) && !(getPasswordInfo2().equals(""))) {
+					if(getPasswordInfo().equals(getPasswordInfo2())) {
+						JOptionPane.showMessageDialog(null, "동일한 비밀번호입니다.");
+						ispushinputcheckBtn = true;
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "두 입력이 서로 다릅니다. 다시 입력하세요");
+						ispushinputcheckBtn = false;
+						passwordField.setText("");
+						passwordField2.setText("");
+					}
+				}else if(getPasswordInfo().equals("")) {
+					JOptionPane.showMessageDialog(null, "비밀번호를 입력하세요.", "경고", JOptionPane.ERROR_MESSAGE);
 					ispushinputcheckBtn = false;
-					passwordField.setText("");
-					passwordField2.setText("");
+				}else if(getPasswordInfo2().equals("")) {
+					JOptionPane.showMessageDialog(null, "비밀번호를 재입력하세요.", "경고", JOptionPane.ERROR_MESSAGE);
+					ispushinputcheckBtn = false;
 				}
-				
 			}
 			
 		});
@@ -374,13 +430,13 @@ public class signup extends JFrame implements ActionListener{
 
 				}
 				else if(ispushjungbokBtn == false && ispushinputcheckBtn == false) {
-					JOptionPane.showMessageDialog(null, "중복확인버튼과 비번입력확인버튼을 눌러야 합니다.");
+					JOptionPane.showMessageDialog(null, "중복확인버튼과 비번입력확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
 				}
 				else if(ispushjungbokBtn == true && ispushinputcheckBtn == false) {
-					JOptionPane.showMessageDialog(null, "비번입력확인버튼을 눌러야 합니다.");
+					JOptionPane.showMessageDialog(null, "비번입력확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
 				}
 				else if(ispushjungbokBtn == false && ispushinputcheckBtn == true) {
-					JOptionPane.showMessageDialog(null, "중복확인버튼을 눌러야 합니다.");
+					JOptionPane.showMessageDialog(null, "중복확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
 				}				
 				
 			}
@@ -392,6 +448,9 @@ public class signup extends JFrame implements ActionListener{
 
 		getContentPane().setLayout(null);
 	}
+
+
+	
 	
 	private String getPasswordInfo() {
 		String str = new String(passwordField.getPassword());

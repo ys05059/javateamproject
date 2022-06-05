@@ -1,8 +1,9 @@
 package set단위class;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class exRecord {
+public class exRecord implements Serializable{
 	private exercise ex;
 	private int set_goal;								// 목표 세트 수
 	private int count_set;								// 들어있는 세트 수(수행한 세트 수)

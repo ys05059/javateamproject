@@ -192,4 +192,73 @@ public class PeriodStatisticsFunc {
 			return -1;
 		
 	}
+	public HashMap<String, int[]> getCatemap() {
+		return catemap;
+	}
+	public void setCatemap(HashMap<String, int[]> catemap) {
+		this.catemap = catemap;
+	}
+	public HashMap<String, double[]> getCatemapPercent() {
+		return catemapPercent;
+	}
+	public void setCatemapPercent(HashMap<String, double[]> catemapPercent) {
+		this.catemapPercent = catemapPercent;
+	}
+	public String getStartStr() {
+		return startStr;
+	}
+	public String getEndStr() {
+		return endStr;
+	}
+	public LocalDate getStartDay() {
+		return startDay;
+	}
+	public LocalDate getEndDay() {
+		return endDay;
+	}
+	public String getTotalTimeStr() {
+		return totalTimeStr;
+	}
+	public String getTotalSetCntStr() {
+		return totalSetCntStr;
+	}
+	public String getTotalWeightsStr() {
+		return totalWeightsStr;
+	}
+	public String getSen1() {
+		return sen1;
+	}
+	public ArrayList<String> getCateStr() {
+		return cateStr;
+	}
+	public String getStatistics() {
+		return statistics;
+	}
+	public LocalTime getTotalTime() {
+		return totalTime;
+	}
+	public int getSetCnt() {
+		return setCnt;
+	}
+	public double getTotalWeight() {
+		return totalWeight;
+	}
+	public ArrayList<dayRecord> getCurr_ary() {
+		return curr_ary;
+	}
+	public ArrayList<c_set> getCset() {
+		return cset;
+	}
+	public ArrayList<t_set> getTset() {
+		return tset;
+	}
+	public ArrayList<wc_set> getWcset() {
+		return wcset;
+	}
+	public int[] getCnts() {
+		return cnts;
+	}
+	public double[] getPercent() {
+		return percent;
+	}
 }
