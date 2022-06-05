@@ -1,4 +1,4 @@
-package í¬ì„;
+package Èñ¼®;
 
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -10,18 +10,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import Login.login;
-import setë‹¨ìœ„class.dayRecord;
-import setë‹¨ìœ„class.dayRecord;
+import set´ÜÀ§class.dayRecord;
 import java.awt.Color;
 import java.awt.SystemColor;
 
 public class SouthMenuPanel extends JPanel{
 	
 	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
-	private JButton gotoStatistics = new JButton("í†µê³„");
-	private JButton gotoCurri = new JButton("ì»¤ë¦¬í˜ëŸ¼");
-//	private JButton gotoLogin = new JButton("ì¨Œíš“ì§¹íšì©íšˆì©”ì²™");
+	private JButton gotoStatistics = new JButton("Åë°è");
+	private JButton gotoCurri = new JButton("Ä¿¸®Å§·³");
 	
 	public ArrayList<dayRecord> curr_dR_ary;
 
@@ -31,15 +28,11 @@ public class SouthMenuPanel extends JPanel{
 		gotoStatistics.addActionListener(new gotoStatisticsHandler());
 
 //		gotoCalendar.addActionListener(new gotoCalendarHandler());
-
 //		gotoCurri.setBackground(SystemColor.activeCaption);
-
 //		gotoCurri.addActionListener(new gotoCurriHandler());
 
 
 		add(gotoStatistics);
-
-
 		//add(gotoCurri);
 		curr_dR_ary = dR_ary;
 
@@ -51,7 +44,6 @@ public class SouthMenuPanel extends JPanel{
 			sswd.setVisible(true);
 		}
 	}
-
 //	private class gotoCurriHandler implements ActionListener {
 //		public void actionPerformed(ActionEvent e) {
 //			

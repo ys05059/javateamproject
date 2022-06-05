@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 import set단위class.dayRecord;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -62,6 +63,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 		dayStr="";
 		startStr="";
 		endStr="";
+		int default_month =dR_ary.get(0).getToday_date().getMonthValue()-1;
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,10 +87,12 @@ public class SelectStatisticsWayDemo extends JFrame {
 
 		dayYComBox = new JComboBox(yearStrAry);
 		dayYComBox.setBounds(136, 24, 76, 23);
+		dayYComBox.setSelectedIndex(4);
 		contentPane.add(dayYComBox);
 		
 		dayMComBox = new JComboBox(monthStrAry);
 		dayMComBox.setBounds(224, 24, 73, 23);
+		dayMComBox.setSelectedIndex(default_month);
 		contentPane.add(dayMComBox);
 		
 		dayDComBox = new JComboBox(dayStrAry);
@@ -97,10 +101,12 @@ public class SelectStatisticsWayDemo extends JFrame {
 		
 		startYComBox = new JComboBox(yearStrAry);
 		startYComBox.setBounds(136, 120, 76, 23);
+		startYComBox.setSelectedIndex(4);
 		contentPane.add(startYComBox);
 		
 		startMComBox = new JComboBox(monthStrAry);
 		startMComBox.setBounds(224, 120, 73, 23);
+		startMComBox.setSelectedIndex(default_month);
 		contentPane.add(startMComBox);
 		
 		startDComBox = new JComboBox(dayStrAry);
@@ -109,10 +115,12 @@ public class SelectStatisticsWayDemo extends JFrame {
 		
 		endYComBox = new JComboBox(yearStrAry);
 		endYComBox.setBounds(136, 178, 76, 23);
+		endYComBox.setSelectedIndex(4);
 		contentPane.add(endYComBox);
 		
 		endMComBox = new JComboBox(monthStrAry);
 		endMComBox.setBounds(224, 178, 73, 23);
+		endMComBox.setSelectedIndex(default_month);
 		contentPane.add(endMComBox);
 		
 		endDComBox = new JComboBox(dayStrAry);
@@ -152,10 +160,10 @@ public class SelectStatisticsWayDemo extends JFrame {
 			boolean day = dayChkBox.isSelected();
 			boolean period = periodChkBox.isSelected();
 			if(day&&period) {
-				System.out.println("둘다선택됨");
+				JOptionPane.showMessageDialog(null, "둘 중 하나만 선택하세요","경고", JOptionPane.ERROR_MESSAGE);
 			}
 			else if(!day&&!period) {
-				System.out.println("아무것도 선택 안됨");
+				JOptionPane.showMessageDialog(null, "둘 중 하나를 선택해주세요","경고", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				if(day) {

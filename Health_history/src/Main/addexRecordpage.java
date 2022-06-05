@@ -86,7 +86,7 @@ public class addexRecordpage extends JDialog {
 		addBtn.setBounds(162, 188, 95, 23);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(setgoal_field.getText().chars().allMatch(Character::isDigit) && Integer.parseInt(setgoal_field.getText())>0) {
+				if(exRecordpage.check_int_format(setgoal_field.getText())) {
 					exit = true;
 					addexRecordpage.this.dispose();
 				}else {
