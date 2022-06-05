@@ -149,19 +149,20 @@ public class dayRecordpage extends JFrame {
 				exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				exrp.setModal(true);
 				exrp.setVisible(true); // 운동 추가 창이 열린다.
-				// 추가 안하고 창을 닫을 시 null error 가 뜨는데 추후에 해결하면 좋을듯합니다(동혁)
-				exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
 				
-				// 받아온 운동 정보 저장
-				dayrecord.add_exr(tmp_ex);
-				//dayrecord에 저장한 이후 panel에 표현할 정보들도 저장한다. 이 작업은 dayrecord와 별개인 듯(동혁)
-				expanel tmp_exp = new expanel(tmp_ex);
-				if (expanel_list == null)
-					expanel_list = new ArrayList<>();	
-				expanel_list.add(tmp_exp);
-				
-				//받아온 운동 정보에 대한 ex_list_panel 업데이트
-				repaint_exlist_panel();
+				if(exrp.exit) { //정상종료
+					exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
+					// 받아온 운동 정보 저장
+					dayrecord.add_exr(tmp_ex);
+					//dayrecord에 저장한 이후 panel에 표현할 정보들도 저장한다. 이 작업은 dayrecord와 별개인 듯(동혁)
+					expanel tmp_exp = new expanel(tmp_ex);
+					if (expanel_list == null)
+						expanel_list = new ArrayList<>();	
+					expanel_list.add(tmp_exp);
+					
+					//받아온 운동 정보에 대한 ex_list_panel 업데이트
+					repaint_exlist_panel();
+				}
 			}
 		};
 		addexr_button.addActionListener(addex_listener);
@@ -176,13 +177,17 @@ public class dayRecordpage extends JFrame {
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 try { // 몸무게 입력 오류처리
-					 Double.parseDouble(weight_textField.getText());
-					 if(Double.valueOf(weight_textField.getText())<0) {
-						 JOptionPane.showMessageDialog(null, "몸무게를 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
-						 weight_textField.setText("");
-						 return;
-					 }
-					 dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));
+					 if(!weight_textField.getText().equals("")) {
+						 Double.parseDouble(weight_textField.getText());
+						 if(Double.valueOf(weight_textField.getText())<0) {
+							 JOptionPane.showMessageDialog(null, "몸무게를 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+							 weight_textField.setText("");
+							 return;
+						 }
+						 dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));
+					 }else
+						 dayrecord.setToday_weight(0.0);
+						 
 				 }catch(NumberFormatException e1) {
 					 JOptionPane.showMessageDialog(null, "몸무게를 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
 					 weight_textField.setText("");

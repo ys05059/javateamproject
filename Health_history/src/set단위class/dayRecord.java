@@ -28,6 +28,11 @@ public class dayRecord implements Serializable, Comparable<dayRecord>{
 		today_weight = 0.0;
 		today_date = date;
 	}
+	public dayRecord(dayRecord dr) {
+		exr_ary = new ArrayList<exRecord>(dr.getExr_ary());
+		today_weight = dr.getToday_weight();
+		today_date = dr.getToday_date();
+	}
 	
 	// exRecord 한 개 추가
 	public void add_exr(exRecord other_exr) {

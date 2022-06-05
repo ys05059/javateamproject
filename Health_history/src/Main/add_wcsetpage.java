@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -70,12 +71,22 @@ public class add_wcsetpage extends JDialog {
 		addset_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(!weight_textField.getText().equals("") && !count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
-					add_wcsetpage.this.dispose();
+				if(!exRecordpage.check_int_format(weight_textField.getText())) {
+					JOptionPane.showMessageDialog(null, "목표 무게는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+					weight_textField.setText("0");
+					return;
 				}
-
-				// ����ó�� �ؾ��� // �ð��� mm:ss ���� ���� �ʿ�
-
+				if(!exRecordpage.check_int_format(count_textField.getText())) {
+					JOptionPane.showMessageDialog(null, "목표 횟수는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+					count_textField.setText("0");
+					return;
+				}
+				if(!exRecordpage.check_time_format(resttime_textfield.getText())){
+					JOptionPane.showMessageDialog(null, "휴식시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+					resttime_textfield.setText("00:00");
+					return;
+				}
+				add_wcsetpage.this.dispose();
 			}
 		});
 		contentPane.add(addset_Btn);
