@@ -107,7 +107,7 @@ public class signup extends JFrame implements ActionListener{
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 				
 				
 			}
@@ -401,6 +401,7 @@ public class signup extends JFrame implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(ispushjungbokBtn == true && ispushinputcheckBtn == true) {
+					JOptionPane.showMessageDialog(null, "회원가입 완료되었습니다.");
 					log = new login();
 					
 					userinfo = new User(idInputFIeld.getText(), getPasswordInfo2(), genderCombo.getSelectedItem().toString(),

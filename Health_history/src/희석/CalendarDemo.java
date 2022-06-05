@@ -37,6 +37,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import Login.imgPanel;
+import Login.login;
 import Main.UserRecord;
 import Main.dayRecordpage;
 
@@ -102,7 +103,7 @@ public class CalendarDemo extends JFrame{
 	public static JPanel[] one_day_panel = new JPanel[42];
 	public static JPanel[] showExInCal = new JPanel[42];
 	private JLabel DONGIbueyeo;
-	private JLabel howtomove;
+	private JButton logoutBtn;
 	
 	
 	private SouthMenuPanel menu;
@@ -112,13 +113,17 @@ public class CalendarDemo extends JFrame{
 	
 	private LocalDate select_date;
 	
-	private UserRecord UR;  //serialize 할 User운동기록클래스 불러오기
+	private UserRecord UR;  //serialize �� User����Ŭ���� �ҷ����
 	
+	private String whatID;
+
 	
 	public CalendarDemo(ArrayList<dayRecord> dR_ary, final String ID){
 		super("Calendar");
 		
-		String whatID = ID; //id 받아오기
+
+		whatID = ID; //id �޾ƿ��
+
 		
 		//calender 시작 전에 , id로 된 dat 파일이 있는 지 확인하고ㅡ 있다면 deserialize 한다.
 		
@@ -200,8 +205,12 @@ public class CalendarDemo extends JFrame{
 		afterBtn.addActionListener(moveAct);
 		
 		curr_dR_ary = dR_ary;  //A은 복사 실행중, 두개가 주소값이 같아진다
-		
-		howtomove = new JLabel("날짜 버튼을 눌러 운동을 입력하세요!");
+
+		logoutBtn = new JButton("�α׾ƿ�");
+		logoutBtn.setBackground(SystemColor.PINK);
+		logoutBtn.addActionListener(new logoutAct());
+
+
 		
 		
 		int k = (int)(Math.random() * 5);
@@ -222,12 +231,14 @@ public class CalendarDemo extends JFrame{
 		ym.setText(cfunc.getYandM());
 		Y_M.setLayout(new GridLayout(3,1));
 		
+//by develop
 		btnsP.setLayout(new FlowLayout());
-		Y_M.add(howtomove);
+    Y_M.add(logoutBtn);
 		btnsP.add(beforeBtn);
 		btnsP.add(ym);
 		btnsP.add(afterBtn);
 		Y_M.add(btnsP);
+  
 		cal.add(Y_M, BorderLayout.NORTH);
 		DONGIbueyeo.setHorizontalAlignment(SwingConstants.RIGHT);
 		DONGIbueyeo.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -364,7 +375,7 @@ public class CalendarDemo extends JFrame{
 					idx++;
 					JPanel oneex = new JPanel();
 					oneex.setBackground(new Color(127, 197, 249));
-					oneex.setLayout(new GridLayout(1, 3));
+					oneex.setLayout(new GridLayout(1, 2));
 					
 					JLabel first = new JLabel(entry.getKey() + " " + String.valueOf(entry.getValue()[0]) + "개");
 					first.setForeground(Color.BLACK);
@@ -455,5 +466,38 @@ public class CalendarDemo extends JFrame{
 			}
 		}
 	}
+	private class	logoutAct implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			int A = JOptionPane.showConfirmDialog(null, "�����Ͻðڽ�ϱ�?", "���", JOptionPane.YES_NO_OPTION);
+			if(A == 1 || A == -1) { //no or x ���� �� -> ���� ���ϰ� ������
+				disposeCalendar();
+				login AA = new login();
+				AA.turnonLoginPage();
+			}
+			else if(A == 0) { //yes ������ -> ����
+				UR = new UserRecord(whatID, curr_dR_ary);
+				try {
+					ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userworkinfo//" + whatID + ".dat"));
+					outputStream.writeObject(UR);
+					outputStream.close();
+					disposeCalendar();
+					login AA = new login();
+					AA.turnonLoginPage();
+					
+				}catch(IOException e1) {
+					System.err.println("Error writing to file.");
+					System.exit(0);
+				}
+				
+			}
+//			login A = new login();
+//			A.turnonLoginPage();
+		
+		}
+	}
 	
+	private void disposeCalendar() {
+		this.dispose();
+	}
+
 }
