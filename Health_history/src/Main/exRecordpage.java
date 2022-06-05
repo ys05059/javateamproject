@@ -25,16 +25,15 @@ import javax.swing.border.EmptyBorder;
 import Main.dayRecordpage.expanel;
 import Main.dayRecordpage.savedR_check_dialog;
 import set단위class.c_set;
-import set����class.c_exRecord;
-import set����class.c_set;
-import set����class.dayRecord;
-import set����class.exRecord;
-import set����class.exercise;
-import set����class.exlistClass;
-import set����class.t_exRecord;
-import set����class.t_set;
-import set����class.wc_exRecord;
-import set����class.wc_set;
+import set단위class.c_exRecord;
+import set단위class.dayRecord;
+import set단위class.exRecord;
+import set단위class.exercise;
+import set단위class.exlistClass;
+import set단위class.t_exRecord;
+import set단위class.t_set;
+import set단위class.wc_exRecord;
+import set단위class.wc_set;
 
 public class exRecordpage extends JFrame{
 	private JPanel set_list_panel; 
