@@ -117,14 +117,9 @@ public class CalendarDemo extends JFrame{
 	
 	public CalendarDemo(ArrayList<dayRecord> dR_ary, final String ID){
 		super("Calendar");
-		
 		String whatID = ID; //id 받아오기
 		
 		//calender 시작 전에 , id로 된 dat 파일이 있는 지 확인하고ㅡ 있다면 deserialize 한다.
-		
-		
-		
-		
 		this.setSize(WIDTH, HEIGHT);
 		getContentPane().setLayout(new BorderLayout());
 		this.setVisible(true);
