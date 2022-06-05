@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class dayRecord implements Serializable{
+public class dayRecord implements Serializable, Comparable<dayRecord>{
 	private ArrayList<exRecord> exr_ary;
 	private double today_weight;
 	private LocalDate today_date;
@@ -93,6 +93,25 @@ public class dayRecord implements Serializable{
 		}
 	}
 	
+	public int get_total_countset() {
+		int count =0;
+		for(exRecord er : exr_ary) {
+			count += er.getCount_set();
+		}
+		return count;
+	}
+
+	@Override 
+	public int compareTo(dayRecord dr) {
+		if(today_date.isBefore(dr.getToday_date()))
+			return -1;
+		else if(today_date.isAfter(dr.getToday_date()))
+			return 1;
+		else
+			return 0;
+		
+		//return today_date.compareTo(dr.getToday_date());
+	}
 	
 	
 }
