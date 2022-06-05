@@ -1,8 +1,6 @@
 package Main;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -29,6 +27,7 @@ public class addexRecordpage extends JDialog {
 	private JComboBox<String> catecombo; //카테고리 고를 수 있는 박스
 	private JComboBox<String> excombo;//카테고리가 입력되면 그에 해당하는 운동 고를 수 있는 박스
 	private exlistClass allwork; //ALL_WORKOUT에서 arraylist뽑아오는 클래스
+	public boolean exit; 		// 정상종료인지 체크하는 변수
 	
 	private final ImageIcon addRecordB = new ImageIcon("image\\batang1.jpg");
 	
@@ -37,12 +36,11 @@ public class addexRecordpage extends JDialog {
 	ArrayList<String> cate = new ArrayList<>();
 	ArrayList<String> work = new ArrayList<>();
 	
-
 	public addexRecordpage() {
 		setTitle("add_exRecordpage");
 		allwork = new exlistClass("ALL_WORKOUT"); 
 		cate = allwork.getcatetoStringlist();
-		
+		exit = false;
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,6 +55,7 @@ public class addexRecordpage extends JDialog {
 		catecombo = new JComboBox<String>(cate.toArray(new String[cate.size()]));
 		//jcombobox에는 arratlist가 들어갈 수 없으므로, list로 변환해서 저장함
 		catecombo.setBounds(193, 38, 106, 21);
+		catecombo.setSelectedIndex(0);
 		JComboHandler combohd = new JComboHandler();
 		//누르면 어떤 행동을 할 건지 정함 
 		catecombo.addActionListener(combohd);
@@ -69,6 +68,8 @@ public class addexRecordpage extends JDialog {
 		
 		excombo = new JComboBox<String>(work.toArray(new String[work.size()]));
 		excombo.setBounds(193, 87, 106, 21);
+		work = allwork.getworktoStringlist("가슴");
+		excombo.setModel(new DefaultComboBoxModel(work.toArray(new String[work.size()])));
 		JComboHandler2 combohd2 = new JComboHandler2();
 		excombo.addActionListener(combohd2);
 		contentPane.add(excombo);
@@ -85,27 +86,12 @@ public class addexRecordpage extends JDialog {
 		addBtn.setBounds(162, 188, 95, 23);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean isnum = true;			
-				
-				if( !setgoal_field.getText().equals("")) { //숫자 입력 안할 시  예외처리
-					for(int i = 0; i < setgoal_field.getText().length(); i++) {
-						if(!Character.isDigit(setgoal_field.getText().charAt(i))){
-							isnum = false; //하나라도 숫자 아닌 게 들어가 있다면 false return
-						}
-					}
-					if(isnum == false) {
-						JOptionPane.showMessageDialog(null, "세트수에는 숫자를 입력하십시오.");
-						setgoal_field.setText("");
-					}
-					else {
-						addexRecordpage.this.dispose();
-					}
-
+				if(setgoal_field.getText().chars().allMatch(Character::isDigit) && Integer.parseInt(setgoal_field.getText())>0) {
+					exit = true;
+					addexRecordpage.this.dispose();
 				}else {
-					input_check_dialog icd = new input_check_dialog();
-					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					icd.setModal(true);
-					icd.setVisible(true);
+					JOptionPane.showMessageDialog(null, "목표 세트수를 다시 입력하세요");
+					setgoal_field.setText("");
 				}
 			}
 		});
@@ -122,25 +108,6 @@ public class addexRecordpage extends JDialog {
 
 	public int get_setgoal() {
 		return Integer.valueOf(setgoal_field.getText());
-	}
-	
-	class input_check_dialog extends JDialog{
-		public input_check_dialog(){
-			setSize(200,100);
-			JLabel label = new JLabel("입력을 확인하세요");
-			label.setHorizontalAlignment(JLabel.CENTER);
-			add(label,BorderLayout.CENTER);
-			JButton bt = new JButton("확인");
-			bt.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					input_check_dialog.this.dispose();
-				}
-			});
-			add(bt,BorderLayout.SOUTH);
-			setLocation(200, 200);
-		}
-		
 	}
 	
 	

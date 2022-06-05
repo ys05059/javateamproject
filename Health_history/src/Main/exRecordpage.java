@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -270,7 +272,6 @@ public class exRecordpage extends JFrame{
 		set_list_panel.revalidate();															// 운동 선택 패널 초기화
 		set_list_panel.repaint();
 	}
-
 	private void setting_exRecord(exRecord other_exr) {
 		if (other_exr.getEx().getcalmethod().equals("")) {											//첫번째 접근
 			exrecord = new exRecord(other_exr.getEx().getname(),other_exr.getSet_goal());
@@ -551,11 +552,39 @@ public class exRecordpage extends JFrame{
 			JButton update_btn = new JButton("저장");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
+					if(!check_int_format(gweight_textfield.getText())) {
+						JOptionPane.showMessageDialog(null, "목표 무게는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+						gweight_textfield.setText("");
+						return;
+					}
+					if(!check_int_format(gcount_textfield.getText())) {
+						JOptionPane.showMessageDialog(null, "목표 횟수는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+						gcount_textfield.setText("");
+						return;
+					}
+					if(!check_int_format(pcount_textfield.getText())) {
+						JOptionPane.showMessageDialog(null, "수행 무게는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+						pcount_textfield.setText("");
+						return;
+					}
+					if(!check_int_format(pweight_textfield.getText())) {
+						JOptionPane.showMessageDialog(null, "수행 횟수는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+						pweight_textfield.setText("");
+						return;
+					}
+					if(!check_time_format(resttime_textfield.getText())){
+						JOptionPane.showMessageDialog(null, "휴식시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+						resttime_textfield.setText("00:00");
+						return;
+					}
+					
 					wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
 					wcs.setCount(Integer.valueOf(gcount_textfield.getText()));
 					wcs.setP_count(Integer.valueOf(pcount_textfield.getText()));
 					wcs.setP_weight(Integer.valueOf(pweight_textfield.getText()));
 					wcs.setRest_time(resttime_textfield.getText());
+					
 					weight_sum_label.setText("("+Integer.toString(wcs.getP_weight())+"/"+Integer.toString(wcs.getWeight())+")");
 					count_sum_label.setText("("+Integer.toString(wcs.getP_count())+"/"+Integer.toString(wcs.getCount())+")");
 					resttime_sum_label.setText(wcs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
@@ -750,6 +779,23 @@ public class exRecordpage extends JFrame{
 			JButton update_btn = new JButton("저장");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
+					if(!check_int_format(gcount_textfield.getText())) {
+						JOptionPane.showMessageDialog(null, "목표 횟수는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+						gcount_textfield.setText("");
+						return;
+					}
+					if(!check_int_format(pcount_textfield.getText())) {
+						JOptionPane.showMessageDialog(null, "수행 무게는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+						pcount_textfield.setText("");
+						return;
+					}
+					if(!check_time_format(resttime_textfield.getText())){
+						JOptionPane.showMessageDialog(null, "휴식시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+						resttime_textfield.setText("00:00");
+						return;
+					}
+					
 					cs.setCount(Integer.valueOf(gcount_textfield.getText()));
 					cs.setP_count(Integer.valueOf(pcount_textfield.getText()));
 					cs.setRest_time(resttime_textfield.getText());
@@ -951,11 +997,21 @@ public class exRecordpage extends JFrame{
 			JButton update_btn = new JButton("저장");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					/* 
-					 * 
-					 * 입력 예외처리
-					 * 
-					 */
+					if(!check_time_format(goaltime_textfield.getText())){
+						JOptionPane.showMessageDialog(null, "목표시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+						goaltime_textfield.setText("00:00");
+						return;
+					}
+					if(!check_time_format(ptime_textfield.getText())){
+						JOptionPane.showMessageDialog(null, "수행시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+						ptime_textfield.setText("00:00");
+						return;
+					}
+					if(!check_time_format(resttime_textfield.getText())){
+						JOptionPane.showMessageDialog(null, "휴식시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+						resttime_textfield.setText("00:00");
+						return;
+					}
 					
 					ts.setG_time(goaltime_textfield.getText());
 					ts.setP_time(ptime_textfield.getText());
@@ -1005,6 +1061,31 @@ public class exRecordpage extends JFrame{
 			}
 		}
 	}
+	
+	public static boolean check_int_format(String input) {
+		if(input.equals(""))
+			return false;
+		return input.chars().allMatch(Character::isDigit) && Integer.parseInt(input)>=0;
+	}
+	
+	public static boolean check_time_format(String input) {
+		String s1,s2;
+		if(input.contains(":")) {
+			s1 = input.split(":")[0];
+			s2 = input.split(":")[1];
+			if(s1.length()==2 &&s2.length()==2 && check_int_format(s1) && check_int_format(s2)&&Integer.parseInt(s1)<60 && Integer.parseInt(s2)<60) {
+					return true;
+			}
+		}
+		return  false;
+	}
+	/*
+	public static String check_blank(String input, String type) {
+		if(input.equals("")&&type.equals("int")) {
+			return "0";
+		}else
+			return input;
+	}*/
 	
 	class savedR_check_dialog extends JDialog{
 		public savedR_check_dialog(){

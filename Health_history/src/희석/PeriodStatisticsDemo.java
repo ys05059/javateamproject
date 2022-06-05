@@ -96,16 +96,20 @@ public class PeriodStatisticsDemo extends JFrame {
 		textArea.setText(statistics);
 		setVisible(true);
 		
-		chartpanel = new JPanel();
-		XYChart chart = new XYChartBuilder().xAxisTitle("날짜").yAxisTitle("총 세트수").width(600).height(400).build();
 		
 		int count_max=10;
 		
-		//ArrayList<dayRecord> tmp_drary = new ArrayList<>(dR_ary);
+		ArrayList<dayRecord> tmp_drary = new ArrayList<>();
+		for(dayRecord dr : dR_ary) {
+			if(dr.getToday_date().isAfter(startld) && dr.getToday_date().isBefore(endld))
+				tmp_drary.add(new dayRecord(dr));
+			else if(dr.getToday_date().equals(startld) || dr.getToday_date().equals(endld))
+				tmp_drary.add(new dayRecord(dr));
+		}
 		
-		Collections.sort(dR_ary);
+		Collections.sort(tmp_drary);
 		ArrayList<Date> ary_x = new ArrayList<>();
-	    for (dayRecord dr : dR_ary) {
+	    for (dayRecord dr : tmp_drary) {
 	    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH");
 	    	Date date = new Date();
 			try {
@@ -116,10 +120,9 @@ public class PeriodStatisticsDemo extends JFrame {
 	    	ary_x.add(date);
 	    }
 	    
-	    //Date date = Date.from(dr.getToday_date().atStartOfDay(ZoneId.systemDefault()).toInstant());
 	    int tmp;
 	    ArrayList<Integer> ary_y = new ArrayList<>();
-	    for (dayRecord dr : dR_ary) {
+	    for (dayRecord dr : tmp_drary) {
 	    	 tmp= dr.get_total_countset();
 	    	ary_y.add(tmp);
 	    	if(tmp > count_max) {
@@ -127,6 +130,7 @@ public class PeriodStatisticsDemo extends JFrame {
 	    	}
 	    }
 	    
+	    XYChart chart = new XYChartBuilder().xAxisTitle("날짜").yAxisTitle("총 세트수").width(600).height(400).build();
 		XYSeries series = chart.addSeries("총 세트수" ,ary_x,ary_y);
 		series.setMarker(SeriesMarkers.CIRCLE);
 		chart.getStyler().setDatePattern("YYYY-MM-dd");
@@ -139,7 +143,9 @@ public class PeriodStatisticsDemo extends JFrame {
 		getContentPane().add(panel);
 		
 		PieChart chart2 = new PieChartBuilder().width(800).height(600).title("카테고리별 세트비율").build();
-	    Color[] sliceColors = new Color[] { new Color(224, 68, 14), new Color(230, 105, 62), new Color(236, 143, 110), new Color(243, 180, 159), new Color(246, 199, 182) };
+	    Color[] sliceColors = new Color[] { new Color(237, 85, 101),new Color(252, 110, 81),new Color(255, 206, 84),
+	    		new Color(160, 212, 104), new Color(72, 207, 173), new Color(79, 193, 233), new Color(93, 156, 236),
+	    		new Color(172, 146, 236), new Color(236, 135, 192),new Color(204, 209, 217)}; 
 	    chart2.getStyler().setSeriesColors(sliceColors);
 	    
 	    HashMap<String, int[]> catemap= pfunc.getCatemap();
@@ -149,7 +155,6 @@ public class PeriodStatisticsDemo extends JFrame {
 	    	key  = iter.next();
 	    	chart2.addSeries(key, catemap.get(key)[1]);
 	    }
-	    
 	    XChartPanel<PieChart> pie_panel=new XChartPanel<PieChart>(chart2);
 	    pie_panel.setBounds(500, 230,428, 250);
 		getContentPane().add(pie_panel);
