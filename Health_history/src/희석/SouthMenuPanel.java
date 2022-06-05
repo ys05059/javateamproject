@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Login.login;
 import set단위class.dayRecord;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -20,6 +21,7 @@ public class SouthMenuPanel extends JPanel{
 	private JButton gotoStatistics = new JButton("통계");
 	private JButton gotoCalendar = new JButton("일정");
 	private JButton gotoCurri = new JButton("커리큘럼");
+//	private JButton gotoLogin = new JButton("로그아웃");
 	
 	public ArrayList<dayRecord> curr_dR_ary;
 
@@ -31,12 +33,15 @@ public class SouthMenuPanel extends JPanel{
 		gotoCalendar.setBackground(SystemColor.activeCaption);
 //		gotoCalendar.addActionListener(new gotoCalendarHandler());
 		gotoCurri.setBackground(SystemColor.activeCaption);
+//		gotoLogin.setBackground(SystemColor.PINK);
+//		gotoLogin.addActionListener(new gotoLoginPage());
 //		gotoCurri.addActionListener(new gotoCurriHandler());
 
 
 		add(gotoStatistics);
 		add(gotoCalendar);
 		add(gotoCurri);
+//		add(gotoLogin);
 		curr_dR_ary = dR_ary;
 
 	}
@@ -47,7 +52,14 @@ public class SouthMenuPanel extends JPanel{
 			sswd.setVisible(true);
 		}
 	}
-
+	
+//	private class gotoLoginPage implements ActionListener{
+//		public void actionPerformed(ActionEvent e) {
+//			login A = new login();
+//			A.turnonLoginPage();
+//			
+//		}
+//	}
 //
 //	private class gotoCalendarHandler implements ActionListener {
 //		public void actionPerformed(ActionEvent e) {

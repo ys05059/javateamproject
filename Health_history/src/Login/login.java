@@ -148,7 +148,7 @@ public class login {
 						
 						CalendarDemo A = new CalendarDemo(curr_dR_ary, idnow.get(i));
 						A.setVisible(true);
-						frame.dispose(); //로그인 창 종료
+						frame.setVisible(false); //로그인 창 종료
 						loginok = true;
 						break;
 					}
@@ -228,5 +228,9 @@ public class login {
 	private String getPasswordInfo() {
 		String str = new String(passwordField.getPassword());
 		return str;
+	}
+	
+	public void turnonLoginPage() {
+		frame.setVisible(true);
 	}
 }
