@@ -92,6 +92,14 @@ public class CalendarDemo extends JFrame{
 			super.paintComponent(g);
 		}
 	};
+	public JPanel btnsP2 = new JPanel(){ // adding logout btn and myeongun
+		public void paintComponent(Graphics g) {
+			g.drawImage(calendarP.getImage(), 0, 0, null);
+			setOpaque(false);
+			super.paintComponent(g);
+		}
+	};
+	
 	public JLabel ym = new JLabel("0000년0월");
 //	ImageIcon Beforeicon = new ImageIcon("icon\\before.png");
 	public JButton beforeBtn = new JButton("Before");
@@ -206,7 +214,7 @@ public class CalendarDemo extends JFrame{
 		
 		curr_dR_ary = dR_ary;  //A은 복사 실행중, 두개가 주소값이 같아진다
 
-		logoutBtn = new JButton("�α׾ƿ�");
+		logoutBtn = new JButton("로그아웃");
 		logoutBtn.setBackground(SystemColor.PINK);
 		logoutBtn.addActionListener(new logoutAct());
 
@@ -229,21 +237,26 @@ public class CalendarDemo extends JFrame{
 		
 		
 		ym.setText(cfunc.getYandM());
-		Y_M.setLayout(new GridLayout(3,1));
+		Y_M.setLayout(new GridLayout(2,1));
 		
 //by develop
 		btnsP.setLayout(new FlowLayout());
-    Y_M.add(logoutBtn);
+//		Y_M.add(logoutBtn);
 		btnsP.add(beforeBtn);
 		btnsP.add(ym);
 		btnsP.add(afterBtn);
 		Y_M.add(btnsP);
-  
-		cal.add(Y_M, BorderLayout.NORTH);
+		
+		btnsP2.setLayout(new FlowLayout());
+		btnsP2.add(DONGIbueyeo);
+		btnsP2.add(logoutBtn);
+		Y_M.add(btnsP2);
+
 		DONGIbueyeo.setHorizontalAlignment(SwingConstants.RIGHT);
 		DONGIbueyeo.setVerticalAlignment(SwingConstants.BOTTOM);
 		
-		Y_M.add(DONGIbueyeo);
+		
+		cal.add(Y_M, BorderLayout.NORTH);
 		
 		JPanel Days = new JPanel(){
 			public void paintComponent(Graphics g) {
@@ -343,6 +356,9 @@ public class CalendarDemo extends JFrame{
 				int i = d.getDayOfMonth()+CalendarFunc.fday-1;
 				daysBtn[i].setBackground(Color.yellow);				
 				ArrayList<exRecord> exs = x.getExr_ary();
+				if(exs.size() == 0) {
+					daysBtn[i].setBackground(new Color(164, 230, 244)); //운동 다 삭제되면 색깔 바꾸기
+				}
 				catemap = new HashMap<String, int[]>();
 				for(exRecord e : exs) {
 					exercise ex = e.getEx();
@@ -468,13 +484,13 @@ public class CalendarDemo extends JFrame{
 	}
 	private class	logoutAct implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			int A = JOptionPane.showConfirmDialog(null, "�����Ͻðڽ�ϱ�?", "���", JOptionPane.YES_NO_OPTION);
-			if(A == 1 || A == -1) { //no or x ���� �� -> ���� ���ϰ� ������
+			int A = JOptionPane.showConfirmDialog(null, "저장하시겠습니까?", "종료", JOptionPane.YES_NO_OPTION);
+			if(A == 1 || A == -1) { //no or x 누를 때 -> 저장 안하고 나가기
 				disposeCalendar();
 				login AA = new login();
 				AA.turnonLoginPage();
 			}
-			else if(A == 0) { //yes ������ -> ����
+			else if(A == 0) { //yes 누르면 -> 저장
 				UR = new UserRecord(whatID, curr_dR_ary);
 				try {
 					ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userworkinfo//" + whatID + ".dat"));

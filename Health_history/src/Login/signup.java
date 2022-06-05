@@ -399,46 +399,57 @@ public class signup extends JFrame implements ActionListener{
 			//모두 기입을 했다면, 가입 처리와 동시에 유저 이름으로 파일을 만들고, 유저의 정보를 byte화해서 저장한다.
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(ispushjungbokBtn == true && ispushinputcheckBtn == true) {
-					JOptionPane.showMessageDialog(null, "회원가입 완료되었습니다.");
-					log = new login();
-					
-					userinfo = new User(idInputFIeld.getText(), getPasswordInfo2(), genderCombo.getSelectedItem().toString(),
-							nicknameFIeld.getText(), 
-							Float.valueOf(inputweightField.getText()), Float.valueOf(heightField.getText()), 
-							Float.valueOf(muscleField.getText()) , Float.valueOf(bodyField.getText()));
-					userinfoList_signup.add(userinfo); //유저 정보 업데이트  = signup의 user class arraylist 에 add
-
-					try {
-
-						ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream
-								("user\\" + idInputFIeld.getText() +".dat"));
-						outputStream.writeObject(userinfo);
-						outputStream.close();
-					}catch(IOException e1) {
-						System.err.println("error occuered when writing to file");
-						System.exit(0);
-					}
-					
-					
-					log.setUserinfoList(userinfoList_signup);
-					ispushjungbokBtn = false;
-					ispushinputcheckBtn = false;
+				if( !(nicknameFIeld.getText().equals("")) &&!(inputweightField.getText().equals("")) && 
+						 !(heightField.getText().equals("")) &&  !(muscleField.getText().equals("")) &&
+						 !(bodyField.getText().equals(""))) {
+					if( (isDouble(inputweightField.getText()) == true) && (isDouble(heightField.getText()) == true) &&
+							(isDouble(muscleField.getText()) == true) && (isDouble(bodyField.getText()) == true)  ) {
+						if(ispushjungbokBtn == true && ispushinputcheckBtn == true) {
+							JOptionPane.showMessageDialog(null, "회원가입 완료되었습니다.");
+							log = new login();
 							
-					dispose();
-					
+							userinfo = new User(idInputFIeld.getText(), getPasswordInfo2(), genderCombo.getSelectedItem().toString(),
+									nicknameFIeld.getText(), 
+									Float.valueOf(inputweightField.getText()), Float.valueOf(heightField.getText()), 
+									Float.valueOf(muscleField.getText()) , Float.valueOf(bodyField.getText()));
+							userinfoList_signup.add(userinfo); //유저 정보 업데이트  = signup의 user class arraylist 에 add
 
+							try {
+
+								ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream
+										("user\\" + idInputFIeld.getText() +".dat"));
+								outputStream.writeObject(userinfo);
+								outputStream.close();
+							}catch(IOException e1) {
+								System.err.println("error occuered when writing to file");
+								System.exit(0);
+							}
+							
+							
+							log.setUserinfoList(userinfoList_signup);
+							ispushjungbokBtn = false;
+							ispushinputcheckBtn = false;
+									
+							dispose();
+							
+
+						}
+						else if(ispushjungbokBtn == false && ispushinputcheckBtn == false) {
+							JOptionPane.showMessageDialog(null, "중복확인버튼과 비번입력확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
+						}
+						else if(ispushjungbokBtn == true && ispushinputcheckBtn == false) {
+							JOptionPane.showMessageDialog(null, "비번입력확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
+						}
+						else if(ispushjungbokBtn == false && ispushinputcheckBtn == true) {
+							JOptionPane.showMessageDialog(null, "중복확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
+						}	
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "(몸무게, 키, 골격근량, 체지방률)에는 실수만 입력가능합니다.","경고",JOptionPane.ERROR_MESSAGE);
+					}
+				}else {				
+					JOptionPane.showMessageDialog(null, "입력하지 않은 칸이 존재합니다.","경고",JOptionPane.ERROR_MESSAGE);
 				}
-				else if(ispushjungbokBtn == false && ispushinputcheckBtn == false) {
-					JOptionPane.showMessageDialog(null, "중복확인버튼과 비번입력확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
-				}
-				else if(ispushjungbokBtn == true && ispushinputcheckBtn == false) {
-					JOptionPane.showMessageDialog(null, "비번입력확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
-				}
-				else if(ispushjungbokBtn == false && ispushinputcheckBtn == true) {
-					JOptionPane.showMessageDialog(null, "중복확인버튼을 눌러야 합니다.","경고",JOptionPane.ERROR_MESSAGE);
-				}				
-				
 			}
 			
 		});
@@ -471,6 +482,8 @@ public class signup extends JFrame implements ActionListener{
 		else{
 			gender = "여성";
 		}
+		
+		
 	}
 	
 	public void makeDir(String username) { //create directory by username
@@ -497,5 +510,16 @@ public class signup extends JFrame implements ActionListener{
 	public void setUserinfoList(ArrayList<User> userinfoList) {
 		this.userinfoList_signup.addAll(userinfoList);
 	}
+	
+	public boolean isDouble(String here) {
+		try {
+			Double.parseDouble(here);
+			return true;
+		} catch(NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	
 }
 

@@ -1,4 +1,4 @@
-package Èñ¼®;
+package 희석;
 
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -11,16 +11,17 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Login.login;
-import set´ÜÀ§class.dayRecord;
+import set단위class.dayRecord;
+import set단위class.dayRecord;
 import java.awt.Color;
 import java.awt.SystemColor;
 
 public class SouthMenuPanel extends JPanel{
 	
 	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
-	private JButton gotoStatistics = new JButton("Åë°è");
-	private JButton gotoCurri = new JButton("Ä¿¸®Å§·³");
-//	private JButton gotoLogin = new JButton("·Î±×¾Æ¿ô");
+	private JButton gotoStatistics = new JButton("통계");
+	private JButton gotoCurri = new JButton("커리큘럼");
+//	private JButton gotoLogin = new JButton("쨌횓짹횞쩐횈쩔척");
 	
 	public ArrayList<dayRecord> curr_dR_ary;
 
