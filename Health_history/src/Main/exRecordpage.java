@@ -47,6 +47,7 @@ public class exRecordpage extends JFrame{
 	public exRecordpage(exRecord other_exr, dayRecord pre_dayRecord) {
 		dayrecord = pre_dayRecord;
 		setTitle("exRecordpage	");
+		this.setBackground(new Color(175,237,100));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(450,500);
 		GridBagLayout gb = new GridBagLayout();
@@ -121,8 +122,7 @@ public class exRecordpage extends JFrame{
 		ActionListener addset_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 추가할 세트 정보 받아오기
-				if(exrecord instanceof wc_exRecord) { // 이렇게 하니 운동을 하나 추가하면 세트 추가 버튼 눌러도
-					//창이 안뜬다
+				if(exrecord instanceof wc_exRecord) { //무게 * 횟수이면
 					dayrecord.printallexr_ary();
 					add_wcsetpage asp = new add_wcsetpage(new exRecord(exrecord));
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -138,7 +138,7 @@ public class exRecordpage extends JFrame{
 					wcpanel_list.add(wcp);
 					repaint_wclist_panel();
 				}
-				else if(exrecord instanceof c_exRecord) {
+				else if(exrecord instanceof c_exRecord) { //횟수일 때
 					add_csetpage asp = new add_csetpage(new exRecord(exrecord));
 					asp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					asp.setModal(true);

@@ -324,7 +324,7 @@ public class CalendarDemo extends JFrame{
 					
 					JPanel oneex = new JPanel();
 					oneex.setBackground(new Color(127, 197, 249));
-					oneex.setLayout(new GridLayout(1, 3));
+					oneex.setLayout(new GridLayout(1, 2));
 					
 					oneex.add(typel);
 					oneex.add(exnamel);
