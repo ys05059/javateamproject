@@ -604,8 +604,6 @@ public class exRecordpage extends JFrame{
 		JLabel resttime_sum_label;
 		c_set cs;
 		GridBagConstraints gbc;
-		
-		c_set cs;
 		public cset_panel(c_set other_cs) {
 			cs = other_cs;
 			GridBagLayout gbl = new GridBagLayout();
