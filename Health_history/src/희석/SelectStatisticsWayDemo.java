@@ -19,13 +19,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class SelectStatisticsWayDemo extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField dayText;
-	private JTextField startText;
-	private JTextField endText;
 
 	private String dayStr;
 	private String startStr;
@@ -33,16 +31,33 @@ public class SelectStatisticsWayDemo extends JFrame {
 	private JCheckBox dayChkBox;
 	private JCheckBox periodChkBox;
 	
+	private JComboBox dayYComBox;
+	private JComboBox dayMComBox;
+	private JComboBox dayDComBox;
+	
+	private JComboBox startYComBox;
+	private JComboBox startMComBox;
+	private JComboBox startDComBox;
+	private JComboBox endYComBox;
+	private JComboBox endMComBox;
+	private JComboBox endDComBox;
+	
 	private LocalDate dayld;
 	private LocalDate startld;
 	private LocalDate endld;
 	private PeriodStatisticsFunc wfunc;
 	private ArrayList<dayRecord> curr_dR_ary;
 	
+	private String[] yearStrAry = {"2018", "2019", "2020", "2021", "2022"};
+	private String[] monthStrAry = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+	private String[] dayStrAry;
+	
+	private CalendarFunc cfunc;
+	
 	public SelectStatisticsWayDemo(ArrayList<dayRecord> dR_ary) {
 		setTitle("SelectStatisticsWayDemo");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 562, 381);
+		setBounds(100, 100, 497, 291);
 		curr_dR_ary = dR_ary;
 		dayStr="";
 		startStr="";
@@ -54,40 +69,71 @@ public class SelectStatisticsWayDemo extends JFrame {
 		contentPane.setLayout(null);
 		
 		dayChkBox = new JCheckBox("하루통계");
-		dayChkBox.setBounds(41, 112, 107, 23);
+		dayChkBox.setBounds(27, 24, 78, 23);
 		contentPane.add(dayChkBox);
 		
 		periodChkBox = new JCheckBox("기간통계");
-		periodChkBox.setBounds(41, 204, 107, 23);
+		periodChkBox.setBounds(27, 149, 78, 23);
 		contentPane.add(periodChkBox);
-		
-		dayText = new JTextField();
-		dayText.setBounds(220, 113, 96, 21);
-		contentPane.add(dayText);
-		dayText.setColumns(10);
-		
-		startText = new JTextField();
-		startText.setBounds(150, 205, 96, 21);
-		contentPane.add(startText);
-		startText.setColumns(10);
-		
-		endText = new JTextField();
-		endText.setBounds(297, 205, 96, 21);
-		contentPane.add(endText);
-		endText.setColumns(10);
-		
+
+		dayStrAry = makedayStrAry();
 		
 		JLabel symbol = new JLabel("~");
 		symbol.setHorizontalAlignment(SwingConstants.CENTER);
-		symbol.setBounds(246, 208, 50, 15);
+		symbol.setBounds(245, 153, 32, 15);
 		contentPane.add(symbol);
+
+		dayYComBox = new JComboBox(yearStrAry);
+		dayYComBox.setBounds(136, 24, 76, 23);
+		contentPane.add(dayYComBox);
 		
+		dayMComBox = new JComboBox(monthStrAry);
+		dayMComBox.setBounds(224, 24, 73, 23);
+		contentPane.add(dayMComBox);
+		
+		dayDComBox = new JComboBox(dayStrAry);
+		dayDComBox.setBounds(309, 24, 78, 23);
+		contentPane.add(dayDComBox);
+		
+		startYComBox = new JComboBox(yearStrAry);
+		startYComBox.setBounds(136, 120, 76, 23);
+		contentPane.add(startYComBox);
+		
+		startMComBox = new JComboBox(monthStrAry);
+		startMComBox.setBounds(224, 120, 73, 23);
+		contentPane.add(startMComBox);
+		
+		startDComBox = new JComboBox(dayStrAry);
+		startDComBox.setBounds(309, 120, 78, 23);
+		contentPane.add(startDComBox);
+		
+		endYComBox = new JComboBox(yearStrAry);
+		endYComBox.setBounds(136, 178, 76, 23);
+		contentPane.add(endYComBox);
+		
+		endMComBox = new JComboBox(monthStrAry);
+		endMComBox.setBounds(224, 178, 73, 23);
+		contentPane.add(endMComBox);
+		
+		endDComBox = new JComboBox(dayStrAry);
+		endDComBox.setBounds(309, 178, 78, 23);
+		contentPane.add(endDComBox);
+		
+
 		JButton gotoStatisticBtn = new JButton("통계");
-		gotoStatisticBtn.setBounds(426, 161, 91, 23);
+		gotoStatisticBtn.setBounds(416, 103, 55, 23);
 		contentPane.add(gotoStatisticBtn);
+		
 		gotoStatisticBtn.addActionListener(new gotoStatisticsHandler());
 	}
-
+	
+	public String[] makedayStrAry() {
+		String[] str = new String[31];
+		for(int i=0;i<31;i++) {
+			str[i] = String.valueOf(i+1);
+		}
+		return str;
+	}
 	public LocalDate makeLocalDate(String todayStr) {
 		System.out.println(todayStr);
 		StringTokenizer dateTokens = new StringTokenizer(todayStr, "-" , false);
@@ -100,6 +146,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 		
 		return day;
 	}
+	
 	private class gotoStatisticsHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			boolean day = dayChkBox.isSelected();
@@ -112,13 +159,20 @@ public class SelectStatisticsWayDemo extends JFrame {
 			}
 			else {
 				if(day) {
-					dayStr=dayText.getText();
+					dayStr="";
+					dayStr+=dayYComBox.getSelectedItem()+"-"+dayMComBox.getSelectedItem()+"-"
+							+dayDComBox.getSelectedItem();
 					dayld=makeLocalDate(dayStr);
+					
 					DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary, dayld);
 				}
 				else {
-					startStr=startText.getText();
-					endStr=endText.getText();
+					startStr="";
+					startStr=startYComBox.getSelectedItem()+"-"+startMComBox.getSelectedItem()+"-"+
+							startDComBox.getSelectedItem();
+					endStr="";
+					endStr=endYComBox.getSelectedItem()+"-"+endMComBox.getSelectedItem()+"-"+
+							endDComBox.getSelectedItem();
 					
 					switch (PeriodStatisticsFunc.chkDateSeq(startStr, endStr)) {
 						case 0:

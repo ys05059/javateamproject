@@ -18,7 +18,6 @@ public class SouthMenuPanel extends JPanel{
 	
 	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
 	private JButton gotoStatistics = new JButton("통계");
-	private JButton gotoCalendar = new JButton("일정");
 	private JButton gotoCurri = new JButton("커리큘럼");
 	
 	public ArrayList<dayRecord> curr_dR_ary;
@@ -28,15 +27,13 @@ public class SouthMenuPanel extends JPanel{
 		gotoStatistics.setBackground(SystemColor.activeCaption);
 		gotoStatistics.addActionListener(new gotoStatisticsHandler());
 
-		gotoCalendar.setBackground(SystemColor.activeCaption);
 //		gotoCalendar.addActionListener(new gotoCalendarHandler());
-		gotoCurri.setBackground(SystemColor.activeCaption);
+//		gotoCurri.setBackground(SystemColor.activeCaption);
 //		gotoCurri.addActionListener(new gotoCurriHandler());
 
 
 		add(gotoStatistics);
-		add(gotoCalendar);
-		add(gotoCurri);
+		//add(gotoCurri);
 		curr_dR_ary = dR_ary;
 
 	}
@@ -47,22 +44,12 @@ public class SouthMenuPanel extends JPanel{
 			sswd.setVisible(true);
 		}
 	}
-
-//
-//	private class gotoCalendarHandler implements ActionListener {
-//		public void actionPerformed(ActionEvent e) {
-//			
-//		}
-//	}
-//
 //	private class gotoCurriHandler implements ActionListener {
 //		public void actionPerformed(ActionEvent e) {
 //			
 //		}
 //	}
 
-	
-	
 	public void paintComponent(Graphics g) {
 		
 		g.drawImage(calendarP.getImage(), 0, 0, null);
