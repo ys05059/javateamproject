@@ -95,6 +95,7 @@ public class dayRecordpage extends JFrame {
 		
 		today_textField = new JTextField();
 		today_textField.setText(dayrecord.getToday_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		today_textField.setEditable(false);
 		gbc_default.fill = GridBagConstraints.HORIZONTAL;
 		gbc_default.gridx = 1;
 		gbc_default.gridy = 0;

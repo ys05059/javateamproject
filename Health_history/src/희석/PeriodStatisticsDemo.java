@@ -61,6 +61,7 @@ public class PeriodStatisticsDemo extends JFrame {
 
 		startDayTextArea = new JTextArea(startDatestr);
 		startDayTextArea.setBounds(91,36,96,21);
+		startDayTextArea.setEditable(false);
 		getContentPane().add(startDayTextArea);
 		
 		date_of_end_day_label = new JLabel("¡æ∑·¿œ");
@@ -69,6 +70,7 @@ public class PeriodStatisticsDemo extends JFrame {
 
 		endDayTextArea = new JTextArea(endDatestr);
 		endDayTextArea.setBounds(330,36,96,21);
+		endDayTextArea.setEditable(false);
 		getContentPane().add(endDayTextArea);
 	
 		scrollPane = new JScrollPane();

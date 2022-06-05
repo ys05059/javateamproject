@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -71,6 +72,14 @@ public class CalendarDemo extends JFrame{
 			super.paintComponent(g);
 		}
 	};
+	
+	public JPanel btnsP = new JPanel(){
+		public void paintComponent(Graphics g) {
+			g.drawImage(calendarP.getImage(), 0, 0, null);
+			setOpaque(false);
+			super.paintComponent(g);
+		}
+	};
 	public JLabel ym = new JLabel("0000³â0¿ù");
 //	ImageIcon Beforeicon = new ImageIcon("icon\\before.png");
 	public JButton beforeBtn = new JButton("Before");
@@ -125,13 +134,14 @@ public class CalendarDemo extends JFrame{
 		
 		
 		ym.setText(cfunc.getYandM());
-		Y_M.setLayout(new FlowLayout(FlowLayout.CENTER));
+		Y_M.setLayout(new GridLayout(3,1));
 		
+		btnsP.setLayout(new FlowLayout());
 		Y_M.add(howtomove);
-		Y_M.add(beforeBtn);
-		Y_M.add(ym);
-		Y_M.add(afterBtn);
-		
+		btnsP.add(beforeBtn);
+		btnsP.add(ym);
+		btnsP.add(afterBtn);
+		Y_M.add(btnsP);
 		cal.add(Y_M, BorderLayout.NORTH);
 		DONGIbueyeo.setHorizontalAlignment(SwingConstants.RIGHT);
 		DONGIbueyeo.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -271,11 +281,14 @@ public class CalendarDemo extends JFrame{
 					oneex.setLayout(new GridLayout(1, 2));
 					
 					JLabel first = new JLabel(entry.getKey() + " " + String.valueOf(entry.getValue()[0]) + "°³");
-					first.setForeground(Color.white);
+					first.setForeground(Color.BLACK);
 					first.setHorizontalAlignment(JLabel.LEFT);
+					first.setFont(new Font("Serif", Font.PLAIN ,11));
+					
 					JLabel second = new JLabel(String.valueOf(entry.getValue()[1]) + "/" + String.valueOf(entry.getValue()[2]));
-					second.setForeground(Color.white);
+					second.setForeground(Color.BLACK);
 					second.setHorizontalAlignment(JLabel.RIGHT);
+					second.setFont(new Font("Serif", Font.PLAIN ,11));
 					
 					oneex.add(first);
 					oneex.add(second);
@@ -292,6 +305,7 @@ public class CalendarDemo extends JFrame{
 		
 		public void actionPerformed(ActionEvent e) {
 			String btnStr = e.getActionCommand();
+			
 			int move = 0;
 				
 			if(btnStr.equals("Before")) {
