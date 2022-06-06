@@ -1,55 +1,55 @@
 package 희석;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import set단위class.dayRecord;
-
-import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import set단위class.dayRecord;
 
 public class DayStatisticsDemo extends JFrame {
 
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
-	private JComboBox<String> dateComboBox;
-	private String[] datesString;
+	private JTextField dateTextField;
+	//private String[] datesString;
 	private String currDate;
+	private LocalDate today;
 	
 	private String statistics;
-
+	private final ImageIcon batangG = new ImageIcon("image\\batang2.jpg"); 
 	public ArrayList<dayRecord> curr_dR_ary;
 
 	public static DayStatisticsFunc dsfunc;
 	
-	public DayStatisticsDemo(ArrayList<dayRecord> dR_ary) {
+	public DayStatisticsDemo(ArrayList<dayRecord> dR_ary, LocalDate dayld) {
 		setTitle("DayStatisticsDemo");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
 		curr_dR_ary = dR_ary;
+		today = dayld;
+		currDate=today.toString();
 		
-		datesString = mk_date_str(curr_dR_ary);
-		dsfunc = new DayStatisticsFunc(curr_dR_ary);
+		contentPane = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(batangG.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		
-		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.black);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -57,11 +57,10 @@ public class DayStatisticsDemo extends JFrame {
 		date_of_today_label.setBounds(44, 39, 50, 15);
 		contentPane.add(date_of_today_label);
 
-		dateComboBox = new JComboBox<String>(datesString);
-		dateComboBox.setBounds(91,36,96,21);
-		contentPane.add(dateComboBox);
-		JComboHandler comboHandler = new JComboHandler();
-		dateComboBox.addActionListener(comboHandler);
+		dateTextField = new JTextField(currDate);
+		dateTextField.setBounds(91,36,96,21);
+		dateTextField.setEditable(false);
+		contentPane.add(dateTextField);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 79, 418, 257);
@@ -71,32 +70,15 @@ public class DayStatisticsDemo extends JFrame {
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
 		
+		dsfunc = new DayStatisticsFunc(curr_dR_ary, today);
+
+		statistics = dsfunc.makeTextArea();
+		setTextArea(statistics);		
 		this.setVisible(true);
 	}
 
-	private class JComboHandler implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-			currDate = dateComboBox.getSelectedItem().toString();
-			
-			statistics = dsfunc.makeTextArea();
-			setTextArea(statistics);
-		}
-	}
-	
 	public void setTextArea(String s) {
 		textArea.setText("");
 		textArea.setText(s);
-	}
-	
-	public String[] mk_date_str(ArrayList<dayRecord> curr_dR_ary) {
-		LocalDate ld;
-		String[] str = new String[curr_dR_ary.size()];
-		int i=0;
-		for(dayRecord dr : curr_dR_ary) {
-			ld = dr.getToday_date();
-			
-			str[i++]=ld.toString();
-		}
-		return str;
 	}
 }

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -18,6 +19,7 @@ public class add_csetpage extends JDialog {
 	private JPanel contentPane;
 	private JTextField count_textField;
 	private JTextField resttime_textfield; 
+	public boolean exit = false;
 	public add_csetpage(exRecord exr) {
 		setTitle("add_csetpage");
 		setBounds(100, 100, 450, 300);
@@ -56,21 +58,21 @@ public class add_csetpage extends JDialog {
 		addset_Btn.setBounds(171, 195, 95, 23);
 		addset_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(!count_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
-					add_csetpage.this.dispose();
+				if(!exRecordpage.check_int_format(count_textField.getText())) {
+					JOptionPane.showMessageDialog(null, "목표 횟수는 정수만 입력가능합니다","경고", JOptionPane.ERROR_MESSAGE);
+					count_textField.setText("");
+					return;
 				}
-				// 예외처리 해야함 // 시간은 mm:ss 형식 제한 필요
-				/*else {
-					input_check_dialog icd = new input_check_dialog();
-					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					icd.setModal(true);
-					icd.setVisible(true);
-				}*/
+				if(!exRecordpage.check_time_format(resttime_textfield.getText())){
+					JOptionPane.showMessageDialog(null, "휴식시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+					resttime_textfield.setText("00:00");
+					return;
+				}
+				exit = true;
+				add_csetpage.this.dispose();
 			}
 		});
 		contentPane.add(addset_Btn);
-		
 		
 	}
 	public String get_count() {

@@ -21,17 +21,14 @@ public class c_exRecord extends exRecord{
 		c_set_ary = other_ce.c_set_ary;
 	}
 	
-	public void add_wcset(c_set cs) {
+	public void first_add_wcset(c_set cs) {
 		c_set_ary.add(cs);
-		super.setCount_set(c_set_ary.size());
 	}
 	
-	/*
-	public void add_wcset(String weight, String count, String resttime) {
-		c_set_ary.add(new c_set(Integer.valueOf(count)));
-		super.setCount_set(c_set_ary.size());
-		//resttime은 나중에
-	}*/
+	public void add_wcset(c_set cs) {
+		c_set_ary.add(cs);
+		super.setSet_goal(super.getSet_goal()+1);
+	}
 	
 	public void del_cset(c_set tmp_cs) {
 		int count =0;
@@ -42,9 +39,18 @@ public class c_exRecord extends exRecord{
 			}
 			count++;
 		}
-		super.setCount_set(c_set_ary.size());
+		super.setSet_goal(super.getSet_goal()-1);
 	}
-	
+
+	@Override
+	public int cal_count_set() {
+		int count =0;
+		for(c_set cs : c_set_ary) {
+			if(cs.getPerform_check() == true)
+				count++;
+		}
+		return count;
+	}
 	
 	public ArrayList<c_set> getc_set_ary() {
 		return new ArrayList<c_set>(c_set_ary);

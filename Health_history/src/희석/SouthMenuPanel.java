@@ -1,52 +1,65 @@
-package ��;
+package 희석;
 
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import set����class.dayRecord;
+import set단위class.dayRecord;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class SouthMenuPanel extends JPanel{
 	
-	private JButton gotoStatistics = new JButton("���");
-	private JButton gotoCalendar = new JButton("����");
-	private JButton gotoCurri = new JButton("Ŀ��ŧ��");
-	
+	final ImageIcon calendarP = new ImageIcon("image\\calendarback.jpg"); 
+
+  private String ID;
+	private JButton gotoStatistics = new JButton("통계");
+
 	public ArrayList<dayRecord> curr_dR_ary;
 
-	public SouthMenuPanel(ArrayList<dayRecord> dR_ary) {
+	public SouthMenuPanel(ArrayList<dayRecord> dR_ary, String nowID) {
+		ID = nowID;
 		setLayout(new FlowLayout());
+		gotoStatistics.setBackground(SystemColor.activeCaption);
 		gotoStatistics.addActionListener(new gotoStatisticsHandler());
-		gotoCalendar.addActionListener(new gotoCalendarHandler());
-		gotoCurri.addActionListener(new gotoCurriHandler());
-
 		add(gotoStatistics);
-		add(gotoCalendar);
-		add(gotoCurri);
 		curr_dR_ary = dR_ary;
 
 	}
-	
 	private class gotoStatisticsHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary);
-			//PeriodStatisticsDemo wsd = new PeriodStatisticsDemo(curr_dR_ary);
+			boolean isavailable = false;
+			for(int i = 0; i < curr_dR_ary.size(); i++) {
+				if(curr_dR_ary.get(i).getExr_ary().size() == 0) {
+					isavailable = false; 
+				}else { 
+					isavailable = true; //true ë¦¬í´íê³ 
+					break; //ì¦ì break
+				}
+			}
+			
+			if(isavailable == false) {
+				JOptionPane.showMessageDialog(null, "ìë ¥ë ì´ëì´ ììµëë¤.","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
+			}else {
+				SelectStatisticsWayDemo sswd = new SelectStatisticsWayDemo(curr_dR_ary, ID);
+				sswd.setVisible(true);
+			}
+
 		}
+	}
+	public void paintComponent(Graphics g) {
+		
+		g.drawImage(calendarP.getImage(), 0, 0, null);
+		setOpaque(false);
+		super.paintComponent(g);
+		
 	}
 
-	private class gotoCalendarHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			
-		}
-	}
-
-	private class gotoCurriHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			
-		}
-	}
 }

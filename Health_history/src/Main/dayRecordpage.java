@@ -2,58 +2,62 @@ package Main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
-import Main.exRecordpage.cset_panel;
-import set´ÜÀ§class.c_set;
-import set´ÜÀ§class.dayRecord;
-import set´ÜÀ§class.exRecord;
-import set´ÜÀ§class.wc_exRecord;
-import Èñ¼®.CalendarDemo;
+import Login.imgPanel;
+import setë‹¨ìœ„class.dayRecord;
+import setë‹¨ìœ„class.exRecord;
+import setë‹¨ìœ„class.wc_exRecord;
+import í¬ì„.CalendarDemo;
 
 public class dayRecordpage extends JFrame {
 
-	private JPanel defaultpanel;
 	private JTextField weight_textField;
-	private JTextField today_textField;
 	private JPanel ex_list_panel; 
-	static dayRecord dayrecord;
+	public dayRecord dayrecord;
 	private ArrayList<expanel> expanel_list; 
+	imgPanel dayRecordP = new imgPanel(new ImageIcon("image\\batang1.jpg").getImage());
+	final ImageIcon dayRecordP2 = new ImageIcon("image\\batang1.jpg"); 
+	boolean exist; // ì²˜ìŒ ì…ë ¥í•˜ëŠ”ê±´ì§€, ìˆë˜ê±° ë®ì–´ì“°ëŠ”ì§€
 
-	boolean exist; // Ã³À½ ÀÔ·ÂÇÏ´Â°ÇÁö, ÀÖ´ø°Å µ¤¾î¾²´ÂÁö
-	
-	public dayRecordpage(final ArrayList<dayRecord> dR_ary,dayRecord dr) {//ÀÌºÎºĞ final·Î ¾ÈÇÏ´Ï ¿À·ù ¶°¼­ final Ãß°¡Çß½À´Ï´Ù(µ¿Çõ)
+	public dayRecordpage(final ArrayList<dayRecord> dR_ary,dayRecord dr) {//ì´ë¶€ë¶„ finalë¡œ ì•ˆí•˜ë‹ˆ ì˜¤ë¥˜ ë– ì„œ final ì¶”ê°€í–ˆìŠµë‹ˆë‹¤(ë™í˜)
 
 		setTitle("dayRecordpage	");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,400);
+		getContentPane().setBackground(new Color(203, 254, 255));
+		
+
 		GridBagLayout gb = new GridBagLayout();
 		gb.rowHeights = new int[] {50, 50,50,50,50,50,50};
 		gb.columnWidths = new int[] {100,100,50,50,50};
 		setLayout(gb);
 		
-		// ±âÁ¸ Á¤º¸ ÀÖ´ÂÁö¿¡ µû¶ó ºĞ±â
+		// ê¸°ì¡´ ì •ë³´ ìˆëŠ”ì§€ì— ë”°ë¼ ë¶„ê¸°
 		dayrecord = dr;
 		if(dr.getExr_ary().size()>0) {
 			exist = true;
@@ -67,36 +71,37 @@ public class dayRecordpage extends JFrame {
 			expanel_list = new ArrayList<>();
 			
 		}
-		// ¸¸¾à drÀÇ ex_ary°¡ Â÷ÀÖ´Ù¸é expanel_list¿¡ ±âÁ¸³»¿ë Ãß°¡ÇØÁà¾ßÇÔ
+		// ë§Œì•½ drì˜ ex_aryê°€ ì°¨ìˆë‹¤ë©´ expanel_listì— ê¸°ì¡´ë‚´ìš© ì¶”ê°€í•´ì¤˜ì•¼í•¨
 		
 		GridBagConstraints gbc_default = new GridBagConstraints();
 		
-		/* ³¯Â¥ ÀÔ·Â ÆĞ³Î */
-		JLabel today_Label = new JLabel("¿À´ÃÀÇ ³¯Â¥");
+		/* ë‚ ì§œ ì…ë ¥ íŒ¨ë„ */
+		JLabel today_Label = new JLabel("ì˜¤ëŠ˜ì˜ ë‚ ì§œ");
 		today_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		gbc_default.anchor = GridBagConstraints.WEST;
 		gbc_default.gridx = 0;
 		gbc_default.gridy = 0;
 		add(today_Label,gbc_default);
 		
-		today_textField = new JTextField();
-		today_textField.setText(dayrecord.getToday_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		JLabel todaydate_Label = new JLabel();
+		todaydate_Label.setText(dayrecord.getToday_date().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		gbc_default = new GridBagConstraints();
 		gbc_default.fill = GridBagConstraints.HORIZONTAL;
 		gbc_default.gridx = 1;
 		gbc_default.gridy = 0;
 		gbc_default.anchor = GridBagConstraints.WEST;
-		add(today_textField,gbc_default);
+		add(todaydate_Label,gbc_default);
 		
 		
-		// ¸ö¹«°Ô ¶óº§
-		JLabel today_weight_label = new JLabel("¿À´ÃÀÇ ¸ö¹«°Ô");
+		// ëª¸ë¬´ê²Œ ë¼ë²¨
+		JLabel today_weight_label = new JLabel("ì˜¤ëŠ˜ì˜ ëª¸ë¬´ê²Œ");
 		gbc_default = new GridBagConstraints();
 		gbc_default.fill = GridBagConstraints.HORIZONTAL;
 		gbc_default.gridx = 0;
 		gbc_default.gridy = 6;
 		add(today_weight_label,gbc_default);
 		
-		// ¹³¹«°Ô textField
+		// ë­„ë¬´ê²Œ textField
 		weight_textField = new JTextField();
 		if(dayrecord.getToday_weight()>0) {
 			weight_textField.setText(Double.toString(dayrecord.getToday_weight()));
@@ -107,8 +112,15 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridy = 6;
 		add(weight_textField,gbc_default);
 		
-		/* ¿îµ¿ ¸®½ºÆ® ÆĞ³Î */
-		ex_list_panel = new JPanel();
+		/* ìš´ë™ ë¦¬ìŠ¤íŠ¸ íŒ¨ë„ */
+		ex_list_panel = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(dayRecordP2.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		ex_list_panel.setSize(430,320);
 		ex_list_panel.setBackground(Color.WHITE);
 		gb = new GridBagLayout();
 		gb.rowHeights = new int[]{50, 50, 50, 50, 50};
@@ -120,33 +132,37 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridx = 0;
 		gbc_default.gridy = 1;
 		gbc_default.gridheight = 5;
-		gbc_default.gridwidth = 5;
+		gbc_default.gridwidth = 6;
 		JScrollPane sp = new JScrollPane(ex_list_panel);
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		add(sp, gbc_default);
 		if(!expanel_list.isEmpty()) {
 			repaint_exlist_panel();
 		}
 		
-		// ¿îµ¿Ãß°¡ ¹öÆ° Å¬¸¯
-		JButton addexr_button = new JButton("¿îµ¿ Ãß°¡");
+		// ìš´ë™ì¶”ê°€ ë²„íŠ¼ í´ë¦­
+		JButton addexr_button = new JButton("ìš´ë™ ì¶”ê°€");
 		ActionListener addex_listener= new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Ãß°¡ÇÒ ¿îµ¿ Á¤º¸ ¹Ş¾Æ¿À±â
+				// ì¶”ê°€í•  ìš´ë™ ì •ë³´ ë°›ì•„ì˜¤ê¸°
 				addexRecordpage exrp = new addexRecordpage();
 				exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				exrp.setModal(true);
-				exrp.setVisible(true);
-				exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
+				exrp.setVisible(true); // ìš´ë™ ì¶”ê°€ ì°½ì´ ì—´ë¦°ë‹¤.
 				
-				// ¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸ ÀúÀå
-				dayrecord.add_exr(tmp_ex);
-				expanel tmp_exp = new expanel(tmp_ex);
-				if (expanel_list == null)
-					expanel_list = new ArrayList<>();	
-				expanel_list.add(tmp_exp);
-				
-				//¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
-				repaint_exlist_panel();
+				if(exrp.exit) { //ì •ìƒì¢…ë£Œ
+					exRecord tmp_ex = new exRecord(exrp.get_exname(),exrp.get_setgoal());
+					// ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ ì €ì¥
+					dayrecord.add_exr(tmp_ex);
+					//dayrecordì— ì €ì¥í•œ ì´í›„ panelì— í‘œí˜„í•  ì •ë³´ë“¤ë„ ì €ì¥í•œë‹¤. ì´ ì‘ì—…ì€ dayrecordì™€ ë³„ê°œì¸ ë“¯(ë™í˜)
+					expanel tmp_exp = new expanel(tmp_ex);
+					if (expanel_list == null)
+						expanel_list = new ArrayList<>();	
+					expanel_list.add(tmp_exp);
+					
+					//ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ì— ëŒ€í•œ ex_list_panel ì—…ë°ì´íŠ¸
+					repaint_exlist_panel();
+				}
 			}
 		};
 		addexr_button.addActionListener(addex_listener);
@@ -156,29 +172,35 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridwidth = 2;
 		add(addexr_button, gbc_default);
 		
-		//ÀúÀå ¹öÆ°
-		JButton savedR_button = new JButton("ÀúÀå");
+		//ì €ì¥ ë²„íŠ¼
+		JButton savedR_button = new JButton("ì €ì¥");
 		ActionListener savedR_listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Àû¾îµµ date¿Í ¸ö¹«°Ô´Â ÀÖ¾î¾ßÇÔ ¾øÀ¸¸é ¿¡·¯Ã¢
-				if(today_textField.getText().equals("") ) {
-					savedR_check_dialog icd = new savedR_check_dialog();
-					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					icd.setModal(true);
-					icd.setVisible(true);
-				}
-				//¸ö¹«°Ô ÀúÀå
-				if(!weight_textField.getText().equals(""))
-					dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));				
+				 try { // ëª¸ë¬´ê²Œ ì…ë ¥ ì˜¤ë¥˜ì²˜ë¦¬
+					 if(!weight_textField.getText().equals("")) {
+						 Double.parseDouble(weight_textField.getText());
+						 if(Double.valueOf(weight_textField.getText())<0) {
+							 JOptionPane.showMessageDialog(null, "ëª¸ë¬´ê²Œë¥¼ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
+							 weight_textField.setText("");
+							 return;
+						 }
+						 dayrecord.setToday_weight(Double.valueOf(weight_textField.getText()));
+					 }else
+						 dayrecord.setToday_weight(0.0);
+						 
+				 }catch(NumberFormatException e1) {
+					 JOptionPane.showMessageDialog(null, "ëª¸ë¬´ê²Œë¥¼ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
+					 weight_textField.setText("");
+					 return;
+	            }
 				
-				// dayRecord¸¦ dR_ary¿¡ Ãß°¡
-				// ¾øÀ¸¸é Ãß°¡ ÀÖÀ¸¸é ´Ù½Ã ¼¼ÆÃ
+				// dayRecordë¥¼ dR_aryì— ì¶”ê°€ -> ì—†ìœ¼ë©´ add / ìˆìœ¼ë©´ set
 				if(exist == false)
 					dR_ary.add(dayrecord);
 				else {
 					int index=0;
 					for(dayRecord tmp : dR_ary) {
-						if(dr.getToday_date().equals(tmp.getToday_date()))
+						if(dayrecord.getToday_date().equals(tmp.getToday_date()))
 							break;
 						else 
 							index++;
@@ -186,152 +208,141 @@ public class dayRecordpage extends JFrame {
 					dR_ary.set(index, dayrecord);
 				}
 				CalendarDemo.paintExcPane(dR_ary);
-				// ´Ş·Â ÆäÀÌÁö·Î µ¹¾Æ°¨
+				// ë‹¬ë ¥ í˜ì´ì§€ë¡œ ëŒì•„ê°
 				dispose();
 			}
 		};
 		savedR_button.addActionListener(savedR_listener);
+		gbc_default = new GridBagConstraints();
 		gbc_default.anchor = GridBagConstraints.CENTER;
 		gbc_default.ipadx = 20;
 		gbc_default.gridx = 4;
 		gbc_default.gridwidth = 2;
 		add(savedR_button, gbc_default);
-		
 	}
 	
-	
 	private void repaint_exlist_panel(){
-		if(expanel_list!= null && !expanel_list.isEmpty()) {  												// ¿îµ¿ 1°³¶óµµ ÀÖÀ» °æ¿ì
-			GridBagConstraints gbc = new GridBagConstraints();									// exRecord ÇÑ °³¿¡ ´ëÇÑ gbc
+		if(expanel_list!= null && !expanel_list.isEmpty()) {  												// ìš´ë™ 1ê°œë¼ë„ ìˆì„ ê²½ìš°
+			GridBagConstraints gbc = new GridBagConstraints();									// exRecord í•œ ê°œì— ëŒ€í•œ gbc
 			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			gbc.gridwidth = 5;
 			int count = 0;
-			
 			ex_list_panel.removeAll();
 			for(expanel exp : expanel_list) {
 				gbc.gridy = count++;
 				ex_list_panel.add(exp,gbc);
 			}
-		}else
+		}else {
 			ex_list_panel.removeAll();
-		
-		ex_list_panel.revalidate();															// ¿îµ¿ ¼±ÅÃ ÆĞ³Î ÃÊ±âÈ­
+		}
+		ex_list_panel.revalidate();															// ìš´ë™ ì„ íƒ íŒ¨ë„ ì´ˆê¸°í™”
 		ex_list_panel.repaint();
 	}
-	/*
-	private void update_exlist() {
-		for(expanel ep : expanel_list) {
-			ep.update_expanel(null););
-		}
-	}*/
 	
-	class expanel extends JPanel{
+	class expanel extends JPanel{ 
 		private JLabel ex_name;
 		private JLabel setnum_label;
+		private exRecord exr;
+		private GridBagConstraints gbc;
 		
 		public expanel(exRecord other_exr) {
-			
+			exr = other_exr;
+			TitledBorder oneTb = new TitledBorder(new LineBorder(Color.black));
+			setBorder(oneTb);
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {100,100,50,50,50};
 			gbl.rowHeights = new int[] {50};
 			
 			this.setLayout(gbl);
-			this.setBackground(Color.YELLOW);
+			this.setBackground(new Color(175,237,100));
 			
 			ex_name = new JLabel(other_exr.getEx().getname());
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.gridx = 0;
-			gbc.gridy = 0;
+			set_gbc(0, 0, GridBagConstraints.BOTH);
 			this.add(ex_name,gbc);
 			
 		
-			JLabel set_label = new JLabel("ÇöÀç/¸ñÇ¥");
-			gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.gridx = 1;
-			gbc.gridy = 0;
+			JLabel set_label = new JLabel("í˜„ì¬/ëª©í‘œ");
+			set_gbc(1, 0, GridBagConstraints.BOTH);
 			this.add(set_label,gbc);
 			
 			setnum_label = new JLabel("("+Integer.toString(other_exr.getCount_set())+"/"+Integer.toString(other_exr.getSet_goal())+")");
-			gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.gridx = 2;
-			gbc.gridy = 0;
+			set_gbc(2, 0, GridBagConstraints.BOTH);
 			this.add(setnum_label,gbc);
 			
-			JButton update_btn = new JButton("¼öÁ¤");
+			JButton update_btn = new JButton("ìˆ˜ì •");
 			ActionListener updateBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					exRecordpage exrp;
-					exRecord exr = dayrecord.getExr_ary().get(getindex());	
-					if(exr instanceof wc_exRecord) {
-						exrp = new exRecordpage((wc_exRecord)exr,dayrecord);
+					exRecord tmp_exr = dayrecord.getExr_ary().get(getindex());	
+					if(tmp_exr instanceof wc_exRecord) {
+						exrp = new exRecordpage((wc_exRecord)tmp_exr,dayrecord);
 					}else {
-						exrp = new exRecordpage(exr,dayrecord);
+						exrp = new exRecordpage(tmp_exr,dayrecord);
 					}
-					exrp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					exrp.setModal(true);
 					exrp.setVisible(true);
-					
-					// Ã¢ ´İÇûÀ» ¶§
-					// ¿îµ¿ ÆĞ³Î ¸®½ºÆ® ¼öÁ¤
-					exr = dayrecord.getExr_ary().get(getindex());									// ¼öÁ¤µÈ exRecord ¹Ş¾Æ¿À±â
-					ex_name.setText(exr.getEx().getname());
-					setnum_label.setText("("+Integer.toString(exr.getCount_set())+"/"+Integer.toString(exr.getSet_goal())+")");
-					repaint_exlist_panel();
+					// ì°½ ë‹«í˜”ì„ ë•Œ
+					// ìš´ë™ íŒ¨ë„ ë¦¬ìŠ¤íŠ¸ ìˆ˜ì •
+					exrp.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosed(WindowEvent windowevent) {
+							exRecord tmp_exr = dayrecord.getExr_ary().get(getindex());									// ìˆ˜ì •ëœ exRecord ë°›ì•„ì˜¤ê¸°
+							ex_name.setText(tmp_exr.getEx().getname());
+							setnum_label.setText("("+Integer.toString(tmp_exr.getCount_set())+"/"+Integer.toString(tmp_exr.getSet_goal())+")");
+							repaint_exlist_panel();
+						}
+					});
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);
-			gbc.fill = GridBagConstraints.HORIZONTAL;
-			gbc.gridx= 3;
-			gbc.gridy= 0;
+			set_gbc(3, 0, GridBagConstraints.HORIZONTAL);
 			gbc.insets = new Insets(0, 0, 0, 5);
-			
-			
 			this.add(update_btn,gbc);
 			
-			// »èÁ¦ ¹öÆ°
-			JButton delete_btn = new JButton("»èÁ¦");
+			// ì‚­ì œ ë²„íŠ¼
+			JButton delete_btn = new JButton("ì‚­ì œ");																		// íŒ¨ë„ì—ì„œì˜ ì‚­ì œì™€ ë”ë¶ˆì–´ dayrecordì—ì„œë„ ì‚­ì œí•˜ê¸°ë¥¼  êµ¬í˜„í•´ì•¼í•œë‹¤.
 			ActionListener delBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (getindex() >=0) {
 						System.out.println(getindex());
-						dayrecord.delete_exr(other_exr);
+						dayrecord.delete_exr(exr);
 						expanel_list.remove(getindex());
+						dayrecord.printallexr_ary();
 					}else {
-						System.err.println("dayRecordpage: ¿îµ¿»èÁ¦ ¿À·ù");
+						System.err.println("dayRecordpage: ìš´ë™ì‚­ì œ ì˜¤ë¥˜");
 					}
-					//¹Ş¾Æ¿Â ¿îµ¿ Á¤º¸¿¡ ´ëÇÑ ex_list_panel ¾÷µ¥ÀÌÆ®
-					repaint_exlist_panel();
+					repaint_exlist_panel();																				//ë°›ì•„ì˜¨ ìš´ë™ ì •ë³´ì— ëŒ€í•œ ex_list_panel ì—…ë°ì´íŠ¸
 				}
 			};
 			delete_btn.addActionListener(delBtn_listener);
-			gbc.gridx= 4;
-			gbc.gridy= 0;
+			set_gbc(4, 0, GridBagConstraints.HORIZONTAL);
 			gbc.insets= new Insets(0, 0, 0, 0);
 			this.add(delete_btn,gbc);
 		}
 		private int getindex() {
-			return expanel_list.indexOf(this);
+			return expanel_list.indexOf(this); //panelì˜ indexìœ„ì¹˜ë¥¼ ë¦¬í„´í•´ì¤€ë‹¤
+		}
+		private void set_gbc(int x, int y, int fill) {
+			gbc = new GridBagConstraints();
+			gbc.gridx = x;
+			gbc.gridy = y;
+			gbc.fill = fill;
 		}
 	}
-	
-	
 	
 	public void set_date(LocalDate date) {
 		dayrecord.setToday_date(date);
 	}
-
+	
+	
 	class savedR_check_dialog extends JDialog{
 		public savedR_check_dialog(){
 			setSize(200,100);
-			JLabel label = new JLabel("ÀÔ·ÂÀ» È®ÀÎÇÏ¼¼¿ä");
+			JLabel label = new JLabel("ì…ë ¥ì„ í™•ì¸í•˜ì„¸ìš”");
 			label.setHorizontalAlignment(JLabel.CENTER);
 			add(label,BorderLayout.CENTER);
-			JButton bt = new JButton("È®ÀÎ");
+			JButton bt = new JButton("í™•ì¸");
 			bt.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -342,9 +353,6 @@ public class dayRecordpage extends JFrame {
 			setLocation(200, 200);
 		}
 		
-	}
-	public void set_today_textField(String yandM) {
-		this.today_textField.setText(yandM);
 	}
 
 }

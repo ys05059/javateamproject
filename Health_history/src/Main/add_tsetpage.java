@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -17,7 +18,8 @@ import set단위class.exRecord;
 public class add_tsetpage extends JDialog {
 	private JPanel contentPane;
 	private JTextField goaltime_textField;
-	private JTextField resttime_textfield; 
+	private JTextField resttime_textfield;
+	public boolean exit = false;
 	public add_tsetpage(exRecord exr) {
 		setTitle("add_tsetpage");
 		setBounds(100, 100, 450, 300);
@@ -58,16 +60,18 @@ public class add_tsetpage extends JDialog {
 		addset_Btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(!goaltime_textField.getText().equals("") && !resttime_textfield.getText().equals("")) {										
-					add_tsetpage.this.dispose();
+				if(!exRecordpage.check_time_format(goaltime_textField.getText())){
+					JOptionPane.showMessageDialog(null, "목표시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+					goaltime_textField.setText("00:00");
+					return;
 				}
-				// 예외처리 해야함 // 시간은 mm:ss 형식 제한 필요
-				/*else {
-					input_check_dialog icd = new input_check_dialog();
-					icd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					icd.setModal(true);
-					icd.setVisible(true);
-				}*/
+				if(!exRecordpage.check_time_format(resttime_textfield.getText())){
+					JOptionPane.showMessageDialog(null, "휴식시간을 다시 입력하세요","경고", JOptionPane.ERROR_MESSAGE);
+					resttime_textfield.setText("00:00");
+					return;
+				}	
+				exit = true;
+				add_tsetpage.this.dispose();
 			}
 		});
 		contentPane.add(addset_Btn);

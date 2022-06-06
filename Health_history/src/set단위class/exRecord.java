@@ -1,11 +1,12 @@
 package set단위class;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class exRecord {
+public class exRecord implements Serializable{
 	private exercise ex;
 	private int set_goal;								// 목표 세트 수
-	private int count_set;								// 들어있는 세트 수
+	private int count_set;								// 들어있는 세트 수(수행한 세트 수)
 		
 	public exRecord() {
 		ex = new exercise();
@@ -13,7 +14,7 @@ public class exRecord {
 		count_set =0;
 	}
 	
-	public exRecord(String ex_name, int setgoal) {
+	public exRecord(String ex_name , int setgoal) {
 		ex = new exercise(ex_name);
 		set_goal =setgoal;
 		count_set =0;
@@ -30,8 +31,13 @@ public class exRecord {
 		set_goal = other_exr.set_goal;
 		count_set = other_exr.count_set;
 	}
-	public int getCount_set() {
+	
+	public int cal_count_set() {
+		System.out.println("exRecord의 cal_count_set 불렸습니다. 수정하세요");
 		return count_set;
+	}
+	public int getCount_set() {
+	 return count_set;
 	}
 
 	public void setCount_set(int count_set) {

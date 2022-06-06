@@ -27,10 +27,10 @@ public class CalendarFunc {
 		return Integer.toString(month + 1);
 	}
 	public String getYandM() { 
-		return getYear() + "년" + getMonth() + "월";
+		return getYear() + "년 " + getMonth() + "월";
 	}
 	
-	public void calSet() {
+	public void calSet() {	// 버튼에 실제 달력과 동일한 위치에 날짜 할당
 		sDay.set(year, month,1);
 		
 		fday = sDay.get(Calendar.DAY_OF_WEEK);
@@ -49,7 +49,7 @@ public class CalendarFunc {
 		
 	}
 	
-	public void Init(int move) {
+	public void Init(int move) {	// CalendarDemo에서 달 변경시 현재 년도, 달 변경하는 메소드
 		for(int i=0;i<buttons.length;i++) {
 			buttons[i].setText("");
 		}
@@ -62,5 +62,13 @@ public class CalendarFunc {
 			month = 0;
 		}
 		calSet();
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
 	}
 }
