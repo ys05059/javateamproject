@@ -112,17 +112,11 @@ public class CalendarDemo extends JFrame{
 	public static JPanel[] showExInCal = new JPanel[42];
 	private JLabel DONGIbueyeo;
 	private JButton logoutBtn;
-	
-	
 	private SouthMenuPanel menu;
-	
 	public dayRecordpage drp;
 	public ArrayList<dayRecord> curr_dR_ary;
-	
 	private LocalDate select_date;
-	
 	private UserRecord UR;  //serialize �� User����Ŭ���� �ҷ����
-	
 	private String whatID;
 
 	
@@ -133,6 +127,7 @@ public class CalendarDemo extends JFrame{
 		this.setSize(WIDTH, HEIGHT);
 		getContentPane().setLayout(new BorderLayout());
 		this.setVisible(true);
+		
 		this.addWindowListener(new WindowListener(){
 
 			@Override

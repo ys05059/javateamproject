@@ -36,7 +36,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 	private JComboBox dayMComBox;
 	private JComboBox dayDComBox;
 	
-	private JComboBox startYComBox;
+	private JComboBox<String> startYComBox;
 	private JComboBox startMComBox;
 	private JComboBox startDComBox;
 	private JComboBox endYComBox;
@@ -46,14 +46,11 @@ public class SelectStatisticsWayDemo extends JFrame {
 	private LocalDate dayld;
 	private LocalDate startld;
 	private LocalDate endld;
-	private PeriodStatisticsFunc wfunc;
 	private ArrayList<dayRecord> curr_dR_ary;
 	
 	private String[] yearStrAry = {"2018", "2019", "2020", "2021", "2022"};
 	private String[] monthStrAry = {"1","2","3","4","5","6","7","8","9","10","11","12"};
 	private String[] dayStrAry;
-	
-	private CalendarFunc cfunc;
 	
 	public SelectStatisticsWayDemo(ArrayList<dayRecord> dR_ary) {
 		setTitle("SelectStatisticsWayDemo");
@@ -184,12 +181,12 @@ public class SelectStatisticsWayDemo extends JFrame {
 					
 					switch (PeriodStatisticsFunc.chkDateSeq(startStr, endStr)) {
 						case 0:
-							System.out.println("Same day");
+							JOptionPane.showMessageDialog(null, "같은 날짜입니다","경고", JOptionPane.ERROR_MESSAGE);
 							endStr="";
 							startStr="";
 							break;
 						case -1:
-							System.out.println("end day precedes start day");
+							JOptionPane.showMessageDialog(null, "기간을 확인해주세요","경고", JOptionPane.ERROR_MESSAGE);
 							endStr="";
 							startStr="";
 							break;
