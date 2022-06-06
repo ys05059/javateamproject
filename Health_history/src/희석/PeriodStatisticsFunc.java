@@ -45,6 +45,7 @@ public class PeriodStatisticsFunc {
 	private double[] percent;
 	private HashMap<String, int[]> catemap; // { 카테고리 : {운동 갯수 , 운동 세트수, 운동 목표세트 수} }
 	private HashMap<String, double[]> catemapPercent;
+	
 	public PeriodStatisticsFunc(ArrayList<dayRecord> dR_ary, LocalDate sDay, LocalDate eDay) {
 		totalTimeStr = "총 수행시간 : ";
 		totalSetCntStr = "총 세트 수 : ";
