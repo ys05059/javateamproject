@@ -1,4 +1,4 @@
-package �씗�꽍;
+package 희석;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import set�떒�쐞class.dayRecord;
+import set단위class.dayRecord;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -46,9 +46,11 @@ public class SelectStatisticsWayDemo extends JFrame {
 	private JComboBox<String> endYComBox;
 	private JComboBox<String> endMComBox;
 	private JComboBox<String> endDComBox;
+	
 	private LocalDate dayld;
 	private LocalDate startld;
 	private LocalDate endld;
+	private PeriodStatisticsFunc wfunc;
 	private ArrayList<dayRecord> curr_dR_ary;
 	
 	private String[] yearStrAry = {"2018", "2019", "2020", "2021", "2022"};
@@ -74,11 +76,11 @@ public class SelectStatisticsWayDemo extends JFrame {
 		getContentPane().setBackground(new Color(203, 254, 255));
 		contentPane.setLayout(null);
 		
-		dayChkBox = new JCheckBox("�븯猷⑦넻怨�");
+		dayChkBox = new JCheckBox("하루통계");
 		dayChkBox.setBounds(27, 24, 78, 23);
 		contentPane.add(dayChkBox);
 		
-		periodChkBox = new JCheckBox("湲곌컙�넻怨�");
+		periodChkBox = new JCheckBox("기간통계");
 		periodChkBox.setBounds(27, 149, 78, 23);
 		contentPane.add(periodChkBox);
 
@@ -132,7 +134,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 		contentPane.add(endDComBox);
 		
 
-		JButton gotoStatisticBtn = new JButton("�넻怨�");
+		JButton gotoStatisticBtn = new JButton("통계");
 		gotoStatisticBtn.setBounds(416, 103, 55, 23);
 		contentPane.add(gotoStatisticBtn);
 		
@@ -163,10 +165,10 @@ public class SelectStatisticsWayDemo extends JFrame {
 			boolean day = dayChkBox.isSelected();
 			boolean period = periodChkBox.isSelected();
 			if(day&&period) {
-				JOptionPane.showMessageDialog(null, "�몮 以� �븯�굹留� �꽑�깮�븯�꽭�슂","寃쎄퀬", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "둘 중 하나만 선택하세요","경고", JOptionPane.ERROR_MESSAGE);
 			}
 			else if(!day&&!period) {
-				JOptionPane.showMessageDialog(null, "�몮 以� �븯�굹瑜� �꽑�깮�빐二쇱꽭�슂","寃쎄퀬", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "둘 중 하나를 선택해주세요","경고", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				if(day) {
@@ -177,7 +179,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 						dayld=makeLocalDate(dayStr);
 						DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary, dayld);
 					}catch(Exception err) {
-						JOptionPane.showMessageDialog(null, "�빐�떖 �썡�뿉 議댁옱�븯吏� �븡�뒗 �궇吏쒖엯�땲�떎","寃쎄퀬", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "해달 월에 존재하지 않는 날짜입니다","경고", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
@@ -192,13 +194,13 @@ public class SelectStatisticsWayDemo extends JFrame {
 					
 					switch (PeriodStatisticsFunc.chkDateSeq(startStr, endStr)) {
 						case 0:
-							JOptionPane.showMessageDialog(null, "媛숈� �궇吏쒖엯�땲�떎. 媛숈� �궇吏쒕뒗 �븯猷⑦넻怨꾨�� �씠�슜�븯�꽭�슂.","寃쎄퀬", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "같은 날짜입니다. 같은 날짜는 하루통계를 이용하세요.","경고", JOptionPane.ERROR_MESSAGE);
 							System.out.println("Same day");
 							endStr="";
 							startStr="";
 							break;
 						case -1:
-							JOptionPane.showMessageDialog(null, "�떆�옉�씪�씠 醫낅즺�씪蹂대떎 �븵 �궇吏쒖뿬�빞 �빀�땲�떎.","寃쎄퀬", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "시작일이 종료일보다 앞 날짜여야 합니다.","경고", JOptionPane.ERROR_MESSAGE);
 							System.out.println("end day precedes start day");
 							endStr="";
 							startStr="";
@@ -215,7 +217,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 								startld=makeLocalDate(startStr);
 								endld=makeLocalDate(endStr);
 							}catch(Exception err) {
-								JOptionPane.showMessageDialog(null, "�빐�떖 �썡�뿉 議댁옱�븯吏� �븡�뒗 �궇吏쒖엯�땲�떎","寃쎄퀬", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "해달 월에 존재하지 않는 날짜입니다","경고", JOptionPane.ERROR_MESSAGE);
 								endStr="";
 								startStr="";
 								break;
