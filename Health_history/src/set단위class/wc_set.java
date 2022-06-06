@@ -40,6 +40,17 @@ public class wc_set extends Set implements Cloneable , Serializable{
 		super.setPerform_check(true);
 	}
 	
+	public void performed_update(int tmp_weight, int tmp_count) {
+		if(tmp_count >=count) {
+			p_weight = tmp_weight;
+			p_count = tmp_count;
+		}else {
+			p_weight = weight;
+			p_count = count;
+		}
+		super.setPerform_check(true);
+	}
+	
 	public void performed_reset() {
 		p_weight = 0;
 		p_count = 0;

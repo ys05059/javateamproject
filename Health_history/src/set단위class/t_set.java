@@ -33,12 +33,23 @@ public class t_set extends Set implements Cloneable,Serializable{
 		p_time = LocalTime.of(0, 0);
 	}
 	
+	
+	
 	@Override
 	public void performed_update() {
 		p_time = g_time;
 		super.setPerform_check(true);
 	}
 
+	public void performed_update(LocalTime tmp_time) {
+		if(p_time.isBefore(tmp_time)) {
+			p_time = tmp_time;
+		}else {
+			p_time = g_time;
+		}
+		super.setPerform_check(true);
+	}
+	
 	public void performed_reset() {
 		p_time = LocalTime.of(0, 0);
 		super.setPerform_check(false);

@@ -21,6 +21,7 @@ public class add_wcsetpage extends JDialog {
 	private JTextField weight_textField;
 	private JTextField count_textField;
 	private JTextField resttime_textfield; 
+	public boolean exit = false;
 	public add_wcsetpage(exRecord exr) {
 		setTitle("add_wcsetpage");
 		setBounds(100, 100, 450, 300);
@@ -84,6 +85,7 @@ public class add_wcsetpage extends JDialog {
 					resttime_textfield.setText("00:00");
 					return;
 				}
+				exit = true;
 				add_wcsetpage.this.dispose();
 			}
 		});

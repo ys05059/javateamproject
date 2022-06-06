@@ -19,6 +19,7 @@ public class add_csetpage extends JDialog {
 	private JPanel contentPane;
 	private JTextField count_textField;
 	private JTextField resttime_textfield; 
+	public boolean exit = false;
 	public add_csetpage(exRecord exr) {
 		setTitle("add_csetpage");
 		setBounds(100, 100, 450, 300);
@@ -67,6 +68,7 @@ public class add_csetpage extends JDialog {
 					resttime_textfield.setText("00:00");
 					return;
 				}
+				exit = true;
 				add_csetpage.this.dispose();
 			}
 		});
