@@ -1,4 +1,4 @@
-package Èñ¼®;
+package í¬ì„;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,13 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import set´ÜÀ§class.dayRecord;
+import setë‹¨ìœ„class.dayRecord;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -74,11 +76,11 @@ public class SelectStatisticsWayDemo extends JFrame {
 		getContentPane().setBackground(new Color(203, 254, 255));
 		contentPane.setLayout(null);
 		
-		dayChkBox = new JCheckBox("ÇÏ·çÅë°è");
+		dayChkBox = new JCheckBox("í•˜ë£¨í†µê³„");
 		dayChkBox.setBounds(27, 24, 78, 23);
 		contentPane.add(dayChkBox);
 		
-		periodChkBox = new JCheckBox("±â°£Åë°è");
+		periodChkBox = new JCheckBox("ê¸°ê°„í†µê³„");
 		periodChkBox.setBounds(27, 149, 78, 23);
 		contentPane.add(periodChkBox);
 
@@ -132,7 +134,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 		contentPane.add(endDComBox);
 		
 
-		JButton gotoStatisticBtn = new JButton("Åë°è");
+		JButton gotoStatisticBtn = new JButton("í†µê³„");
 		gotoStatisticBtn.setBounds(416, 103, 55, 23);
 		contentPane.add(gotoStatisticBtn);
 		
@@ -158,69 +160,104 @@ public class SelectStatisticsWayDemo extends JFrame {
 		
 		return day;
 	}
-	
 	private class gotoStatisticsHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {	
 			boolean day = dayChkBox.isSelected();
 			boolean period = periodChkBox.isSelected();
 			if(day&&period) {
-				JOptionPane.showMessageDialog(null, "µÑ Áß ÇÏ³ª¸¸ ¼±ÅÃÇÏ¼¼¿ä","°æ°í", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ë‘˜ ì¤‘ í•˜ë‚˜ë§Œ ì„ íƒí•˜ì„¸ìš”","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 			}
 			else if(!day&&!period) {
-				JOptionPane.showMessageDialog(null, "µÑ Áß ÇÏ³ª¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä","°æ°í", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ë‘˜ ì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				if(day) {
 					dayStr="";
 					dayStr+=dayYComBox.getSelectedItem()+"-"+dayMComBox.getSelectedItem()+"-"
 							+dayDComBox.getSelectedItem();
-					dayld=makeLocalDate(dayStr);
-					
-					DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary, dayld);
+					try {
+						dayld=makeLocalDate(dayStr);
+						DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary, dayld);
+					}catch(Exception err) {
+						JOptionPane.showMessageDialog(null, "í•´ë‹¬ ì›”ì— ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ë‚ ì§œì…ë‹ˆë‹¤","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				else {
 					startStr="";
-					startStr=startYComBox.getSelectedItem()+"-"+startMComBox.getSelectedItem()+"-"+
-							startDComBox.getSelectedItem();
+					startStr+=startYComBox.getSelectedItem()+"-"+startMComBox.getSelectedItem()+"-"
+								+startDComBox.getSelectedItem();
 					endStr="";
-					endStr=endYComBox.getSelectedItem()+"-"+endMComBox.getSelectedItem()+"-"+
-							endDComBox.getSelectedItem();
+					
+					endStr+=endYComBox.getSelectedItem()+"-"+endMComBox.getSelectedItem()+"-"
+							+endDComBox.getSelectedItem();
+					
 					
 					switch (PeriodStatisticsFunc.chkDateSeq(startStr, endStr)) {
 						case 0:
-							JOptionPane.showMessageDialog(null, "°°Àº ³¯Â¥ÀÔ´Ï´Ù. °°Àº ³¯Â¥´Â ÇÏ·çÅë°è¸¦ ÀÌ¿ëÇÏ¼¼¿ä.","°æ°í", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "ê°™ì€ ë‚ ì§œì…ë‹ˆë‹¤. ê°™ì€ ë‚ ì§œëŠ” í•˜ë£¨í†µê³„ë¥¼ ì´ìš©í•˜ì„¸ìš”.","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 							System.out.println("Same day");
 							endStr="";
 							startStr="";
 							break;
 						case -1:
-							JOptionPane.showMessageDialog(null, "½ÃÀÛÀÏÀÌ Á¾·áÀÏº¸´Ù ¾Õ ³¯Â¥¿©¾ß ÇÕ´Ï´Ù.","°æ°í", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "ì‹œì‘ì¼ì´ ì¢…ë£Œì¼ë³´ë‹¤ ì• ë‚ ì§œì—¬ì•¼ í•©ë‹ˆë‹¤.","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 							System.out.println("end day precedes start day");
 							endStr="";
 							startStr="";
 							break;
 						case 1:
-							boolean chk1 = false; // ÀÔ·ÂÇÑ ³¯Â¥°¡ dayRecordÀÇ ³¯Â¥Áß¿¡ ÀÖ°Å³ª 
-							boolean chk2 = true;
+							boolean chk1 = false;
+							boolean chk2 = false;
 							int startdayChk;
 							int enddayChk;
-							startld=makeLocalDate(startStr);
-							endld=makeLocalDate(endStr);
+							
+							ArrayList<dayRecord> tmp_drary = new ArrayList<>();
+							
+							try {
+								startld=makeLocalDate(startStr);
+								endld=makeLocalDate(endStr);
+							}catch(Exception err) {
+								JOptionPane.showMessageDialog(null, "í•´ë‹¬ ì›”ì— ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ë‚ ì§œì…ë‹ˆë‹¤","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
+								endStr="";
+								startStr="";
+								break;
+							}
+							
 							for(dayRecord dr : curr_dR_ary) {
-								startdayChk = PeriodStatisticsFunc.chkDateSeq(dr.getToday_date().toString() , startStr);
-								enddayChk = PeriodStatisticsFunc.chkDateSeq(endStr, dr.getToday_date().toString());
-								if(startdayChk == 1 || startdayChk == 0) {
-									startld=dr.getToday_date();
+								if(dr.getToday_date().isAfter(startld) && dr.getToday_date().isBefore(endld))
+									tmp_drary.add(new dayRecord(dr));
+								else if(dr.getToday_date().equals(startld) || dr.getToday_date().equals(endld))
+									tmp_drary.add(new dayRecord(dr));
+							}
+							
+							Collections.sort(tmp_drary);
+						
+							for(dayRecord dr : tmp_drary) {
+								startdayChk = PeriodStatisticsFunc.chkDateSeq(startStr,dr.getToday_date().toString());
+								if(startdayChk == 1 || startdayChk==0 && !chk1) {
 									chk1=true;
+									break;
+								}
+								
+							}
+							
+							Iterator<dayRecord> iter = tmp_drary.iterator();
+							while(iter.hasNext()) {
+								dayRecord d = iter.next();
+								enddayChk = PeriodStatisticsFunc.chkDateSeq(d.getToday_date().toString(),endStr);
+								if(enddayChk==-1) {
+									break;
 								}
 								if(enddayChk==1 || enddayChk==0) {
-									endld=dr.getToday_date();
 									chk2=true;
 								}
-								if(chk1&&chk2)
-									break;
 							}
-							PeriodStatisticsDemo psd = new PeriodStatisticsDemo(curr_dR_ary, startld, endld, ID);
+
+							if(chk1 && chk2) {
+								PeriodStatisticsDemo psd = new PeriodStatisticsDemo(tmp_drary, startld, endld, ID);
+							}else {
+								System.out.println("Wrong Period");
+							}
 					}
 				}
 			}
