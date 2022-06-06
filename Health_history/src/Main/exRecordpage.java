@@ -2,16 +2,20 @@ package Main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,9 +52,9 @@ public class exRecordpage extends JFrame{
 		setTitle("exRecordpage	");
 		this.setBackground(new Color(175,237,100));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(470,500);
+		setSize(490,500);
 		GridBagLayout gb = new GridBagLayout();
-		gb.columnWidths = new int[] {10,75,70,65,80,60,75,10};
+		gb.columnWidths = new int[] {10,20,75,70,65,80,60,75,10};
 		gb.rowHeights = new int[] {50,50,50,50,50,50,50,50};
 		setLayout(gb);
 		GridBagConstraints gbc_default = new GridBagConstraints();
@@ -61,39 +65,46 @@ public class exRecordpage extends JFrame{
 
 		/* 받아온 운동명 출력 패널 */
 		JLabel today_Label = new JLabel(exrecord.getEx().getname());
+		today_Label.setFont(new Font("굴림", Font.PLAIN, 20));
+		today_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		gbc_default.fill = GridBagConstraints.BOTH;
-		gbc_default.gridx = 3;
+		gbc_default.gridx = 1;
 		gbc_default.gridy = 0;
-		gbc_default.weightx =2;
+		gbc_default.gridwidth=7;
+		
 		add(today_Label,gbc_default);
 		
 		set_labelary();
 		JLabel weight_label = new JLabel(label_ary[0]);
-		gbc_default.anchor = GridBagConstraints.WEST;
-		gbc_default.fill = GridBagConstraints.HORIZONTAL;
-		gbc_default.gridx = 2;
-		gbc_default.gridy = 1;
-		add(weight_label,gbc_default);
-		
-		JLabel count_label = new JLabel(label_ary[1]);
+		gbc_default = new GridBagConstraints();
 		gbc_default.anchor = GridBagConstraints.WEST;
 		gbc_default.fill = GridBagConstraints.HORIZONTAL;
 		gbc_default.gridx = 3;
 		gbc_default.gridy = 1;
+		add(weight_label,gbc_default);
+		
+		JLabel count_label = new JLabel(label_ary[1]);
+		gbc_default = new GridBagConstraints();
+		gbc_default.anchor = GridBagConstraints.WEST;
+		gbc_default.fill = GridBagConstraints.HORIZONTAL;
+		gbc_default.gridx = 4;
+		gbc_default.gridy = 1;
 		add(count_label,gbc_default);
 		
 		JLabel resttime_label = new JLabel(label_ary[2]);
+		gbc_default = new GridBagConstraints();
 		gbc_default.anchor = GridBagConstraints.WEST;
 		gbc_default.fill = GridBagConstraints.BOTH;
-		gbc_default.gridx = 4;
+		gbc_default.gridx = 5;
 		gbc_default.gridy = 1;
 		add(resttime_label,gbc_default);
 		
 		gp_label = new JLabel();
 		gp_label.setText("("+Integer.toString(exrecord.getCount_set())+"/"+Integer.toString(exrecord.getSet_goal())+")");
 		gp_label.setHorizontalAlignment(SwingConstants.RIGHT);
+		gbc_default = new GridBagConstraints();
 		gbc_default.fill = GridBagConstraints.BOTH;
-		gbc_default.gridx = 6;
+		gbc_default.gridx = 7;
 		gbc_default.gridy = 1;
 		add(gp_label,gbc_default);
 		
@@ -111,7 +122,7 @@ public class exRecordpage extends JFrame{
 		gbc_default.gridx = 1;
 		gbc_default.gridy = 2;
 		gbc_default.gridheight = 5;
-		gbc_default.gridwidth = 6;
+		gbc_default.gridwidth = 7;
 		JScrollPane sp = new JScrollPane(set_list_panel);
 		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		add(sp, gbc_default);
@@ -139,14 +150,16 @@ public class exRecordpage extends JFrame{
 					asp.setModal(true);
 					asp.setVisible(true);
 					// 기존 정보(이름,setgoal) 넣어주기
-					wc_set wcs = new wc_set(Integer.valueOf(asp.get_weight()),Integer.valueOf(asp.get_count()));
-					wcs.setRest_time(asp.get_resttime());
-					((wc_exRecord)exrecord).add_wcset(wcs);
-					dayrecord.set_exr(exrecord);
-					// wc_set 패널 추가
-					wcset_panel wcp = new wcset_panel(wcs);
-					wcpanel_list.add(wcp);
-					repaint_wclist_panel();
+					if(asp.exit) {
+						wc_set wcs = new wc_set(Integer.valueOf(asp.get_weight()),Integer.valueOf(asp.get_count()));
+						wcs.setRest_time(asp.get_resttime());
+						((wc_exRecord)exrecord).add_wcset(wcs);
+						dayrecord.set_exr(exrecord);
+						// wc_set 패널 추가
+						wcset_panel wcp = new wcset_panel(wcs);
+						wcpanel_list.add(wcp);
+						repaint_wclist_panel();
+					}
 				}
 				else if(exrecord instanceof c_exRecord) { //Ƚ���� ��
 					add_csetpage asp = new add_csetpage(new exRecord(exrecord));
@@ -154,14 +167,16 @@ public class exRecordpage extends JFrame{
 					asp.setModal(true);
 					asp.setVisible(true);
 					// exrecord에 wc_exRecord 저장하기
-					c_set cs = new c_set(Integer.valueOf(asp.get_count()));
-					cs.setRest_time(asp.get_resttime());
-					((c_exRecord)exrecord).add_wcset(cs);
-					dayrecord.set_exr(exrecord);
-					// wc_set 패널 추가
-					cset_panel cp = new cset_panel(cs);
-					cpanel_list.add(cp);
-					repaint_clist_panel();
+					if(asp.exit) {
+						c_set cs = new c_set(Integer.valueOf(asp.get_count()));
+						cs.setRest_time(asp.get_resttime());
+						((c_exRecord)exrecord).add_wcset(cs);
+						dayrecord.set_exr(exrecord);
+						// wc_set 패널 추가
+						cset_panel cp = new cset_panel(cs);
+						cpanel_list.add(cp);
+						repaint_clist_panel();
+					}
 				}
 				else if (exrecord instanceof t_exRecord) {
 					add_tsetpage asp = new add_tsetpage(new exRecord(exrecord));
@@ -169,14 +184,16 @@ public class exRecordpage extends JFrame{
 					asp.setModal(true);
 					asp.setVisible(true);
 					// exrecord에 t_exRecord 저장하기
-					t_set wcs = new t_set(asp.get_goaltime());
-					wcs.setRest_time(asp.get_resttime());
-					((t_exRecord)exrecord).add_tset(wcs);	
-					dayrecord.set_exr(exrecord);
-					// wc_set 패널 추가
-					 tset_panel tp = new tset_panel(wcs);
-					tpanel_list.add(tp);
-					repaint_tlist_panel();
+					if(asp.exit) {
+						t_set wcs = new t_set(asp.get_goaltime());
+						wcs.setRest_time(asp.get_resttime());
+						((t_exRecord)exrecord).add_tset(wcs);	
+						dayrecord.set_exr(exrecord);
+						// wc_set 패널 추가
+						 tset_panel tp = new tset_panel(wcs);
+						tpanel_list.add(tp);
+						repaint_tlist_panel();
+					}
 				}
 				set_gplabel();
 			}
@@ -184,7 +201,7 @@ public class exRecordpage extends JFrame{
 		addset_button.addActionListener(addset_listener);
 		gbc_default =new GridBagConstraints();		
 		gbc_default.anchor = GridBagConstraints.EAST;
-		gbc_default.gridx = 2;
+		gbc_default.gridx = 3;
 		gbc_default.gridy =7;
 		gbc_default.gridwidth = 2;
 		add(addset_button, gbc_default);
@@ -201,8 +218,8 @@ public class exRecordpage extends JFrame{
 		};
 		savedR_button.addActionListener(savedR_listener);
 		gbc_default.anchor = GridBagConstraints.CENTER;
-		gbc_default.ipadx = 20;
-		gbc_default.gridx = 4;
+		gbc_default.ipadx = 25;
+		gbc_default.gridx = 5;
 		gbc_default.gridy= 7;
 		gbc_default.gridwidth = 2;
 		add(savedR_button, gbc_default);
@@ -362,20 +379,22 @@ public class exRecordpage extends JFrame{
 	}
 	// 무게 * 횟수 세트 패널
 	class wcset_panel extends JPanel{
-		JLabel set_lable;
-		JPanel summaryPanel;
-		JPanel updatePanel;
-		JButton check_btn;
-		JButton open_Btn;
-		JButton close_Btn;
-		JTextField gweight_textfield;
-		JTextField gcount_textfield;
-		JTextField resttime_textfield;
-		JTextField pweight_textfield;
-		JTextField pcount_textfield;
-		JLabel weight_sum_label;
-		JLabel count_sum_label;
-		JLabel resttime_sum_label;
+		private JLabel set_lable;
+		private JPanel summaryPanel;
+		private JPanel updatePanel;
+		private JButton check_btn;
+		private JButton open_Btn;
+		private JButton close_Btn;
+		private JTextField gweight_textfield;
+		private JTextField gcount_textfield;
+		private JTextField resttime_textfield;
+		private JTextField pweight_textfield;
+		private JTextField pcount_textfield;
+		private JLabel weight_sum_label;
+		private JLabel count_sum_label;
+		private JLabel resttime_sum_label;
+		private JCheckBox complete_Box;
+		
 		wc_set wcs;
 		GridBagConstraints gbc;
 		
@@ -391,25 +410,52 @@ public class exRecordpage extends JFrame{
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
-			gbl.columnWidths = new int[] {75,70,70,80,60,60};
+			gbl.columnWidths = new int[] {20,75,70,70,80,60,60};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			
-			set_lable = new JLabel(get_setnum()+"세트");
+			complete_Box = new JCheckBox();
+			complete_Box.setSelected(wcs.getPerform_check());
+			complete_Box.addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					if (e.getStateChange() == ItemEvent.SELECTED) {
+						wcs.performed_update(wcs.getP_weight(),wcs.getP_count());
+						pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
+						pcount_textfield.setText(Integer.toString(wcs.getP_count()));
+						weight_sum_label.setText("("+Integer.toString(wcs.getP_weight())+"/"+Integer.toString(wcs.getWeight())+")");
+						count_sum_label.setText("("+Integer.toString(wcs.getP_count())+"/"+Integer.toString(wcs.getCount())+")");
+						set_gplabel();
+					}else {
+						wcs.performed_reset();
+						pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
+						pcount_textfield.setText(Integer.toString(wcs.getP_count()));
+						weight_sum_label.setText("("+Integer.toString(wcs.getP_weight())+"/"+Integer.toString(wcs.getWeight())+")");
+						count_sum_label.setText("("+Integer.toString(wcs.getP_count())+"/"+Integer.toString(wcs.getCount())+")");
+						set_gplabel();
+					}
+				}
+			});
 			set_gbc(0, 0,GridBagConstraints.BOTH);
+			summaryPanel.add(complete_Box,gbc);
+			
+			
+			set_lable = new JLabel(get_setnum()+"세트");
+			set_gbc(1, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			summaryPanel.add(set_lable,gbc);
 			
 			weight_sum_label = new JLabel("("+Integer.toString(other_wcs.getP_weight())+"/"+Integer.toString(other_wcs.getWeight())+")");
-			set_gbc(1, 0,GridBagConstraints.BOTH);
+			set_gbc(2, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(weight_sum_label,gbc);
 
 			count_sum_label = new JLabel("("+Integer.toString(other_wcs.getP_count())+"/"+Integer.toString(other_wcs.getCount())+")");
-			set_gbc(2, 0,GridBagConstraints.BOTH);
+			set_gbc(3, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(count_sum_label,gbc);
 			
 			resttime_sum_label = new JLabel(other_wcs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-			set_gbc(3, 0,GridBagConstraints.BOTH);
+			set_gbc(4, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(resttime_sum_label,gbc);
 			
 			// 삭제 버튼
@@ -427,7 +473,7 @@ public class exRecordpage extends JFrame{
 				}
 			};
 			delete_btn.addActionListener(delBtn_listener);
-			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(delete_btn,gbc);
 			
 			open_Btn = new JButton("열기");
@@ -437,7 +483,7 @@ public class exRecordpage extends JFrame{
 					wcset_panel.this.add(updatePanel,gbc);										// update패널 보여주기
 					wcset_panel.this.summaryPanel.remove(check_btn);							// 닫힘 버튼으로 바꾸기
 					wcset_panel.this.check_btn = wcset_panel.this.close_Btn;
-					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
+					set_gbc(6, 0, GridBagConstraints.HORIZONTAL);
 					wcset_panel.this.summaryPanel.add(check_btn,gbc);
 					
 					wcpanel_list.set(wcset_panel.this.getindex(), wcset_panel.this);			// 패널리스트에 패널 새로고침 후 repaint
@@ -453,7 +499,7 @@ public class exRecordpage extends JFrame{
 					wcset_panel.this.remove(updatePanel);
 					wcset_panel.this.summaryPanel.remove(check_btn);
 					wcset_panel.this.check_btn = wcset_panel.this.open_Btn;
-					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
+					set_gbc(6, 0, GridBagConstraints.HORIZONTAL);
 					wcset_panel.this.summaryPanel.add(check_btn,gbc);
 					wcpanel_list.set(wcset_panel.this.getindex(), wcset_panel.this);
 					repaint_wclist_panel();
@@ -462,7 +508,7 @@ public class exRecordpage extends JFrame{
 			close_Btn.addActionListener(closeBtn_listener);
 			
 			check_btn = open_Btn;
-			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(check_btn,gbc);
 			
 			set_gbc(0, 0, GridBagConstraints.BOTH);
@@ -471,81 +517,83 @@ public class exRecordpage extends JFrame{
 			/* 열기버튼 클릭시 나오는 패널 */
 			updatePanel = new JPanel();
 			GridBagLayout gbl2 = new GridBagLayout();
-			gbl2.columnWidths = new int[]  {70,70,70,80,60,60};
+			gbl2.columnWidths = new int[]  {20,70,70,70,60,70,70};
 			gbl2.rowHeights = new int[] {50,50};
 			
 			updatePanel.setLayout(gbl2);
 
 			// 몇 번째 세트인지 나타내는 라벨 
 			JLabel set_lable = new JLabel("목표");
-			set_gbc(0, 0,GridBagConstraints.BOTH);
+			set_gbc(1, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			updatePanel.add(set_lable,gbc);
 			
 			// 목표 무게 필드
 			gweight_textfield = new JTextField();
 			gweight_textfield.setText(Integer.toString(other_wcs.getWeight()));
-			set_gbc(1, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(2, 0,0);
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.ipadx =30;
 			updatePanel.add(gweight_textfield,gbc);
 			
 			// 목표 횟수
 			gcount_textfield = new JTextField();
 			gcount_textfield.setText(Integer.toString(other_wcs.getCount()));
-			set_gbc(2, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(3, 0,0);
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.ipadx =30;
 			updatePanel.add(gcount_textfield,gbc);
 			
 			// 휴식시간
 			resttime_textfield = new JTextField();
 			resttime_textfield.setText(other_wcs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(4, 0,0);
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.ipadx =30;
 			updatePanel.add(resttime_textfield,gbc);
 			
 			// 수행 라벨
 			JLabel performed_label = new JLabel("수행");
-			set_gbc(0, 1,GridBagConstraints.BOTH);
+			set_gbc(1, 1,GridBagConstraints.BOTH);
 			updatePanel.add(performed_label,gbc);
 			
 			// 수행 무게 필드
 			pweight_textfield = new JTextField();
 			pweight_textfield.setText(Integer.toString(other_wcs.getP_weight()));
-			set_gbc(1, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(2, 1,0);
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.ipadx =30;
 			updatePanel.add(pweight_textfield,gbc);
 			
 			// 수행 횟수
 			pcount_textfield = new JTextField();
 			pcount_textfield.setText(Integer.toString(other_wcs.getP_count()));
-			set_gbc(2, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(3, 1,0);
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.ipadx =30;
 			updatePanel.add(pcount_textfield,gbc);
 			
 			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					wcs.performed_update();
-					pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
-					pcount_textfield.setText(Integer.toString(wcs.getP_count()));
-					weight_sum_label.setText("("+Integer.toString(wcs.getP_weight())+"/"+Integer.toString(wcs.getWeight())+")");
-					count_sum_label.setText("("+Integer.toString(wcs.getP_count())+"/"+Integer.toString(wcs.getCount())+")");
-					set_gplabel();
+					pweight_textfield.setText(Integer.toString(wcs.getWeight()));
+					pcount_textfield.setText(Integer.toString(wcs.getCount()));
 				}
 			};
 			load_btn.addActionListener(loadBtn_listener);
-			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(5, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(load_btn,gbc);
 			
 			JButton reset_Btn = new JButton("reset");
 			ActionListener resetBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					wcs.performed_reset();
-					pweight_textfield.setText(Integer.toString(wcs.getP_weight()));
-					pcount_textfield.setText(Integer.toString(wcs.getP_count()));
-					weight_sum_label.setText("("+Integer.toString(wcs.getP_weight())+"/"+Integer.toString(wcs.getWeight())+")");
-					count_sum_label.setText("("+Integer.toString(wcs.getP_count())+"/"+Integer.toString(wcs.getCount())+")");
-					set_gplabel();
+					pweight_textfield.setText("0");
+					pcount_textfield.setText("0");
 				}
 			};
 			reset_Btn.addActionListener(resetBtn_listener);
-			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(reset_Btn,gbc);
 			
 			// 목표 및 수행 저장
@@ -581,18 +629,25 @@ public class exRecordpage extends JFrame{
 					
 					wcs.setWeight(Integer.valueOf(gweight_textfield.getText()));
 					wcs.setCount(Integer.valueOf(gcount_textfield.getText()));
-					wcs.setP_count(Integer.valueOf(pcount_textfield.getText()));
 					wcs.setP_weight(Integer.valueOf(pweight_textfield.getText()));
+					wcs.setP_count(Integer.valueOf(pcount_textfield.getText()));
 					wcs.setRest_time(resttime_textfield.getText());
 					
 					weight_sum_label.setText("("+Integer.toString(wcs.getP_weight())+"/"+Integer.toString(wcs.getWeight())+")");
 					count_sum_label.setText("("+Integer.toString(wcs.getP_count())+"/"+Integer.toString(wcs.getCount())+")");
 					resttime_sum_label.setText(wcs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 					set_gplabel();
+					
+					if(wcs.getP_count() >= wcs.getCount()) {
+						complete_Box.setSelected(true);
+					}else {
+						complete_Box.setSelected(false);
+					}
+						
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);
-			set_gbc(5, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(update_btn,gbc);
 		}
 		public void set_setlabel(int setnum) {
@@ -614,21 +669,23 @@ public class exRecordpage extends JFrame{
 			gbc.gridy = y;
 			gbc.fill = fill;
 		}
+		
 	}
 	class cset_panel extends JPanel{
-		JPanel summaryPanel;
-		JPanel updatePanel;
-		JButton check_btn;
-		JButton open_Btn;
-		JButton close_Btn;		
-		JLabel set_lable;
-		JTextField gcount_textfield;
-		JTextField resttime_textfield;
-		JTextField pcount_textfield;
-		JLabel count_sum_label;
-		JLabel resttime_sum_label;
-		c_set cs;
-		GridBagConstraints gbc;
+		private JPanel summaryPanel;
+		private JPanel updatePanel;
+		private JButton check_btn;
+		private JButton open_Btn;
+		private JButton close_Btn;		
+		private JLabel set_lable;
+		private JTextField gcount_textfield;
+		private JTextField resttime_textfield;
+		private JTextField pcount_textfield;
+		private JLabel count_sum_label;
+		private JLabel resttime_sum_label;
+		private JCheckBox complete_Box;
+		private c_set cs;
+		private GridBagConstraints gbc;
 		public cset_panel(c_set other_cs) {
 			cs = other_cs;
 			GridBagLayout gbl = new GridBagLayout();
@@ -641,21 +698,44 @@ public class exRecordpage extends JFrame{
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
-			gbl.columnWidths = new int[] {75,70,70,80,60,60};
+			gbl.columnWidths = new int[] {20,75,70,70,80,60,60};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			
-			set_lable = new JLabel(get_setnum()+"세트");
+			complete_Box = new JCheckBox();
+			complete_Box.setSelected(cs.getPerform_check());
+			complete_Box.addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					if (e.getStateChange() == ItemEvent.SELECTED) {
+						cs.performed_update(cs.getP_count());
+						pcount_textfield.setText(Integer.toString(cs.getP_count()));
+						count_sum_label.setText("("+Integer.toString(cs.getP_count())+"/"+Integer.toString(cs.getCount())+")");
+						set_gplabel();
+					}else {
+						cs.performed_reset();
+						pcount_textfield.setText(Integer.toString(cs.getP_count()));
+						count_sum_label.setText("("+Integer.toString(cs.getP_count())+"/"+Integer.toString(cs.getCount())+")");
+						set_gplabel();
+					}
+					
+				}
+			});
 			set_gbc(0, 0,GridBagConstraints.BOTH);
+			summaryPanel.add(complete_Box,gbc);
+			
+			set_lable = new JLabel(get_setnum()+"세트");
+			set_gbc(1, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			summaryPanel.add(set_lable,gbc);
 			
 			count_sum_label= new JLabel("("+Integer.toString(other_cs.getP_count())+"/"+Integer.toString(other_cs.getCount())+")");
-			set_gbc(1, 0,GridBagConstraints.BOTH);
+			set_gbc(2, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(count_sum_label,gbc);
 			
 			resttime_sum_label = new JLabel(other_cs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-			set_gbc(2, 0,GridBagConstraints.BOTH);
+			set_gbc(3, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(resttime_sum_label,gbc);
 			
 			// 삭제 버튼
@@ -673,7 +753,7 @@ public class exRecordpage extends JFrame{
 				}
 			};
 			delete_btn.addActionListener(delBtn_listener);
-			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(delete_btn,gbc);
 			
 			open_Btn = new JButton("열기");
@@ -683,7 +763,7 @@ public class exRecordpage extends JFrame{
 					cset_panel.this.add(updatePanel,gbc);										// update패널 보여주기
 					cset_panel.this.summaryPanel.remove(check_btn);							// 닫힘 버튼으로 바꾸기
 					cset_panel.this.check_btn = cset_panel.this.close_Btn;
-					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
+					set_gbc(6, 0, GridBagConstraints.HORIZONTAL);
 					cset_panel.this.summaryPanel.add(check_btn,gbc);
 					
 					cpanel_list.set(cset_panel.this.getindex(), cset_panel.this);			// 패널리스트에 패널 새로고침 후 repaint
@@ -699,7 +779,7 @@ public class exRecordpage extends JFrame{
 					cset_panel.this.remove(updatePanel);
 					cset_panel.this.summaryPanel.remove(check_btn);
 					cset_panel.this.check_btn = cset_panel.this.open_Btn;
-					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
+					set_gbc(6, 0, GridBagConstraints.HORIZONTAL);
 					cset_panel.this.summaryPanel.add(check_btn,gbc);
 					cpanel_list.set(cset_panel.this.getindex(), cset_panel.this);
 					repaint_clist_panel();
@@ -708,7 +788,7 @@ public class exRecordpage extends JFrame{
 			close_Btn.addActionListener(closeBtn_listener);
 			
 			check_btn = open_Btn;
-			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(check_btn,gbc);
 			
 			set_gbc(0, 0, GridBagConstraints.BOTH);
@@ -717,7 +797,7 @@ public class exRecordpage extends JFrame{
 			/* 열기버튼 클릭시 나오는 패널 */
 			updatePanel = new JPanel();
 			GridBagLayout gbl2 = new GridBagLayout();
-			gbl2.columnWidths = new int[] {70,70,70,80,60,60};
+			gbl2.columnWidths = new int[] {20,70,70,70,60,70,70};
 			gbl2.rowHeights = new int[] {50,50};
 			updatePanel.setLayout(gbl2);
 			
@@ -728,13 +808,17 @@ public class exRecordpage extends JFrame{
 			// 목표 횟수
 			gcount_textfield = new JTextField();
 			gcount_textfield.setText(Integer.toString(cs.getCount()));
-			set_gbc(2, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(2, 0,0);
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.ipadx =30;
 			updatePanel.add(gcount_textfield,gbc);
 			
 			// 휴식시간
 			resttime_textfield = new JTextField();
 			resttime_textfield.setText(cs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-			set_gbc(3, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(3, 0,0);
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.ipadx =20;
 			updatePanel.add(resttime_textfield,gbc);
 			
 			// 수행 라벨
@@ -745,34 +829,30 @@ public class exRecordpage extends JFrame{
 			// 수행 횟수
 			pcount_textfield = new JTextField();
 			pcount_textfield.setText(Integer.toString(cs.getP_count()));
-			set_gbc(2, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(2, 1,0);
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.ipadx =30;
 			updatePanel.add(pcount_textfield,gbc);
 			
 			// 목표-> 수행 load 버튼 // 수행 default 는 0으로 설정. load 누르면 목표 값 가져옴
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					cs.performed_update();
-					pcount_textfield.setText(Integer.toString(cs.getP_count()));
-					count_sum_label.setText("("+Integer.toString(cs.getP_count())+"/"+Integer.toString(cs.getCount())+")");
-					set_gplabel();
+					pcount_textfield.setText(Integer.toString(cs.getCount()));
 				}
 			};
 			load_btn.addActionListener(loadBtn_listener);
-			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(5, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(load_btn,gbc);
 			
 			JButton reset_Btn = new JButton("reset");
 			ActionListener resetBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					cs.performed_reset();
-					pcount_textfield.setText(Integer.toString(cs.getP_count()));
-					count_sum_label.setText("("+Integer.toString(cs.getP_count())+"/"+Integer.toString(cs.getCount())+")");
-					set_gplabel();
+					pcount_textfield.setText("0");
 				}
 			};
 			reset_Btn.addActionListener(resetBtn_listener);
-			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(reset_Btn,gbc);
 			
 			// 목표 및 수행 저장
@@ -802,10 +882,16 @@ public class exRecordpage extends JFrame{
 					count_sum_label.setText("("+Integer.toString(cs.getP_count())+"/"+Integer.toString(cs.getCount())+")");
 					resttime_sum_label.setText(cs.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 					set_gplabel();
+					
+					if(cs.getP_count() >= cs.getCount()) {
+						complete_Box.setSelected(true);
+					}else {
+						complete_Box.setSelected(false);
+					}
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);
-			set_gbc(5, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(update_btn,gbc);
 			
 		}
@@ -830,20 +916,22 @@ public class exRecordpage extends JFrame{
 		}
 	}
 	class tset_panel extends JPanel{
-		JPanel summaryPanel;
-		JPanel updatePanel;
-		JButton check_btn;
-		JButton open_Btn;
-		JButton close_Btn;		
-		JLabel set_lable;
-		JTextField resttime_textfield;
-		JTextField goaltime_textfield;
-		JTextField ptime_textfield;
-		JLabel ptime_label;
-		JLabel goal_label1;
-		JLabel resttime_label;
-		t_set ts;
-		GridBagConstraints gbc;
+		private JPanel summaryPanel;
+		private JPanel updatePanel;
+		private JButton check_btn;
+		private JButton open_Btn;
+		private JButton close_Btn;		
+		private JLabel set_lable;
+		private JTextField resttime_textfield;
+		private JTextField goaltime_textfield;
+		private JTextField ptime_textfield;
+		private JLabel ptime_label;
+		private JLabel goal_label1;
+		private JLabel resttime_label;
+		private JCheckBox complete_Box;
+		private t_set ts;
+		private GridBagConstraints gbc;
+		
 		public tset_panel(t_set other_ts) {
 			ts = other_ts;
 			GridBagLayout gbl = new GridBagLayout();
@@ -855,25 +943,50 @@ public class exRecordpage extends JFrame{
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
-			gbl.columnWidths = new int[]{75,70,70,80,60,60};
+			gbl.columnWidths = new int[]{20,75,70,70,80,60,60};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			
-			set_lable = new JLabel(get_setnum()+"세트");
+
+			complete_Box = new JCheckBox();
+			complete_Box.setSelected(ts.getPerform_check());
+			complete_Box.addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					if (e.getStateChange() == ItemEvent.SELECTED) {
+						ts.performed_update(ts.getP_time());
+						ptime_label.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
+						ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
+						set_gplabel();
+					}else {
+						ts.performed_reset();
+						ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
+						ptime_label.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
+						set_gplabel();
+					}
+					
+				}
+			});
 			set_gbc(0, 0,GridBagConstraints.BOTH);
+			summaryPanel.add(complete_Box,gbc);
+			
+			
+			set_lable = new JLabel(get_setnum()+"세트");
+			set_gbc(1, 0,GridBagConstraints.BOTH);
 			set_lable.setHorizontalAlignment(JLabel.LEFT);
 			summaryPanel.add(set_lable,gbc);
 			
 			goal_label1 = new JLabel(other_ts.getG_time().format(DateTimeFormatter.ofPattern("mm:ss")));;
-			set_gbc(1, 0,GridBagConstraints.BOTH);
+			set_gbc(2, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(goal_label1,gbc);
 			
 			ptime_label = new JLabel(other_ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));;
-			set_gbc(2, 0,GridBagConstraints.BOTH);
+			set_gbc(3, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(ptime_label,gbc);
 			
 			resttime_label = new JLabel(other_ts.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-			set_gbc(3, 0,GridBagConstraints.BOTH);
+			set_gbc(4, 0,GridBagConstraints.BOTH);
 			summaryPanel.add(resttime_label,gbc);
 			
 			// 삭제 버튼
@@ -891,7 +1004,7 @@ public class exRecordpage extends JFrame{
 				}
 			};
 			delete_btn.addActionListener(delBtn_listener);
-			set_gbc(4, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(delete_btn,gbc);
 			
 			open_Btn = new JButton("열기");
@@ -901,7 +1014,7 @@ public class exRecordpage extends JFrame{
 					tset_panel.this.add(updatePanel,gbc);										// update패널 보여주기
 					tset_panel.this.summaryPanel.remove(check_btn);							// 닫힘 버튼으로 바꾸기
 					tset_panel.this.check_btn = tset_panel.this.close_Btn;
-					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
+					set_gbc(6, 0, GridBagConstraints.HORIZONTAL);
 					tset_panel.this.summaryPanel.add(check_btn,gbc);
 					
 					tpanel_list.set(tset_panel.this.getindex(), tset_panel.this);			// 패널리스트에 패널 새로고침 후 repaint
@@ -917,7 +1030,7 @@ public class exRecordpage extends JFrame{
 					tset_panel.this.remove(updatePanel);
 					tset_panel.this.summaryPanel.remove(check_btn);
 					tset_panel.this.check_btn = tset_panel.this.open_Btn;
-					set_gbc(5, 0, GridBagConstraints.HORIZONTAL);
+					set_gbc(6, 0, GridBagConstraints.HORIZONTAL);
 					tset_panel.this.summaryPanel.add(check_btn,gbc);
 					tpanel_list.set(tset_panel.this.getindex(), tset_panel.this);
 					repaint_tlist_panel();
@@ -926,7 +1039,7 @@ public class exRecordpage extends JFrame{
 			close_Btn.addActionListener(closeBtn_listener);
 			
 			check_btn = open_Btn;
-			set_gbc(5, 0,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 0,GridBagConstraints.HORIZONTAL);
 			summaryPanel.add(check_btn,gbc);
 			
 			set_gbc(0, 0, GridBagConstraints.BOTH);
@@ -935,7 +1048,7 @@ public class exRecordpage extends JFrame{
 			/* 열기버튼 클릭시 나오는 패널 */
 			updatePanel = new JPanel();
 			GridBagLayout gbl2 = new GridBagLayout();
-			gbl2.columnWidths = new int[]{70,70,70,80,60,60};
+			gbl2.columnWidths = new int[]{20,70,70,70,60,70,70};
 			gbl2.rowHeights = new int[] {50,50};
 			updatePanel.setLayout(gbl2);
 			
@@ -970,27 +1083,21 @@ public class exRecordpage extends JFrame{
 			JButton load_btn = new JButton("Load");
 			ActionListener loadBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ts.performed_update();
-					ptime_label.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-					ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-					set_gplabel();
+					ptime_textfield.setText(ts.getG_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 				}
 			};
 			load_btn.addActionListener(loadBtn_listener);
-			set_gbc(3, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(5, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(load_btn,gbc);
 			
 			JButton reset_Btn = new JButton("reset");
 			ActionListener resetBtn_listener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ts.performed_reset();
-					ptime_textfield.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-					ptime_label.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
-					set_gplabel();
+					ptime_textfield.setText("00:00");
 				}
 			};
 			reset_Btn.addActionListener(resetBtn_listener);
-			set_gbc(4, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 1,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(reset_Btn,gbc);
 			
 			// 목표 및 수행 저장
@@ -1020,10 +1127,16 @@ public class exRecordpage extends JFrame{
 					ptime_label.setText(ts.getP_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 					resttime_label.setText(ts.getRest_time().format(DateTimeFormatter.ofPattern("mm:ss")));
 					set_gplabel();
+					
+					if(ts.getP_time().isAfter(ts.getG_time()) || ts.getP_time().equals(ts.getG_time())) {
+						complete_Box.setSelected(true);
+					}else {
+						complete_Box.setSelected(false);
+					}
 				}
 			};
 			update_btn.addActionListener(updateBtn_listener);
-			set_gbc(5, 1,GridBagConstraints.HORIZONTAL);
+			set_gbc(6, 0,GridBagConstraints.HORIZONTAL);
 			updatePanel.add(update_btn,gbc);
 			
 		}
