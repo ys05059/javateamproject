@@ -46,7 +46,7 @@ public class exRecordpage extends JFrame{
 	public exRecordpage(exRecord other_exr, dayRecord pre_dayRecord) {
 		dayrecord = pre_dayRecord;
 		setTitle("exRecordpage	");
-		this.setBackground(new Color(175,237,100));
+		setBackground(new Color(175,237,100));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(470,500);
 		GridBagLayout gb = new GridBagLayout();
