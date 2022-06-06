@@ -318,7 +318,7 @@ public class CalendarDemo extends JFrame{
 		getContentPane().add(cal, BorderLayout.CENTER);
 		
 		
-		menu = new SouthMenuPanel(curr_dR_ary);
+		menu = new SouthMenuPanel(curr_dR_ary, whatID);
 		
 		getContentPane().add(menu, BorderLayout.SOUTH);
 		paintExcPane(curr_dR_ary);
@@ -506,6 +506,10 @@ public class CalendarDemo extends JFrame{
 	
 	private void disposeCalendar() {
 		this.dispose();
+	}
+	
+	public String getID() {
+		return whatID;
 	}
 
 }

@@ -16,8 +16,6 @@ import javax.swing.border.EmptyBorder;
 
 import set단위class.exRecord;
 
-
-
 public class add_wcsetpage extends JDialog {
 	private JPanel contentPane;
 	private JTextField weight_textField;

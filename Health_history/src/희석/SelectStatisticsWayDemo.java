@@ -1,6 +1,7 @@
 package 희석;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,23 +26,24 @@ import javax.swing.JComboBox;
 public class SelectStatisticsWayDemo extends JFrame {
 
 	private JPanel contentPane;
-
+	
+	private String ID;
 	private String dayStr;
 	private String startStr;
 	private String endStr;
 	private JCheckBox dayChkBox;
 	private JCheckBox periodChkBox;
 	
-	private JComboBox dayYComBox;
-	private JComboBox dayMComBox;
-	private JComboBox dayDComBox;
+	private JComboBox<String> dayYComBox;
+	private JComboBox<String> dayMComBox;
+	private JComboBox<String> dayDComBox;
 	
-	private JComboBox startYComBox;
-	private JComboBox startMComBox;
-	private JComboBox startDComBox;
-	private JComboBox endYComBox;
-	private JComboBox endMComBox;
-	private JComboBox endDComBox;
+	private JComboBox<String> startYComBox;
+	private JComboBox<String> startMComBox;
+	private JComboBox<String> startDComBox;
+	private JComboBox<String> endYComBox;
+	private JComboBox<String> endMComBox;
+	private JComboBox<String> endDComBox;
 	
 	private LocalDate dayld;
 	private LocalDate startld;
@@ -55,7 +57,8 @@ public class SelectStatisticsWayDemo extends JFrame {
 	
 	private CalendarFunc cfunc;
 	
-	public SelectStatisticsWayDemo(ArrayList<dayRecord> dR_ary) {
+	public SelectStatisticsWayDemo(ArrayList<dayRecord> dR_ary, String nowID) {
+		ID = nowID;
 		setTitle("SelectStatisticsWayDemo");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 497, 291);
@@ -68,6 +71,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		getContentPane().setBackground(new Color(203, 254, 255));
 		contentPane.setLayout(null);
 		
 		dayChkBox = new JCheckBox("하루통계");
@@ -85,45 +89,45 @@ public class SelectStatisticsWayDemo extends JFrame {
 		symbol.setBounds(245, 153, 32, 15);
 		contentPane.add(symbol);
 
-		dayYComBox = new JComboBox(yearStrAry);
+		dayYComBox = new JComboBox<String>(yearStrAry);
 		dayYComBox.setBounds(136, 24, 76, 23);
 		dayYComBox.setSelectedIndex(4);
 		contentPane.add(dayYComBox);
 		
-		dayMComBox = new JComboBox(monthStrAry);
+		dayMComBox = new JComboBox<String>(monthStrAry);
 		dayMComBox.setBounds(224, 24, 73, 23);
 		dayMComBox.setSelectedIndex(default_month);
 		contentPane.add(dayMComBox);
 		
-		dayDComBox = new JComboBox(dayStrAry);
+		dayDComBox = new JComboBox<String>(dayStrAry);
 		dayDComBox.setBounds(309, 24, 78, 23);
 		contentPane.add(dayDComBox);
 		
-		startYComBox = new JComboBox(yearStrAry);
+		startYComBox = new JComboBox<String>(yearStrAry);
 		startYComBox.setBounds(136, 120, 76, 23);
 		startYComBox.setSelectedIndex(4);
 		contentPane.add(startYComBox);
 		
-		startMComBox = new JComboBox(monthStrAry);
+		startMComBox = new JComboBox<String>(monthStrAry);
 		startMComBox.setBounds(224, 120, 73, 23);
 		startMComBox.setSelectedIndex(default_month);
 		contentPane.add(startMComBox);
 		
-		startDComBox = new JComboBox(dayStrAry);
+		startDComBox = new JComboBox<String>(dayStrAry);
 		startDComBox.setBounds(309, 120, 78, 23);
 		contentPane.add(startDComBox);
 		
-		endYComBox = new JComboBox(yearStrAry);
+		endYComBox = new JComboBox<String>(yearStrAry);
 		endYComBox.setBounds(136, 178, 76, 23);
 		endYComBox.setSelectedIndex(4);
 		contentPane.add(endYComBox);
 		
-		endMComBox = new JComboBox(monthStrAry);
+		endMComBox = new JComboBox<String>(monthStrAry);
 		endMComBox.setBounds(224, 178, 73, 23);
 		endMComBox.setSelectedIndex(default_month);
 		contentPane.add(endMComBox);
 		
-		endDComBox = new JComboBox(dayStrAry);
+		endDComBox = new JComboBox<String>(dayStrAry);
 		endDComBox.setBounds(309, 178, 78, 23);
 		contentPane.add(endDComBox);
 		
@@ -184,11 +188,13 @@ public class SelectStatisticsWayDemo extends JFrame {
 					
 					switch (PeriodStatisticsFunc.chkDateSeq(startStr, endStr)) {
 						case 0:
+							JOptionPane.showMessageDialog(null, "같은 날짜입니다. 같은 날짜는 하루통계를 이용하세요.","경고", JOptionPane.ERROR_MESSAGE);
 							System.out.println("Same day");
 							endStr="";
 							startStr="";
 							break;
 						case -1:
+							JOptionPane.showMessageDialog(null, "시작일이 종료일보다 앞 날짜여야 합니다.","경고", JOptionPane.ERROR_MESSAGE);
 							System.out.println("end day precedes start day");
 							endStr="";
 							startStr="";
@@ -214,7 +220,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 								if(chk1&&chk2)
 									break;
 							}
-							PeriodStatisticsDemo psd = new PeriodStatisticsDemo(curr_dR_ary, startld, endld);
+							PeriodStatisticsDemo psd = new PeriodStatisticsDemo(curr_dR_ary, startld, endld, ID);
 					}
 				}
 			}
