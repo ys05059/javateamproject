@@ -1,8 +1,5 @@
 package Login;
 
-import java.awt.EventQueue;
-
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,7 +9,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.WindowAdapter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,7 +17,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
@@ -29,21 +25,13 @@ import javax.swing.JComboBox;
 
 import java.awt.Color;
 import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
-import javax.swing.Icon;
 
-import Login.User;
-import Login.login;
-import javax.swing.DefaultComboBoxModel;
+public class signup extends JFrame{
 
-public class signup extends JFrame implements ActionListener{
-
-	private JFrame frame;
 	private JTextField idInputFIeld;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField2;
-	private String gender;
 	private JTextField nicknameFIeld;
 	private JTextField inputweightField;
 	private JTextField heightField;
@@ -51,20 +39,18 @@ public class signup extends JFrame implements ActionListener{
 	private JTextField bodyField;
 	private JButton isIDSame;
 	private JButton isPWSame;
-	private JComboBox genderCombo;
+	private JComboBox<String> genderCombo;
 	
 	private User userinfo;
 	private login log;
 	
 	
 	ArrayList<User> userinfoList_signup = new ArrayList<User>(); //class 배열리스트 설정
-	boolean ispushjungbokBtn = false; //중복버튼 눌렀는지 체크
+	boolean ispushjungbokBtn = false; //ID중복버튼 눌렀는지 체크
 	boolean ispushinputcheckBtn = false; //입력확인버튼 눌렀는지 쳌
 	
 	public signup() {
-		
-		
-//		before signup, we should bring all user info .
+//		회원가입 하기 전 , 기존 유저들의 정보들을 다 가져오는 작업을 거친다
 		File whatsin = new File("user\\");
 		String[] filenames = whatsin.list();
 		
@@ -94,55 +80,16 @@ public class signup extends JFrame implements ActionListener{
 		
 		setVisible(true);
 		setBounds(100, 100, 900, 700);
-		
-		this.addWindowListener(new WindowListener(){
-
-			@Override
-			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
+		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
 
 				
 				
 			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-				
-			}
-
-			@Override
-			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
 		});
+		
+		//imgPanel 클래스 이용해 이미지 넣기
 		imgPanel signupPanel = new imgPanel(new ImageIcon("image\\flowwater.png").getImage());
 		signupPanel.setBounds(0, 0, 986, 663);
 		setSize(signupPanel.getDim());
@@ -177,14 +124,14 @@ public class signup extends JFrame implements ActionListener{
 		isIDSame.setFont(new Font("휴먼엑스포", Font.BOLD | Font.ITALIC, 16));
 		isIDSame.setBounds(382, 78, 98, 43);
 		isIDSame.addActionListener(new ActionListener(){
-
+			//회원가입하고자 하는 ID가 기존 회원들의 아이디와 겹치면 안 된다.
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean avail = true;
 				ArrayList<String> idnow = new ArrayList<String>();
-				if(!(idInputFIeld.getText().equals(""))) {
+				if(!(idInputFIeld.getText().equals(""))) { //아무것도 안 적혀있지 않아야함
 					for(int i = 0; i < userinfoList_signup.size(); i++) {
-						idnow.add(userinfoList_signup.get(i).getID());
+						idnow.add(userinfoList_signup.get(i).getID()); //기존 iD 정보를 idnow로 받아온다
 					}
 					for(int i = 0; i < idnow.size(); i++) {
 						if(idnow.get(i).equals(idInputFIeld.getText())) {
@@ -293,7 +240,7 @@ public class signup extends JFrame implements ActionListener{
 		genderLabel.setBounds(120, 381, 56, 49);
 		signupPanel.add(genderLabel);
 		
-		genderCombo = new JComboBox();
+		genderCombo = new JComboBox<String>();
 		genderCombo.addItem("남성");
 		genderCombo.addItem("여성");
 		genderCombo.setFont(new Font("휴먼엑스포", Font.BOLD, 16));
@@ -401,12 +348,14 @@ public class signup extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				if( !(nicknameFIeld.getText().equals("")) &&!(inputweightField.getText().equals("")) && 
 						 !(heightField.getText().equals("")) &&  !(muscleField.getText().equals("")) &&
-						 !(bodyField.getText().equals(""))) {
+						 !(bodyField.getText().equals(""))) { //일단 모든 필드가 비어져 있으면 안 되는 것이고
 					if( (isDouble(inputweightField.getText()) == true) && (isDouble(heightField.getText()) == true) &&
 							(isDouble(muscleField.getText()) == true) && (isDouble(bodyField.getText()) == true)  ) {
+						//isDouble 메서드를 통해 0 초과 실수인지 확인하고,
 						if(ispushjungbokBtn == true && ispushinputcheckBtn == true) {
+							//버튼 2개가 눌린 것이 확인되어야 회원가입되도록 한다
 							JOptionPane.showMessageDialog(null, "회원가입 완료되었습니다.");
-							log = new login();
+							log = new login(); 
 							
 							userinfo = new User(idInputFIeld.getText(), getPasswordInfo2(), genderCombo.getSelectedItem().toString(),
 									nicknameFIeld.getText(), 
@@ -414,10 +363,9 @@ public class signup extends JFrame implements ActionListener{
 									Float.valueOf(muscleField.getText()) , Float.valueOf(bodyField.getText()));
 							userinfoList_signup.add(userinfo); //유저 정보 업데이트  = signup의 user class arraylist 에 add
 
-							try {
-
+							try { //serialize 진행.
 								ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream
-										("user\\" + idInputFIeld.getText() +".dat"));
+										("user\\" + idInputFIeld.getText() +".dat")); //(userID).dat 로 저장
 								outputStream.writeObject(userinfo);
 								outputStream.close();
 							}catch(IOException e1) {
@@ -426,11 +374,11 @@ public class signup extends JFrame implements ActionListener{
 							}
 							
 							
-							log.setUserinfoList(userinfoList_signup);
-							ispushjungbokBtn = false;
+							log.setUserinfoList(userinfoList_signup); //회원가입한 정보를 userInfoList에 업데이트
+							ispushjungbokBtn = false; //중복버튼 초기화.
 							ispushinputcheckBtn = false;
 									
-							dispose();
+							dispose(); 
 							
 
 						}
@@ -452,17 +400,11 @@ public class signup extends JFrame implements ActionListener{
 				}
 			}
 			
-		});
-		
+		});	
 		signupPanel.add(registerBtn);
-		
-
 		getContentPane().setLayout(null);
 	}
-
-
-	
-	
+	//비번 입력창이 2개 있고, 각각을 받아오기 위한 get method 생성
 	private String getPasswordInfo() {
 		String str = new String(passwordField.getPassword());
 		return str;
@@ -472,36 +414,7 @@ public class signup extends JFrame implements ActionListener{
 		String str = new String(passwordField2.getPassword());
 		return str;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getSource().equals("남성")) {
-			gender = "남성";
-		}
-		else{
-			gender = "여성";
-		}
-		
-		
-	}
-	
-	public void makeDir(String username) { //create directory by username
-		
-		File Directory = new File(username);
-		
-		if (!Directory.exists()) {
-			try {
-				Directory.mkdir();
-				
-			}catch (Exception e) {
-				e.getStackTrace();
-			}
-		}else {
-			JOptionPane.showMessageDialog(null, "이미 가입되어 있는 회원정보입니다.");
-		}
-		
-	}
+	//makedir 메서드삭제 (필요없음)
 	
 	public ArrayList<User> getUserinfoList() {
 		return userinfoList_signup;
@@ -511,7 +424,7 @@ public class signup extends JFrame implements ActionListener{
 		this.userinfoList_signup.addAll(userinfoList);
 	}
 	
-	public boolean isDouble(String here) {
+	public boolean isDouble(String here) { //0 초과하는 실수인지 확인하기 위한 method
 		try {
 			if(Double.parseDouble(here) > 0) {
 				return true;
@@ -523,7 +436,5 @@ public class signup extends JFrame implements ActionListener{
 			return false;
 		}
 	}
-	
-	
 }
 

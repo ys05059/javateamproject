@@ -74,7 +74,6 @@ public class add_csetpage extends JDialog {
 		});
 		contentPane.add(addset_Btn);
 		
-		
 	}
 	public String get_count() {
 		return count_textField.getText();

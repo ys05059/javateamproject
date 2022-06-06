@@ -112,6 +112,5 @@ public class User implements Serializable{
 		return ID + "/" + PW + "/" + Gender + "/" + Nickname + "/" + weight + "/"
 				+ height + "/" + bodyfat + "/" + skeletalmuscle;
 	}
-	
-	
+
 }
