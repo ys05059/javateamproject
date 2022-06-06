@@ -445,7 +445,7 @@ public class signup extends JFrame implements ActionListener{
 						}	
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "(몸무게, 키, 골격근량, 체지방률)에는 실수만 입력가능합니다.","경고",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "(몸무게, 키, 골격근량, 체지방률)에는 0 초과의 실수만 입력가능합니다.","경고",JOptionPane.ERROR_MESSAGE);
 					}
 				}else {				
 					JOptionPane.showMessageDialog(null, "입력하지 않은 칸이 존재합니다.","경고",JOptionPane.ERROR_MESSAGE);
@@ -513,8 +513,12 @@ public class signup extends JFrame implements ActionListener{
 	
 	public boolean isDouble(String here) {
 		try {
-			Double.parseDouble(here);
-			return true;
+			if(Double.parseDouble(here) > 0) {
+				return true;
+			}else {
+				return false;
+			}
+			
 		} catch(NumberFormatException e) {
 			return false;
 		}
