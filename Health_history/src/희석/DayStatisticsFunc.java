@@ -24,6 +24,7 @@ public class DayStatisticsFunc {
 	private String totalSetCntStr;
 	private String totalWeightsStr;
 	private String sen1;
+	
 	private ArrayList<String> cateStr;
 	
 	private String statistics="";
@@ -62,7 +63,7 @@ public class DayStatisticsFunc {
 		calWeights(today);
 		cateStatistic(today);
 	}
-	public void calTime(LocalDate today) {
+	public void calTime(LocalDate today) { // t_exRecord 클래스 수행 시간 총합
 		for(dayRecord dr : curr_ary) {
 			if(dr.getToday_date().equals(today)) {
 				for(exRecord er : dr.getExr_ary()) {
@@ -83,7 +84,7 @@ public class DayStatisticsFunc {
 			totalTimeStr+=totalTime.toString();
 	}
 	
-	public void calSetCnt(LocalDate today) { // 
+	public void calSetCnt(LocalDate today) { // 모든 운동 세트수 합
 		for(dayRecord dr : curr_ary) {
 			if(dr.getToday_date().equals(today)) {
 				for(exRecord er : dr.getExr_ary()){
@@ -94,7 +95,7 @@ public class DayStatisticsFunc {
 		totalSetCntStr += String.valueOf(setCnt);
 	}
 	
-	public void calWeights(LocalDate today) {
+	public void calWeights(LocalDate today) { // wc_exRecord 무게*횟수로 총무게 구하기
 		for(dayRecord dr : curr_ary) {
 			if(dr.getToday_date().equals(today)) {
 				for(exRecord er : dr.getExr_ary()){
@@ -109,7 +110,7 @@ public class DayStatisticsFunc {
 		}
 		totalWeightsStr+=String.valueOf(totalWeight);
 	}
-	public void cateStatistic(LocalDate today) {
+	public void cateStatistic(LocalDate today) {	//카테고리 별 운동 갯수 구하는 메소드
 		for(dayRecord dr: curr_ary) {
 			if(dr.getToday_date().equals(today)) {
 				for(exRecord er : dr.getExr_ary()) {
@@ -130,7 +131,7 @@ public class DayStatisticsFunc {
 					" 세트 수 : " + catemap.get(key)[1]);
 		}
 	}
-	public String makeTextArea() {
+	public String makeTextArea() { // DayStatisticsDemo의 statistics String변수에 할당
 		statistics = "";
 		statistics += totalTimeStr + '\n';
 		statistics += totalSetCntStr + '\n';

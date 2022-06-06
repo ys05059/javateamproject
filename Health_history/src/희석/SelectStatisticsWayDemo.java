@@ -1,11 +1,14 @@
 package 희석;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
@@ -154,9 +157,8 @@ public class SelectStatisticsWayDemo extends JFrame {
 		
 		return day;
 	}
-	
 	private class gotoStatisticsHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {	
 			boolean day = dayChkBox.isSelected();
 			boolean period = periodChkBox.isSelected();
 			if(day&&period) {
@@ -170,17 +172,22 @@ public class SelectStatisticsWayDemo extends JFrame {
 					dayStr="";
 					dayStr+=dayYComBox.getSelectedItem()+"-"+dayMComBox.getSelectedItem()+"-"
 							+dayDComBox.getSelectedItem();
-					dayld=makeLocalDate(dayStr);
-					
-					DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary, dayld);
+					try {
+						dayld=makeLocalDate(dayStr);
+						DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary, dayld);
+					}catch(Exception err) {
+						JOptionPane.showMessageDialog(null, "해달 월에 존재하지 않는 날짜입니다","경고", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				else {
 					startStr="";
-					startStr=startYComBox.getSelectedItem()+"-"+startMComBox.getSelectedItem()+"-"+
-							startDComBox.getSelectedItem();
+					startStr+=startYComBox.getSelectedItem()+"-"+startMComBox.getSelectedItem()+"-"
+								+startDComBox.getSelectedItem();
 					endStr="";
-					endStr=endYComBox.getSelectedItem()+"-"+endMComBox.getSelectedItem()+"-"+
-							endDComBox.getSelectedItem();
+					
+					endStr+=endYComBox.getSelectedItem()+"-"+endMComBox.getSelectedItem()+"-"
+							+endDComBox.getSelectedItem();
+					
 					
 					switch (PeriodStatisticsFunc.chkDateSeq(startStr, endStr)) {
 						case 0:
@@ -194,27 +201,57 @@ public class SelectStatisticsWayDemo extends JFrame {
 							startStr="";
 							break;
 						case 1:
-							boolean chk1 = false; // 입력한 날짜가 dayRecord의 날짜중에 있거나 
-							boolean chk2 = true;
+							boolean chk1 = false;
+							boolean chk2 = false;
 							int startdayChk;
 							int enddayChk;
-							startld=makeLocalDate(startStr);
-							endld=makeLocalDate(endStr);
+							
+							ArrayList<dayRecord> tmp_drary = new ArrayList<>();
+							
+							try {
+								startld=makeLocalDate(startStr);
+								endld=makeLocalDate(endStr);
+							}catch(Exception err) {
+								JOptionPane.showMessageDialog(null, "해달 월에 존재하지 않는 날짜입니다","경고", JOptionPane.ERROR_MESSAGE);
+								endStr="";
+								startStr="";
+								break;
+							}
+							
 							for(dayRecord dr : curr_dR_ary) {
-								startdayChk = PeriodStatisticsFunc.chkDateSeq(dr.getToday_date().toString() , startStr);
-								enddayChk = PeriodStatisticsFunc.chkDateSeq(endStr, dr.getToday_date().toString());
-								if(startdayChk == 1 || startdayChk == 0) {
-									startld=dr.getToday_date();
+								if(dr.getToday_date().isAfter(startld) && dr.getToday_date().isBefore(endld))
+									tmp_drary.add(new dayRecord(dr));
+								else if(dr.getToday_date().equals(startld) || dr.getToday_date().equals(endld))
+									tmp_drary.add(new dayRecord(dr));
+							}
+							
+							Collections.sort(tmp_drary);
+						
+							for(dayRecord dr : tmp_drary) {
+								startdayChk = PeriodStatisticsFunc.chkDateSeq(startStr,dr.getToday_date().toString());
+								if(startdayChk == 1 || startdayChk==0 && !chk1) {
 									chk1=true;
+									break;
+								}
+								
+							}
+							
+							Iterator<dayRecord> iter = tmp_drary.iterator();
+							while(iter.hasNext()) {
+								dayRecord d = iter.next();
+								enddayChk = PeriodStatisticsFunc.chkDateSeq(d.getToday_date().toString(),endStr);
+								if(enddayChk==-1) {
+									break;
 								}
 								if(enddayChk==1 || enddayChk==0) {
-									endld=dr.getToday_date();
 									chk2=true;
 								}
-								if(chk1&&chk2)
-									break;
 							}
-							PeriodStatisticsDemo psd = new PeriodStatisticsDemo(curr_dR_ary, startld, endld);
+							if(chk1 && chk2) {
+								PeriodStatisticsDemo psd = new PeriodStatisticsDemo(tmp_drary, startld, endld);
+							}else {
+								System.out.println("Wrong Period");
+							}
 					}
 				}
 			}
