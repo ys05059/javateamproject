@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
@@ -39,8 +40,8 @@ public class PeriodStatisticsDemo extends JFrame {
 	private JLabel date_of_end_day_label;
 	private JTextArea textArea;
 	private JScrollPane scrollPane;
-	private JTextArea startDayTextArea;
-	private JTextArea endDayTextArea;
+	private JTextField startDayTextField;
+	private JTextField endDayTextField;
 	
 	private JPanel chartpanel;
 	
@@ -69,19 +70,19 @@ public class PeriodStatisticsDemo extends JFrame {
 		date_of_start_day_label.setBounds(41, 39, 50, 15);
 		getContentPane().add(date_of_start_day_label);
 
-		startDayTextArea = new JTextArea(startDatestr);
-		startDayTextArea.setBounds(91,36,96,21);
-		startDayTextArea.setEditable(false);
-		getContentPane().add(startDayTextArea);
+		startDayTextField = new JTextField(startDatestr);
+		startDayTextField.setBounds(91,36,96,21);
+		startDayTextField.setEditable(false);
+		getContentPane().add(startDayTextField);
 		
 		date_of_end_day_label = new JLabel("¡æ∑·¿œ");
 		date_of_end_day_label.setBounds(277, 39, 50, 15);
 		getContentPane().add(date_of_end_day_label);
 
-		endDayTextArea = new JTextArea(endDatestr);
-		endDayTextArea.setBounds(330,36,96,21);
-		endDayTextArea.setEditable(false);
-		getContentPane().add(endDayTextArea);
+		endDayTextField = new JTextField(endDatestr);
+		endDayTextField.setBounds(330,36,96,21);
+		endDayTextField.setEditable(false);
+		getContentPane().add(endDayTextField);
 	
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(23, 69, 428, 150);

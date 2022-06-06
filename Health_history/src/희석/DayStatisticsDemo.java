@@ -1,39 +1,27 @@
 package 희석;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import set단위class.dayRecord;
-
-import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
-import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import set단위class.dayRecord;
 
 public class DayStatisticsDemo extends JFrame {
 
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
-	private JComboBox<String> dateComboBox;
-	private JTextArea dateTextArea;
+	private JTextField dateTextField;
 	//private String[] datesString;
 	private String currDate;
 	private LocalDate today;
@@ -51,7 +39,6 @@ public class DayStatisticsDemo extends JFrame {
 		curr_dR_ary = dR_ary;
 		today = dayld;
 		currDate=today.toString();
-		//datesString = mk_date_str(curr_dR_ary);
 		
 		contentPane = new JPanel(){
 			public void paintComponent(Graphics g) {
@@ -60,7 +47,9 @@ public class DayStatisticsDemo extends JFrame {
 				super.paintComponent(g);
 			}
 		};
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.black);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -68,10 +57,10 @@ public class DayStatisticsDemo extends JFrame {
 		date_of_today_label.setBounds(44, 39, 50, 15);
 		contentPane.add(date_of_today_label);
 
-		dateTextArea = new JTextArea(currDate);
-		dateTextArea.setBounds(91,36,96,21);
-		dateTextArea.setEditable(false);
-		contentPane.add(dateTextArea);
+		dateTextField = new JTextField(currDate);
+		dateTextField.setBounds(91,36,96,21);
+		dateTextField.setEditable(false);
+		contentPane.add(dateTextField);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 79, 418, 257);
