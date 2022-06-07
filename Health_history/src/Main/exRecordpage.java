@@ -2,6 +2,7 @@ package Main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,6 +15,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -24,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import set단위class.c_exRecord;
 import set단위class.c_set;
@@ -45,12 +49,13 @@ public class exRecordpage extends JFrame{
 	private ArrayList<exercise> exlist;
 	private dayRecord dayrecord;
 	private String[] label_ary;
+	final ImageIcon dayRecordP2 = new ImageIcon("image\\batang1.jpg"); 
 	JLabel gp_label;
 	
 	public exRecordpage(exRecord other_exr, dayRecord pre_dayRecord) {
 		dayrecord = pre_dayRecord;
 		setTitle("exRecordpage	");
-		setBackground(new Color(175,237,100));
+		getContentPane().setBackground(new Color(203, 254, 255));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(490,500);
 		GridBagLayout gb = new GridBagLayout();
@@ -110,8 +115,13 @@ public class exRecordpage extends JFrame{
 		
 		
 		/* 세트 리스트 패널 */
-		set_list_panel = new JPanel();
-		set_list_panel.setBackground(Color.WHITE);
+		set_list_panel = new JPanel(){
+			public void paintComponent(Graphics g) {
+				g.drawImage(dayRecordP2.getImage(), 0, 0, null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
 		gb = new GridBagLayout();
 		gb.columnWidths = new int[]{};
 		gb.rowHeights = new int[]{50, 50, 50, 50, 50};
@@ -399,9 +409,12 @@ public class exRecordpage extends JFrame{
 		GridBagConstraints gbc;
 		
 		public wcset_panel(wc_set other_wcs) {
+			TitledBorder oneTb = new TitledBorder(new LineBorder(Color.black));
+			setBorder(oneTb);
+			
 			wcs = other_wcs;
 			
-			this.setBackground(Color.YELLOW);
+			this.setBackground(new Color(203, 254, 255));
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {};
 			gbl.rowHeights = new int[] {50};
@@ -409,6 +422,7 @@ public class exRecordpage extends JFrame{
 			
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
+			summaryPanel.setBackground(new Color(175,237,100));
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[]{20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
@@ -687,16 +701,19 @@ public class exRecordpage extends JFrame{
 		private c_set cs;
 		private GridBagConstraints gbc;
 		public cset_panel(c_set other_cs) {
+			TitledBorder oneTb = new TitledBorder(new LineBorder(Color.black));
+			setBorder(oneTb);
 			cs = other_cs;
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {};
 			gbl.rowHeights = new int[] {50};
 			
 			this.setLayout(gbl);
-			this.setBackground(Color.YELLOW);
+			this.setBackground(new Color(203, 254, 255));
 			
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
+			summaryPanel.setBackground(new Color(175,237,100));
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
@@ -933,15 +950,18 @@ public class exRecordpage extends JFrame{
 		private GridBagConstraints gbc;
 		
 		public tset_panel(t_set other_ts) {
+			TitledBorder oneTb = new TitledBorder(new LineBorder(Color.black));
+			setBorder(oneTb);
 			ts = other_ts;
 			GridBagLayout gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {};
 			gbl.rowHeights = new int[] {50};
 			this.setLayout(gbl);
-			this.setBackground(Color.YELLOW);
+			this.setBackground(new Color(203, 254, 255));
 			
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
+			summaryPanel.setBackground(new Color(175,237,100));
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[]{20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
