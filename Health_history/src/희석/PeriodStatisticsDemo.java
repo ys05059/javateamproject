@@ -40,6 +40,7 @@ import org.knowm.xchart.style.markers.SeriesMarkers;
 import Login.User;
 import set단위class.dayRecord;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class PeriodStatisticsDemo extends JFrame {
 
@@ -173,7 +174,7 @@ public class PeriodStatisticsDemo extends JFrame {
 	    pie_panel.setBounds(500, 230,463, 250);
 		getContentPane().add(pie_panel);
 		
-		/*
+
 		//몸무게 비교
 		user(); //user정보 가져오기
 		System.out.println(user.getWeight()); 
@@ -203,6 +204,7 @@ public class PeriodStatisticsDemo extends JFrame {
 	    System.out.println(weight_x.size());
 	    
 	    double max = 100.0;
+	    double min = 60;
 	    double weight_today;
 	    ArrayList<Double> weight_y = new ArrayList<>();
 	    for (dayRecord dr : weight) {
@@ -212,25 +214,34 @@ public class PeriodStatisticsDemo extends JFrame {
 		    	if(weight_today > max) {
 		    		max = weight_today + 5.0;
 		    	}
+		    	if(weight_today < min) {
+		    		min = weight_today - 5.0;
+		    	}
 	    	}
 	    	
 	    }
+		if(weight_x.size() > 0 && weight_y.size() > 0) { //받아온 정보가 있어야 차트가 실행되므로
+			 XYChart weightchart = new XYChartBuilder().xAxisTitle("날짜").yAxisTitle("몸무게").width(600).height(400).build();
+				XYSeries weightseries = weightchart.addSeries("몸무게" ,weight_x,weight_y);
+				weightseries.setMarker(SeriesMarkers.DIAMOND);
+				weightchart.getStyler().setDatePattern("YYYY-MM-dd");
+				weightchart.getStyler().setLegendPosition(LegendPosition.InsideNE);
+				weightchart.getStyler().setXAxisLabelRotation(45);
+				weightchart.getStyler().setYAxisMin(min);
+				weightchart.getStyler().setYAxisMax(max);
+				XChartPanel<XYChart> weightpanel=new XChartPanel<XYChart>(weightchart);
+				weightpanel.setBounds(500, 10, 463, 209);
+				getContentPane().add(weightpanel);
+		}else { //받아온 정보가 없다면
+			JTextArea textArea_1 = new JTextArea();
+			textArea_1.setFont(new Font("Monospaced", Font.PLAIN, 20));
+			textArea_1.setText("\uBAB8\uBB34\uAC8C\uAC00 \uC785\uB825\uB418\uC9C0 \uC54A\uC544 \uCC28\uD2B8\uB97C \uB744\uC6B8 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.");
+			textArea_1.setBackground(new Color(203, 254, 255));
+			textArea_1.setEditable(false);
+			textArea_1.setBounds(500, 10, 463, 209);
+			getContentPane().add(textArea_1);
+		}  	 
 		
-	    XYChart weightchart = new XYChartBuilder().xAxisTitle("날짜").yAxisTitle("몸무게").width(600).height(400).build();
-		XYSeries weightseries = weightchart.addSeries("몸무게" ,weight_x,weight_y);
-		weightseries.setMarker(SeriesMarkers.DIAMOND);
-		weightchart.getStyler().setDatePattern("YYYY-MM-dd");
-		weightchart.getStyler().setLegendPosition(LegendPosition.InsideNE);
-		weightchart.getStyler().setXAxisLabelRotation(45);
-		weightchart.getStyler().setYAxisMin(40.0);
-		weightchart.getStyler().setYAxisMax(max);
-		XChartPanel<XYChart> weightpanel=new XChartPanel<XYChart>(weightchart);
-		weightpanel.setBounds(500, 10, 463, 209);
-		getContentPane().add(weightpanel);
-	    
-	    
-	    */
-	    
 	}
 	
 	private void user() {

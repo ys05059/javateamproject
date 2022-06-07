@@ -258,7 +258,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 							if(chk1 && chk2) {
 								PeriodStatisticsDemo psd = new PeriodStatisticsDemo(tmp_drary, startld, endld, ID);
 							}else {
-								System.out.println("Wrong Period");
+								JOptionPane.showMessageDialog(null, "설정하신 기간 중 운동기록이 없습니다.","경고", JOptionPane.ERROR_MESSAGE);
 							}
 					}
 				}

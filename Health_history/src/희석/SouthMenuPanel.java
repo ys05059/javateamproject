@@ -46,7 +46,7 @@ public class SouthMenuPanel extends JPanel{
 			}
 			
 			if(isavailable == false) {
-				JOptionPane.showMessageDialog(null, "ìë ¥ë ì´ëì´ ììµëë¤.","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "운동 정보가 없습니다.","경고 ", JOptionPane.ERROR_MESSAGE);
 			}else {
 				SelectStatisticsWayDemo sswd = new SelectStatisticsWayDemo(curr_dR_ary, ID);
 				sswd.setVisible(true);
