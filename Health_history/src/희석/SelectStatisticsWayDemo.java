@@ -1,4 +1,4 @@
-package Èñ¼®;
+package í¬ì„;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import set´ÜÀ§class.dayRecord;
+import setë‹¨ìœ„class.dayRecord;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,23 +28,24 @@ import javax.swing.JComboBox;
 public class SelectStatisticsWayDemo extends JFrame {
 
 	private JPanel contentPane;
-
+	
+	private String ID;
 	private String dayStr;
 	private String startStr;
 	private String endStr;
 	private JCheckBox dayChkBox;
 	private JCheckBox periodChkBox;
 	
-	private JComboBox dayYComBox;
-	private JComboBox dayMComBox;
-	private JComboBox dayDComBox;
+	private JComboBox<String> dayYComBox;
+	private JComboBox<String> dayMComBox;
+	private JComboBox<String> dayDComBox;
 	
-	private JComboBox startYComBox;
-	private JComboBox startMComBox;
-	private JComboBox startDComBox;
-	private JComboBox endYComBox;
-	private JComboBox endMComBox;
-	private JComboBox endDComBox;
+	private JComboBox<String> startYComBox;
+	private JComboBox<String> startMComBox;
+	private JComboBox<String> startDComBox;
+	private JComboBox<String> endYComBox;
+	private JComboBox<String> endMComBox;
+	private JComboBox<String> endDComBox;
 	
 	private LocalDate dayld;
 	private LocalDate startld;
@@ -58,7 +59,8 @@ public class SelectStatisticsWayDemo extends JFrame {
 	
 	private CalendarFunc cfunc;
 	
-	public SelectStatisticsWayDemo(ArrayList<dayRecord> dR_ary) {
+	public SelectStatisticsWayDemo(ArrayList<dayRecord> dR_ary, String nowID) {
+		ID = nowID;
 		setTitle("SelectStatisticsWayDemo");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 497, 291);
@@ -71,13 +73,14 @@ public class SelectStatisticsWayDemo extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		getContentPane().setBackground(new Color(203, 254, 255));
 		contentPane.setLayout(null);
 		
-		dayChkBox = new JCheckBox("ÇÏ·çÅë°è");
+		dayChkBox = new JCheckBox("í•˜ë£¨í†µê³„");
 		dayChkBox.setBounds(27, 24, 78, 23);
 		contentPane.add(dayChkBox);
 		
-		periodChkBox = new JCheckBox("±â°£Åë°è");
+		periodChkBox = new JCheckBox("ê¸°ê°„í†µê³„");
 		periodChkBox.setBounds(27, 149, 78, 23);
 		contentPane.add(periodChkBox);
 
@@ -88,50 +91,50 @@ public class SelectStatisticsWayDemo extends JFrame {
 		symbol.setBounds(245, 153, 32, 15);
 		contentPane.add(symbol);
 
-		dayYComBox = new JComboBox(yearStrAry);
+		dayYComBox = new JComboBox<String>(yearStrAry);
 		dayYComBox.setBounds(136, 24, 76, 23);
 		dayYComBox.setSelectedIndex(4);
 		contentPane.add(dayYComBox);
 		
-		dayMComBox = new JComboBox(monthStrAry);
+		dayMComBox = new JComboBox<String>(monthStrAry);
 		dayMComBox.setBounds(224, 24, 73, 23);
 		dayMComBox.setSelectedIndex(default_month);
 		contentPane.add(dayMComBox);
 		
-		dayDComBox = new JComboBox(dayStrAry);
+		dayDComBox = new JComboBox<String>(dayStrAry);
 		dayDComBox.setBounds(309, 24, 78, 23);
 		contentPane.add(dayDComBox);
 		
-		startYComBox = new JComboBox(yearStrAry);
+		startYComBox = new JComboBox<String>(yearStrAry);
 		startYComBox.setBounds(136, 120, 76, 23);
 		startYComBox.setSelectedIndex(4);
 		contentPane.add(startYComBox);
 		
-		startMComBox = new JComboBox(monthStrAry);
+		startMComBox = new JComboBox<String>(monthStrAry);
 		startMComBox.setBounds(224, 120, 73, 23);
 		startMComBox.setSelectedIndex(default_month);
 		contentPane.add(startMComBox);
 		
-		startDComBox = new JComboBox(dayStrAry);
+		startDComBox = new JComboBox<String>(dayStrAry);
 		startDComBox.setBounds(309, 120, 78, 23);
 		contentPane.add(startDComBox);
 		
-		endYComBox = new JComboBox(yearStrAry);
+		endYComBox = new JComboBox<String>(yearStrAry);
 		endYComBox.setBounds(136, 178, 76, 23);
 		endYComBox.setSelectedIndex(4);
 		contentPane.add(endYComBox);
 		
-		endMComBox = new JComboBox(monthStrAry);
+		endMComBox = new JComboBox<String>(monthStrAry);
 		endMComBox.setBounds(224, 178, 73, 23);
 		endMComBox.setSelectedIndex(default_month);
 		contentPane.add(endMComBox);
 		
-		endDComBox = new JComboBox(dayStrAry);
+		endDComBox = new JComboBox<String>(dayStrAry);
 		endDComBox.setBounds(309, 178, 78, 23);
 		contentPane.add(endDComBox);
 		
 
-		JButton gotoStatisticBtn = new JButton("Åë°è");
+		JButton gotoStatisticBtn = new JButton("í†µê³„");
 		gotoStatisticBtn.setBounds(416, 103, 55, 23);
 		contentPane.add(gotoStatisticBtn);
 		
@@ -157,15 +160,15 @@ public class SelectStatisticsWayDemo extends JFrame {
 		
 		return day;
 	}
-	private class gotoStatisticsHandler implements ActionListener { // Åë°è ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ¾×¼ÇÇÚµé·¯
+	private class gotoStatisticsHandler implements ActionListener { // í†µê³„ í˜ì´ì§€ë¡œ ê°€ëŠ” actionhandler
 		public void actionPerformed(ActionEvent e) {	
 			boolean day = dayChkBox.isSelected();
 			boolean period = periodChkBox.isSelected();
 			if(day&&period) {
-				JOptionPane.showMessageDialog(null, "µÑ Áß ÇÏ³ª¸¸ ¼±ÅÃÇÏ¼¼¿ä","°æ°í", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ë‘˜ ì¤‘ í•˜ë‚˜ë§Œ ì„ íƒí•˜ì„¸ìš”","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 			}
 			else if(!day&&!period) {
-				JOptionPane.showMessageDialog(null, "µÑ Áß ÇÏ³ª¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä","°æ°í", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ë‘˜ ì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				if(day) {
@@ -175,8 +178,9 @@ public class SelectStatisticsWayDemo extends JFrame {
 					try {
 						dayld=makeLocalDate(dayStr);
 						DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary, dayld);
-					}catch(Exception err) { // ÇØ´ç ¿ù¿¡ Á¸ÀçÇÏÁö ¾Ê´Â ³¯Â¥ÀÏ °æ¿ì ¿¡·¯ throw
-						JOptionPane.showMessageDialog(null, "ÇØ´Ş ¿ù¿¡ Á¸ÀçÇÏÁö ¾Ê´Â ³¯Â¥ÀÔ´Ï´Ù","°æ°í", JOptionPane.ERROR_MESSAGE);
+
+					}catch(Exception err) {
+						JOptionPane.showMessageDialog(null, "í•´ë‹¬ ì›”ì— ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ë‚ ì§œì…ë‹ˆë‹¤","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
@@ -191,11 +195,13 @@ public class SelectStatisticsWayDemo extends JFrame {
 					
 					switch (PeriodStatisticsFunc.chkDateSeq(startStr, endStr)) {
 						case 0:
+							JOptionPane.showMessageDialog(null, "ê°™ì€ ë‚ ì§œì…ë‹ˆë‹¤. ê°™ì€ ë‚ ì§œëŠ” í•˜ë£¨í†µê³„ë¥¼ ì´ìš©í•˜ì„¸ìš”.","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 							System.out.println("Same day");
 							endStr="";
 							startStr="";
 							break;
 						case -1:
+							JOptionPane.showMessageDialog(null, "ì‹œì‘ì¼ì´ ì¢…ë£Œì¼ë³´ë‹¤ ì• ë‚ ì§œì—¬ì•¼ í•©ë‹ˆë‹¤.","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 							System.out.println("end day precedes start day");
 							endStr="";
 							startStr="";
@@ -211,8 +217,9 @@ public class SelectStatisticsWayDemo extends JFrame {
 							try {
 								startld=makeLocalDate(startStr);
 								endld=makeLocalDate(endStr);
-							}catch(Exception err) { // ÇØ´ç ¿ù¿¡ Á¸ÀçÇÏÁö ¾Ê´Â ³¯Â¥ÀÏ °æ¿ì ¿¡·¯ throw
-								JOptionPane.showMessageDialog(null, "ÇØ´Ş ¿ù¿¡ Á¸ÀçÇÏÁö ¾Ê´Â ³¯Â¥ÀÔ´Ï´Ù","°æ°í", JOptionPane.ERROR_MESSAGE);
+
+							}catch(Exception err) {
+								JOptionPane.showMessageDialog(null, "í•´ë‹¬ ì›”ì— ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ë‚ ì§œì…ë‹ˆë‹¤","ê²½ê³ ", JOptionPane.ERROR_MESSAGE);
 								endStr="";
 								startStr="";
 								break;
@@ -247,8 +254,9 @@ public class SelectStatisticsWayDemo extends JFrame {
 									chk2=true;
 								}
 							}
+
 							if(chk1 && chk2) {
-								PeriodStatisticsDemo psd = new PeriodStatisticsDemo(tmp_drary, startld, endld);
+								PeriodStatisticsDemo psd = new PeriodStatisticsDemo(tmp_drary, startld, endld, ID);
 							}else {
 								System.out.println("Wrong Period");
 							}

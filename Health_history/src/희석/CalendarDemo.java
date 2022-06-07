@@ -113,17 +113,12 @@ public class CalendarDemo extends JFrame{
 	public static JPanel[] showExInCal = new JPanel[42]; // 해당 날짜의 운동 정보 제공하는 패널
 	private JLabel DONGIbueyeo;
 	private JButton logoutBtn;
-	
-	
 	private SouthMenuPanel menu;
-	
 	public dayRecordpage drp;
 	public ArrayList<dayRecord> curr_dR_ary;
 	
 	private LocalDate select_date; // 버튼으로 선택한 날짜 받아서 저장하는 변수
-	
 	private UserRecord UR;  //serialize �� User����Ŭ���� �ҷ����
-	
 	private String whatID;
 
 	
@@ -134,6 +129,7 @@ public class CalendarDemo extends JFrame{
 		this.setSize(WIDTH, HEIGHT);
 		getContentPane().setLayout(new BorderLayout());
 		this.setVisible(true);
+		
 		this.addWindowListener(new WindowListener(){
 
 			@Override
@@ -311,7 +307,7 @@ public class CalendarDemo extends JFrame{
 		getContentPane().add(cal, BorderLayout.CENTER);
 		
 		
-		menu = new SouthMenuPanel(curr_dR_ary);
+		menu = new SouthMenuPanel(curr_dR_ary, whatID);
 		
 		getContentPane().add(menu, BorderLayout.SOUTH);
 		
@@ -520,6 +516,10 @@ public class CalendarDemo extends JFrame{
 	
 	private void disposeCalendar() {
 		this.dispose();
+	}
+	
+	public String getID() {
+		return whatID;
 	}
 
 }

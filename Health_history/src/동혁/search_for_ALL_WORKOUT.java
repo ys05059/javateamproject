@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import set단위class.exlistClass;
 import set단위class.exercise;
 
-public class search_for_ALL_WORKOUT extends exlistClass{
+public class search_for_ALL_WORKOUT extends exlistClass{ //exercise 기반 검색 기능 구현 클래스
 
 	
 	search_for_ALL_WORKOUT(){
@@ -20,7 +20,7 @@ public class search_for_ALL_WORKOUT extends exlistClass{
 	
 //	File file = new File("ALL_WORKOUT");
 	
-	public String search(String name){
+	public String search(String name){ //운동 이름으로 운동 이름 / 카테고리 / 계산 방식 찾아주기
 //		ArrayList<work> worklist2 = new ArrayList<work>();
 		String res = "";
 		search_for_ALL_WORKOUT A = new search_for_ALL_WORKOUT();
@@ -49,7 +49,7 @@ public class search_for_ALL_WORKOUT extends exlistClass{
 		return res;
 	}
 	
-	public String searchcate(String name){
+	public String searchcate(String name){ //운동 이름으로 카테고리 찾기
 		String res = "";
 		search_for_ALL_WORKOUT B = new search_for_ALL_WORKOUT();
 		try {
