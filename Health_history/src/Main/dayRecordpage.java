@@ -256,7 +256,7 @@ public class dayRecordpage extends JFrame {
 			gbl.rowHeights = new int[] {50};
 			
 			this.setLayout(gbl);
-			this.setBackground(new Color(175,237,100));
+			this.setBackground(new Color(127, 197, 249));
 			
 			ex_name = new JLabel(other_exr.getEx().getname());
 			set_gbc(0, 0, GridBagConstraints.BOTH);

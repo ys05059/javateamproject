@@ -422,7 +422,7 @@ public class exRecordpage extends JFrame{
 			
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
-			summaryPanel.setBackground(new Color(175,237,100));
+			summaryPanel.setBackground(new Color(127, 197, 249));
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[]{20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
@@ -530,6 +530,7 @@ public class exRecordpage extends JFrame{
 			
 			/* 열기버튼 클릭시 나오는 패널 */
 			updatePanel = new JPanel();
+			updatePanel.setBackground(new Color(164, 230, 244));
 			GridBagLayout gbl2 = new GridBagLayout();
 			gbl2.columnWidths = new int[]  {20,70,70,70,60,70,70};
 			gbl2.rowHeights = new int[] {50,50};
@@ -713,7 +714,7 @@ public class exRecordpage extends JFrame{
 			
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
-			summaryPanel.setBackground(new Color(175,237,100));
+			summaryPanel.setBackground(new Color(127, 197, 249));
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[] {20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
@@ -813,6 +814,7 @@ public class exRecordpage extends JFrame{
 			
 			/* 열기버튼 클릭시 나오는 패널 */
 			updatePanel = new JPanel();
+			updatePanel.setBackground(new Color(164, 230, 244));
 			GridBagLayout gbl2 = new GridBagLayout();
 			gbl2.columnWidths = new int[] {20,70,70,70,60,70,70};
 			gbl2.rowHeights = new int[] {50,50};
@@ -961,7 +963,7 @@ public class exRecordpage extends JFrame{
 			
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
-			summaryPanel.setBackground(new Color(175,237,100));
+			summaryPanel.setBackground(new Color(127, 197, 249));
 			gbl = new GridBagLayout();
 			gbl.columnWidths = new int[]{20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
@@ -1031,7 +1033,7 @@ public class exRecordpage extends JFrame{
 			ActionListener loadBtn_listener2 = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					set_gbc(0, 1, GridBagConstraints.BOTH);
-					tset_panel.this.add(updatePanel,gbc);										// update패널 보여주기
+					tset_panel.this.add(updatePanel,gbc);// update패널 보여주기
 					tset_panel.this.summaryPanel.remove(check_btn);							// 닫힘 버튼으로 바꾸기
 					tset_panel.this.check_btn = tset_panel.this.close_Btn;
 					set_gbc(6, 0, GridBagConstraints.HORIZONTAL);
@@ -1067,6 +1069,7 @@ public class exRecordpage extends JFrame{
 			
 			/* 열기버튼 클릭시 나오는 패널 */
 			updatePanel = new JPanel();
+			updatePanel.setBackground(new Color(164, 230, 244));
 			GridBagLayout gbl2 = new GridBagLayout();
 			gbl2.columnWidths = new int[]{20,70,70,70,60,70,70};
 			gbl2.rowHeights = new int[] {50,50};
