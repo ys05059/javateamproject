@@ -160,7 +160,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 		
 		return day;
 	}
-	private class gotoStatisticsHandler implements ActionListener {
+	private class gotoStatisticsHandler implements ActionListener { // 통계 페이지로 가는 actionhandler
 		public void actionPerformed(ActionEvent e) {	
 			boolean day = dayChkBox.isSelected();
 			boolean period = periodChkBox.isSelected();
@@ -178,6 +178,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 					try {
 						dayld=makeLocalDate(dayStr);
 						DayStatisticsDemo dsd = new DayStatisticsDemo(curr_dR_ary, dayld);
+
 					}catch(Exception err) {
 						JOptionPane.showMessageDialog(null, "해달 월에 존재하지 않는 날짜입니다","경고", JOptionPane.ERROR_MESSAGE);
 					}
@@ -216,6 +217,7 @@ public class SelectStatisticsWayDemo extends JFrame {
 							try {
 								startld=makeLocalDate(startStr);
 								endld=makeLocalDate(endStr);
+
 							}catch(Exception err) {
 								JOptionPane.showMessageDialog(null, "해달 월에 존재하지 않는 날짜입니다","경고", JOptionPane.ERROR_MESSAGE);
 								endStr="";
