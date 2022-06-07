@@ -170,7 +170,7 @@ public class PeriodStatisticsDemo extends JFrame {
 	    	chart2.addSeries(key, catemap.get(key)[1]);
 	    }
 	    XChartPanel<PieChart> pie_panel=new XChartPanel<PieChart>(chart2);
-	    pie_panel.setBounds(500, 230,428, 250);
+	    pie_panel.setBounds(500, 230,463, 250);
 		getContentPane().add(pie_panel);
 		
 		
@@ -221,11 +221,11 @@ public class PeriodStatisticsDemo extends JFrame {
 		weightseries.setMarker(SeriesMarkers.DIAMOND);
 		weightchart.getStyler().setDatePattern("YYYY-MM-dd");
 		weightchart.getStyler().setLegendPosition(LegendPosition.InsideNE);
-		weightchart.getStyler().setXAxisLabelRotation(0);
+		weightchart.getStyler().setXAxisLabelRotation(45);
 		weightchart.getStyler().setYAxisMin(40.0);
 		weightchart.getStyler().setYAxisMax(max);
 		XChartPanel<XYChart> weightpanel=new XChartPanel<XYChart>(weightchart);
-		weightpanel.setBounds(500, 10, 428, 209);
+		weightpanel.setBounds(500, 10, 463, 209);
 		getContentPane().add(weightpanel);
 	    
 	    
