@@ -30,7 +30,6 @@ public class PeriodStatisticsFunc {
 	
 	private String statistics;
 	
-	private LocalTime totalTime;
 	private int setCnt;
 	private double totalWeight;
 	
@@ -46,13 +45,11 @@ public class PeriodStatisticsFunc {
 	private HashMap<String, double[]> catemapPercent; // { 카테고리, {세트 비중, 세트 성공률}
 	
 	public PeriodStatisticsFunc(ArrayList<dayRecord> dR_ary, LocalDate sDay, LocalDate eDay) {
-		totalTimeStr = "총 수행시간 : ";
 		totalSetCntStr = "총 세트 수 : ";
 		totalWeightsStr = "총 무게 : ";
 		sen1 = "카테고리별 통계\t\t세트비중\t세트성공률";
 		cateStr = new ArrayList<String>();
 		statistics="";
-		totalTime=LocalTime.of(0, 0, 0);
 		setCnt=0;
 		totalWeight=0;
 		catemap = new HashMap<String, int[]>();
@@ -63,7 +60,6 @@ public class PeriodStatisticsFunc {
 		startDay = sDay;
 		endDay = eDay;
 		
-		calTime(curr_ary);
 		calSetCnt(curr_ary);
 		calWeights(curr_ary);
 		cateStatistic(curr_ary);
@@ -79,30 +75,7 @@ public class PeriodStatisticsFunc {
 		return ld;
 	}
 	
-	public void calTime(ArrayList<dayRecord> curr_ary) {
-		for(dayRecord dr : curr_ary) {
-			if((dr.getToday_date().isAfter(startDay) || dr.getToday_date().isEqual(startDay))
-					&& (dr.getToday_date().isBefore(endDay) || dr.getToday_date().isEqual(endDay))) {
-				for(exRecord er : dr.getExr_ary()) {
-					
-					if(er instanceof t_exRecord) {
-						tset = ((t_exRecord) er).gett_set_ary();
-						for(int i=0; i < tset.size();i++) {
-							totalTime = totalTime.plusSeconds(tset.get(i).getP_time().getSecond());
-							totalTime = totalTime.plusMinutes(tset.get(i).getP_time().getMinute());
-							totalTime = totalTime.plusHours(tset.get(i).getP_time().getHour());
-						}
-					}
-				}
-			}
-		}
-		if(totalTime.getSecond()==0)
-			totalTimeStr+=totalTime.toString()+":00";
-		else 
-			totalTimeStr+=totalTime.toString();
-	}
-	
-	public void calSetCnt(ArrayList<dayRecord> curr_ary) {
+	public void calSetCnt(ArrayList<dayRecord> curr_ary) { // 총 세트수 계산
 		for(dayRecord dr : curr_ary) {
 			if((dr.getToday_date().isAfter(startDay) || dr.getToday_date().isEqual(startDay))
 					&& (dr.getToday_date().isBefore(endDay) || dr.getToday_date().isEqual(endDay))) {
@@ -115,7 +88,7 @@ public class PeriodStatisticsFunc {
 		totalSetCntStr += String.valueOf(setCnt);
 	}
 	
-	public void calWeights(ArrayList<dayRecord> curr_ary) {
+	public void calWeights(ArrayList<dayRecord> curr_ary) { // 총 무게 개산
 		for(dayRecord dr : curr_ary) {
 			if((dr.getToday_date().isAfter(startDay) || dr.getToday_date().isEqual(startDay))
 					&& (dr.getToday_date().isBefore(endDay) || dr.getToday_date().isEqual(endDay))) {
@@ -132,7 +105,7 @@ public class PeriodStatisticsFunc {
 		totalWeightsStr+=String.valueOf(totalWeight);
 	}
 	
-	public void cateStatistic(ArrayList<dayRecord> curr_ary) {
+	public void cateStatistic(ArrayList<dayRecord> curr_ary) { 
 		for(dayRecord dr: curr_ary) {
 			if((dr.getToday_date().isAfter(startDay) || dr.getToday_date().isEqual(startDay))
 					&& (dr.getToday_date().isBefore(endDay) || dr.getToday_date().isEqual(endDay))) {
@@ -141,8 +114,8 @@ public class PeriodStatisticsFunc {
 					if(!catemap.containsKey(e.getcategory())) { // 카테고리 맵에 해당 운동의 카테고리가 없으면 카테고리 추가
 						cnts = new int[3];
 						percent = new double[2];
-						catemap.put(e.getcategory(), cnts);
-						catemapPercent.put(e.getcategory(), percent);
+						catemap.put(e.getcategory(), cnts);// { 카테고리 : {운동 갯수 , 운동 세트수, 운동 목표 세트 수} }
+						catemapPercent.put(e.getcategory(), percent); // { 카테고리, {세트 비중, 세트 성공률}
 					}
 					catemap.get(e.getcategory())[0]+=1;
 					catemap.get(e.getcategory())[1]+=er.getCount_set();
@@ -170,7 +143,6 @@ public class PeriodStatisticsFunc {
 
 	public String makeTextArea() {
 		statistics = "";
-		statistics += totalTimeStr + '\n';
 		statistics += totalSetCntStr + '\n';
 		statistics += totalWeightsStr + '\n';
 		statistics += sen1 + '\n';
@@ -246,9 +218,6 @@ public class PeriodStatisticsFunc {
 	}
 	public String getStatistics() {
 		return statistics;
-	}
-	public LocalTime getTotalTime() {
-		return totalTime;
 	}
 	public int getSetCnt() {
 		return setCnt;

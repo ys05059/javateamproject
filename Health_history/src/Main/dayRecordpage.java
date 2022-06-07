@@ -120,11 +120,11 @@ public class dayRecordpage extends JFrame {
 				super.paintComponent(g);
 			}
 		};
-		ex_list_panel.setSize(400,320);
+		ex_list_panel.setSize(430,320);
 		ex_list_panel.setBackground(Color.WHITE);
 		gb = new GridBagLayout();
-		gb.rowHeights = new int[]{50, 50, 50, 50, 50};
 		gb.columnWidths = new int[] {100,100,50,75,75};
+		gb.rowHeights = new int[]{50, 50, 50, 50, 50};
 		ex_list_panel.setLayout(gb);
 		
 		gbc_default = new GridBagConstraints();
@@ -132,9 +132,9 @@ public class dayRecordpage extends JFrame {
 		gbc_default.gridx = 0;
 		gbc_default.gridy = 1;
 		gbc_default.gridheight = 5;
-		gbc_default.gridwidth = 5;
+		gbc_default.gridwidth = 6;
 		JScrollPane sp = new JScrollPane(ex_list_panel);
-
+		sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		add(sp, gbc_default);
 		if(!expanel_list.isEmpty()) {
 			repaint_exlist_panel();

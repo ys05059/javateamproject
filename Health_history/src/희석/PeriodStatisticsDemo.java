@@ -173,7 +173,7 @@ public class PeriodStatisticsDemo extends JFrame {
 	    pie_panel.setBounds(500, 230,463, 250);
 		getContentPane().add(pie_panel);
 		
-		
+		/*
 		//몸무게 비교
 		user(); //user정보 가져오기
 		System.out.println(user.getWeight()); 
@@ -229,7 +229,7 @@ public class PeriodStatisticsDemo extends JFrame {
 		getContentPane().add(weightpanel);
 	    
 	    
-	    
+	    */
 	    
 	}
 	

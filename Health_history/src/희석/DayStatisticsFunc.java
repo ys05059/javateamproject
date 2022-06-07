@@ -20,7 +20,6 @@ import java.util.StringTokenizer;
 
 public class DayStatisticsFunc {
 	private LocalDate today;
-	private String totalTimeStr;
 	private String totalSetCntStr;
 	private String totalWeightsStr;
 	private String sen1;
@@ -29,21 +28,16 @@ public class DayStatisticsFunc {
 	
 	private String statistics="";
 	
-	private LocalTime totalTime;
 	private int setCnt;
 	private double totalWeight;
 	
 	private ArrayList<dayRecord> curr_ary;
-
-	private ArrayList<c_set> cset;
-	private ArrayList<t_set> tset;
 	private ArrayList<wc_set> wcset;
 	
 	int[] cnts;
 	
 	HashMap<String, int[]> catemap; // { 카테고리 : {운동 갯수 , 운동 세트수 } }
 	public DayStatisticsFunc(ArrayList<dayRecord> dR_ary, LocalDate currDate) {
-		totalTimeStr = "총 수행시간 : ";
 		totalSetCntStr = "총 세트 수 : ";
 		totalWeightsStr = "총 무게 : ";
 		sen1 = "카테고리별 통계";
@@ -51,38 +45,17 @@ public class DayStatisticsFunc {
 		catemap = new HashMap<String, int[]>();
 		statistics="";
 
-		totalTime=LocalTime.of(0, 0, 0, 0);
 		setCnt=0;
 		totalWeight=0;
 		
 		curr_ary = dR_ary;
 		today = currDate;
 				
-		calTime(today);
 		calSetCnt(today);
 		calWeights(today);
 		cateStatistic(today);
 	}
-	public void calTime(LocalDate today) { // t_exRecord 클래스 수행 시간 총합
-		for(dayRecord dr : curr_ary) {
-			if(dr.getToday_date().equals(today)) {
-				for(exRecord er : dr.getExr_ary()) {
-					if(er instanceof t_exRecord) {
-						tset = ((t_exRecord) er).gett_set_ary();
-						for(int i=0; i < tset.size();i++) {
-							totalTime = totalTime.plusSeconds(tset.get(i).getP_time().getSecond());
-							totalTime = totalTime.plusMinutes(tset.get(i).getP_time().getMinute());
-							totalTime = totalTime.plusHours(tset.get(i).getP_time().getHour());
-						}
-					}
-				}
-			}
-		}
-		if(totalTime.getSecond()==0)
-			totalTimeStr+=totalTime.toString()+":00";
-		else 
-			totalTimeStr+=totalTime.toString();
-	}
+
 	
 	public void calSetCnt(LocalDate today) { // 모든 운동 세트수 합
 		for(dayRecord dr : curr_ary) {
@@ -133,7 +106,6 @@ public class DayStatisticsFunc {
 	}
 	public String makeTextArea() { // DayStatisticsDemo의 statistics String변수에 할당
 		statistics = "";
-		statistics += totalTimeStr + '\n';
 		statistics += totalSetCntStr + '\n';
 		statistics += totalWeightsStr + '\n';
 		statistics += sen1 + '\n';
