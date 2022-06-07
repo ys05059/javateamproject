@@ -299,7 +299,7 @@ public class signup extends JFrame{
 		
 		JLabel muscleLabel = new JLabel("\uACE8\uADFC\uB7C9");
 		muscleLabel.setFont(new Font("ÈÞ¸Õ¿¢½ºÆ÷", Font.BOLD, 20));
-		muscleLabel.setBounds(666, 224, 62, 43);
+		muscleLabel.setBounds(666, 224, 72, 43);
 		signupPanel.add(muscleLabel);
 		
 		muscleField = new JTextField();
