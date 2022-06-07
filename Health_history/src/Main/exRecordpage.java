@@ -410,7 +410,7 @@ public class exRecordpage extends JFrame{
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
-			gbl.columnWidths = new int[] {20,75,70,70,80,60,60};
+			gbl.columnWidths = new int[]{20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			
@@ -698,7 +698,7 @@ public class exRecordpage extends JFrame{
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
-			gbl.columnWidths = new int[] {20,75,70,70,80,60,60};
+			gbl.columnWidths = new int[] {20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			
@@ -943,7 +943,7 @@ public class exRecordpage extends JFrame{
 			/*기본 출력 패널*/
 			summaryPanel = new JPanel();
 			gbl = new GridBagLayout();
-			gbl.columnWidths = new int[]{20,75,70,70,80,60,60};
+			gbl.columnWidths = new int[]{20,75,70,70,60,70,70};
 			gbl.rowHeights = new int[] {50};
 			summaryPanel.setLayout(gbl);
 			

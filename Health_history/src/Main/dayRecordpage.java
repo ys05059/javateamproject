@@ -123,8 +123,8 @@ public class dayRecordpage extends JFrame {
 		ex_list_panel.setSize(430,320);
 		ex_list_panel.setBackground(Color.WHITE);
 		gb = new GridBagLayout();
-		gb.rowHeights = new int[]{50, 50, 50, 50, 50};
 		gb.columnWidths = new int[] {100,100,50,75,75};
+		gb.rowHeights = new int[]{50, 50, 50, 50, 50};
 		ex_list_panel.setLayout(gb);
 		
 		gbc_default = new GridBagConstraints();
