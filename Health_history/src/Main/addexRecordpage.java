@@ -27,7 +27,7 @@ public class addexRecordpage extends JDialog {
 	private JComboBox<String> catecombo; //카테고리 고를 수 있는 박스
 	private JComboBox<String> excombo;//카테고리가 입력되면 그에 해당하는 운동 고를 수 있는 박스
 	private exlistClass allwork; //ALL_WORKOUT에서 arraylist뽑아오는 클래스
-	public boolean exit; 		// 정상종료인지 체크하는 변수
+	public boolean exit =  false; 		// 정상종료인지 체크하는 변수
 	
 	private final ImageIcon addRecordB = new ImageIcon("image\\batang1.jpg");
 	
@@ -40,7 +40,6 @@ public class addexRecordpage extends JDialog {
 		setTitle("add_exRecordpage");
 		allwork = new exlistClass("ALL_WORKOUT"); 
 		cate = allwork.getcatetoStringlist();
-		exit = false;
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
